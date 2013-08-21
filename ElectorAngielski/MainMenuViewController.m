@@ -1,18 +1,18 @@
 //
-//  SignInViewController.m
+//  MainMenuViewController.m
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 20/08/2013.
+//  Created by Michal Ziobro on 21/08/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 
-#import "SignInViewController.h"
+#import "MainMenuViewController.h"
 
-@interface SignInViewController ()
+@interface MainMenuViewController ()
 
 @end
 
-@implementation SignInViewController
+@implementation MainMenuViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +27,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    if([segue.identifier isEqualToString:@"Wordset Categories Segue"]) {
+        NSLog(@"we are going to wordset categories page.");
+    }
 }
 
 - (void)didReceiveMemoryWarning
