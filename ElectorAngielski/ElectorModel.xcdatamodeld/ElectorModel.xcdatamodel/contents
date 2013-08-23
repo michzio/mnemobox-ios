@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12C3103" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Word" representedClassName="Word" syncable="YES">
+        <attribute name="foreign" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="native" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recording" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transcription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wordId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="inWordsets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wordset" inverseName="words" inverseEntity="Wordset" syncable="YES"/>
+    </entity>
+    <entity name="Wordset" representedClassName="Wordset" syncable="YES">
+        <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="foreignName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nativeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WordsetCategory" inverseName="wordsets" inverseEntity="WordsetCategory" syncable="YES"/>
+        <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Word" inverseName="inWordsets" inverseEntity="Word" syncable="YES"/>
+    </entity>
+    <entity name="WordsetCategory" representedClassName="WordsetCategory" syncable="YES">
+        <attribute name="cid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="foreignName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nativeName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="wordsets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wordset" inverseName="category" inverseEntity="Wordset" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Word" positionX="-216" positionY="333" width="128" height="148"/>
+        <element name="Wordset" positionX="9" positionY="111" width="128" height="150"/>
+        <element name="WordsetCategory" positionX="-290" positionY="90" width="128" height="103"/>
+    </elements>
+</model>

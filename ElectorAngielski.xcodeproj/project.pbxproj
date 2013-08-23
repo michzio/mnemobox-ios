@@ -23,18 +23,38 @@
 		84A091F217C3586C008C62CA /* elector_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A091F117C3586C008C62CA /* elector_logo.png */; };
 		84A091F517C3FFE2008C62CA /* ProfileServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A091F417C3FFE2008C62CA /* ProfileServices.m */; };
 		84A091F817C4E9EB008C62CA /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A091F717C4E9EB008C62CA /* MainMenuViewController.m */; };
-		84A091FA17C4EEC3008C62CA /* vocabulary.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A091F917C4EEC3008C62CA /* vocabulary.png */; };
-		84A091FC17C4F023008C62CA /* dictionary.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A091FB17C4F022008C62CA /* dictionary.png */; };
-		84A091FE17C4F60F008C62CA /* task.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A091FD17C4F60F008C62CA /* task.png */; };
-		84A0920017C4F618008C62CA /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A091FF17C4F617008C62CA /* recording.png */; };
-		84A0920217C4F620008C62CA /* recording_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0920117C4F61F008C62CA /* recording_on.png */; };
-		84A0920417C4F62A008C62CA /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0920317C4F629008C62CA /* profile.png */; };
-		84A0920617C4F63D008C62CA /* forgotten.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0920517C4F63C008C62CA /* forgotten.png */; };
-		84A0920817C4F643008C62CA /* mywords.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0920717C4F643008C62CA /* mywords.png */; };
-		84A0920A17C4F64B008C62CA /* lookup.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0920917C4F64B008C62CA /* lookup.png */; };
 		84A0921017C4FB00008C62CA /* WordsetCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0920F17C4FAFC008C62CA /* WordsetCategoriesViewController.m */; };
 		84A0921317C516DC008C62CA /* XMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0921217C516DC008C62CA /* XMLElement.m */; };
 		84A0921617C521D9008C62CA /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0921517C521D8008C62CA /* XMLParser.m */; };
+		84A0921B17C535D3008C62CA /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A0921717C535CD008C62CA /* LICENCE.txt */; };
+		84A0921C17C535D3008C62CA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0921917C535D0008C62CA /* Reachability.m */; };
+		84A0921D17C535D3008C62CA /* Reachability.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 84A0921A17C535D1008C62CA /* Reachability.podspec */; };
+		84A0921F17C53635008C62CA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A0921E17C53634008C62CA /* SystemConfiguration.framework */; };
+		84A0922217C66D73008C62CA /* WordsetsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0922117C66D73008C62CA /* WordsetsTableViewController.m */; };
+		84A0922517C67259008C62CA /* ElectorModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A0922317C67258008C62CA /* ElectorModel.xcdatamodeld */; };
+		84A0924B17C6880D008C62CA /* forgotten.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924317C68803008C62CA /* forgotten.png */; };
+		84A0924C17C6880D008C62CA /* lookup.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924417C68804008C62CA /* lookup.png */; };
+		84A0924D17C6880D008C62CA /* mywords.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924517C68805008C62CA /* mywords.png */; };
+		84A0924E17C6880D008C62CA /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924617C68807008C62CA /* profile.png */; };
+		84A0924F17C6880D008C62CA /* recording_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924717C68808008C62CA /* recording_on.png */; };
+		84A0925017C6880D008C62CA /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924817C6880A008C62CA /* recording.png */; };
+		84A0925117C6880D008C62CA /* task.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924917C6880B008C62CA /* task.png */; };
+		84A0925217C6880D008C62CA /* vocabulary.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0924A17C6880D008C62CA /* vocabulary.png */; };
+		84A0925417C68817008C62CA /* dictionary.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0925317C68817008C62CA /* dictionary.png */; };
+		84A0925717C68F0C008C62CA /* WordsetCategory+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0925617C68F0A008C62CA /* WordsetCategory+Create.m */; };
+		84A0925A17C69FDF008C62CA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A0924117C67F20008C62CA /* CoreData.framework */; };
+		84A0925D17C6A206008C62CA /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0925C17C6A206008C62CA /* CoreDataTableViewController.m */; };
+		84A0926017C6BA40008C62CA /* Wordset+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0925F17C6BA40008C62CA /* Wordset+Create.m */; };
+		84A0926317C6C087008C62CA /* Wordset.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0926217C6C086008C62CA /* Wordset.m */; };
+		84A0926617C6C088008C62CA /* WordsetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0926517C6C088008C62CA /* WordsetCategory.m */; };
+		84A0926917C6C08A008C62CA /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0926817C6C089008C62CA /* Word.m */; };
+		84A0927017C783FE008C62CA /* level_c2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926A17C783F1008C62CA /* level_c2.png */; };
+		84A0927117C783FE008C62CA /* level_c1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926B17C783F3008C62CA /* level_c1.png */; };
+		84A0927217C783FE008C62CA /* level_b2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926C17C783F5008C62CA /* level_b2.png */; };
+		84A0927317C783FE008C62CA /* level_b1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926D17C783F8008C62CA /* level_b1.png */; };
+		84A0927417C783FE008C62CA /* level_a2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926E17C783FA008C62CA /* level_a2.png */; };
+		84A0927517C783FE008C62CA /* level_a1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926F17C783FC008C62CA /* level_a1.png */; };
+		84A0927817C788B0008C62CA /* WordsetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0927717C788AE008C62CA /* WordsetViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,21 +82,50 @@
 		84A091F417C3FFE2008C62CA /* ProfileServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileServices.m; sourceTree = "<group>"; };
 		84A091F617C4E9EA008C62CA /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		84A091F717C4E9EB008C62CA /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
-		84A091F917C4EEC3008C62CA /* vocabulary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vocabulary.png; path = "/Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/vocabulary.png"; sourceTree = "<absolute>"; };
-		84A091FB17C4F022008C62CA /* dictionary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dictionary.png; path = "/Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/dictionary.png"; sourceTree = "<absolute>"; };
-		84A091FD17C4F60F008C62CA /* task.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = task.png; path = "../../../../../Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/task.png"; sourceTree = "<group>"; };
-		84A091FF17C4F617008C62CA /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recording.png; path = "../../../../../Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/recording.png"; sourceTree = "<group>"; };
-		84A0920117C4F61F008C62CA /* recording_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recording_on.png; path = "../../../../../Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/recording_on.png"; sourceTree = "<group>"; };
-		84A0920317C4F629008C62CA /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile.png; path = "/Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/profile.png"; sourceTree = "<absolute>"; };
-		84A0920517C4F63C008C62CA /* forgotten.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forgotten.png; path = "../../../../../Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/forgotten.png"; sourceTree = "<group>"; };
-		84A0920717C4F643008C62CA /* mywords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mywords.png; path = "../../../../../Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/mywords.png"; sourceTree = "<group>"; };
-		84A0920917C4F64B008C62CA /* lookup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lookup.png; path = "../../../../../Volumes/VERBATIM HD/PLIKI/NetBeansProjects/ElectorPl/res/drawable/lookup.png"; sourceTree = "<group>"; };
 		84A0920E17C4FAFA008C62CA /* WordsetCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsetCategoriesViewController.h; sourceTree = "<group>"; };
 		84A0920F17C4FAFC008C62CA /* WordsetCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsetCategoriesViewController.m; sourceTree = "<group>"; };
 		84A0921117C516DB008C62CA /* XMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLElement.h; sourceTree = "<group>"; };
 		84A0921217C516DC008C62CA /* XMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLElement.m; sourceTree = "<group>"; };
 		84A0921417C521D8008C62CA /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
 		84A0921517C521D8008C62CA /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
+		84A0921717C535CD008C62CA /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
+		84A0921817C535CE008C62CA /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		84A0921917C535D0008C62CA /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		84A0921A17C535D1008C62CA /* Reachability.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Reachability.podspec; sourceTree = "<group>"; };
+		84A0921E17C53634008C62CA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		84A0922017C66D71008C62CA /* WordsetsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsetsTableViewController.h; sourceTree = "<group>"; };
+		84A0922117C66D73008C62CA /* WordsetsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsetsTableViewController.m; sourceTree = "<group>"; };
+		84A0922417C67259008C62CA /* ElectorModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ElectorModel.xcdatamodel; sourceTree = "<group>"; };
+		84A0924117C67F20008C62CA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		84A0924317C68803008C62CA /* forgotten.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forgotten.png; sourceTree = "<group>"; };
+		84A0924417C68804008C62CA /* lookup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup.png; sourceTree = "<group>"; };
+		84A0924517C68805008C62CA /* mywords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mywords.png; sourceTree = "<group>"; };
+		84A0924617C68807008C62CA /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		84A0924717C68808008C62CA /* recording_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recording_on.png; sourceTree = "<group>"; };
+		84A0924817C6880A008C62CA /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recording.png; sourceTree = "<group>"; };
+		84A0924917C6880B008C62CA /* task.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = task.png; sourceTree = "<group>"; };
+		84A0924A17C6880D008C62CA /* vocabulary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vocabulary.png; sourceTree = "<group>"; };
+		84A0925317C68817008C62CA /* dictionary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dictionary.png; sourceTree = "<group>"; };
+		84A0925517C68F08008C62CA /* WordsetCategory+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WordsetCategory+Create.h"; sourceTree = "<group>"; };
+		84A0925617C68F0A008C62CA /* WordsetCategory+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WordsetCategory+Create.m"; sourceTree = "<group>"; };
+		84A0925B17C6A206008C62CA /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		84A0925C17C6A206008C62CA /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		84A0925E17C6BA40008C62CA /* Wordset+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wordset+Create.h"; sourceTree = "<group>"; };
+		84A0925F17C6BA40008C62CA /* Wordset+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Wordset+Create.m"; sourceTree = "<group>"; };
+		84A0926117C6C085008C62CA /* Wordset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wordset.h; sourceTree = "<group>"; };
+		84A0926217C6C086008C62CA /* Wordset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wordset.m; sourceTree = "<group>"; };
+		84A0926417C6C087008C62CA /* WordsetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsetCategory.h; sourceTree = "<group>"; };
+		84A0926517C6C088008C62CA /* WordsetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsetCategory.m; sourceTree = "<group>"; };
+		84A0926717C6C089008C62CA /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
+		84A0926817C6C089008C62CA /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
+		84A0926A17C783F1008C62CA /* level_c2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_c2.png; sourceTree = "<group>"; };
+		84A0926B17C783F3008C62CA /* level_c1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_c1.png; sourceTree = "<group>"; };
+		84A0926C17C783F5008C62CA /* level_b2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_b2.png; sourceTree = "<group>"; };
+		84A0926D17C783F8008C62CA /* level_b1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_b1.png; sourceTree = "<group>"; };
+		84A0926E17C783FA008C62CA /* level_a2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_a2.png; sourceTree = "<group>"; };
+		84A0926F17C783FC008C62CA /* level_a1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_a1.png; sourceTree = "<group>"; };
+		84A0927617C788AD008C62CA /* WordsetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsetViewController.h; sourceTree = "<group>"; };
+		84A0927717C788AE008C62CA /* WordsetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsetViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +133,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A0925A17C69FDF008C62CA /* CoreData.framework in Frameworks */,
+				84A0921F17C53635008C62CA /* SystemConfiguration.framework in Frameworks */,
 				84A091C917C353F8008C62CA /* UIKit.framework in Frameworks */,
 				84A091CB17C353F8008C62CA /* Foundation.framework in Frameworks */,
 				84A091CD17C353F8008C62CA /* CoreGraphics.framework in Frameworks */,
@@ -96,6 +147,8 @@
 		84A091BC17C353F8008C62CA = {
 			isa = PBXGroup;
 			children = (
+				84A0924117C67F20008C62CA /* CoreData.framework */,
+				84A0921E17C53634008C62CA /* SystemConfiguration.framework */,
 				84A091CE17C353F8008C62CA /* ElectorAngielski */,
 				84A091C717C353F8008C62CA /* Frameworks */,
 				84A091C617C353F8008C62CA /* Products */,
@@ -123,11 +176,26 @@
 		84A091CE17C353F8008C62CA /* ElectorAngielski */ = {
 			isa = PBXGroup;
 			children = (
+				84A0925B17C6A206008C62CA /* CoreDataTableViewController.h */,
+				84A0925C17C6A206008C62CA /* CoreDataTableViewController.m */,
 				84A091D717C353F8008C62CA /* ElectorAppDelegate.h */,
 				84A091D817C353F8008C62CA /* ElectorAppDelegate.m */,
 				84A091E017C353F8008C62CA /* MainStoryboard_iPhone.storyboard */,
+				84A0927617C788AD008C62CA /* WordsetViewController.h */,
+				84A0927717C788AE008C62CA /* WordsetViewController.m */,
 				84A0920E17C4FAFA008C62CA /* WordsetCategoriesViewController.h */,
 				84A0920F17C4FAFC008C62CA /* WordsetCategoriesViewController.m */,
+				84A0921817C535CE008C62CA /* Reachability.h */,
+				84A0921917C535D0008C62CA /* Reachability.m */,
+				84A0925517C68F08008C62CA /* WordsetCategory+Create.h */,
+				84A0925617C68F0A008C62CA /* WordsetCategory+Create.m */,
+				84A0922317C67258008C62CA /* ElectorModel.xcdatamodeld */,
+				84A0926717C6C089008C62CA /* Word.h */,
+				84A0926817C6C089008C62CA /* Word.m */,
+				84A0926417C6C087008C62CA /* WordsetCategory.h */,
+				84A0926517C6C088008C62CA /* WordsetCategory.m */,
+				84A0926117C6C085008C62CA /* Wordset.h */,
+				84A0926217C6C086008C62CA /* Wordset.m */,
 				84A0921117C516DB008C62CA /* XMLElement.h */,
 				84A0921417C521D8008C62CA /* XMLParser.h */,
 				84A0921517C521D8008C62CA /* XMLParser.m */,
@@ -142,6 +210,10 @@
 				84A091F317C3FFE1008C62CA /* ProfileServices.h */,
 				84A091F417C3FFE2008C62CA /* ProfileServices.m */,
 				84A091CF17C353F8008C62CA /* Supporting Files */,
+				84A0922017C66D71008C62CA /* WordsetsTableViewController.h */,
+				84A0922117C66D73008C62CA /* WordsetsTableViewController.m */,
+				84A0925E17C6BA40008C62CA /* Wordset+Create.h */,
+				84A0925F17C6BA40008C62CA /* Wordset+Create.m */,
 			);
 			path = ElectorAngielski;
 			sourceTree = "<group>";
@@ -149,15 +221,23 @@
 		84A091CF17C353F8008C62CA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				84A0920917C4F64B008C62CA /* lookup.png */,
-				84A0920717C4F643008C62CA /* mywords.png */,
-				84A0920517C4F63C008C62CA /* forgotten.png */,
-				84A0920317C4F629008C62CA /* profile.png */,
-				84A0920117C4F61F008C62CA /* recording_on.png */,
-				84A091FF17C4F617008C62CA /* recording.png */,
-				84A091FD17C4F60F008C62CA /* task.png */,
-				84A091F917C4EEC3008C62CA /* vocabulary.png */,
-				84A091FB17C4F022008C62CA /* dictionary.png */,
+				84A0926A17C783F1008C62CA /* level_c2.png */,
+				84A0926B17C783F3008C62CA /* level_c1.png */,
+				84A0926C17C783F5008C62CA /* level_b2.png */,
+				84A0926D17C783F8008C62CA /* level_b1.png */,
+				84A0926E17C783FA008C62CA /* level_a2.png */,
+				84A0926F17C783FC008C62CA /* level_a1.png */,
+				84A0924317C68803008C62CA /* forgotten.png */,
+				84A0924417C68804008C62CA /* lookup.png */,
+				84A0925317C68817008C62CA /* dictionary.png */,
+				84A0924517C68805008C62CA /* mywords.png */,
+				84A0924617C68807008C62CA /* profile.png */,
+				84A0924717C68808008C62CA /* recording_on.png */,
+				84A0924817C6880A008C62CA /* recording.png */,
+				84A0924917C6880B008C62CA /* task.png */,
+				84A0924A17C6880D008C62CA /* vocabulary.png */,
+				84A0921717C535CD008C62CA /* LICENCE.txt */,
+				84A0921A17C535D1008C62CA /* Reachability.podspec */,
 				84A091F117C3586C008C62CA /* elector_logo.png */,
 				84A091D017C353F8008C62CA /* ElectorAngielski-Info.plist */,
 				84A091D117C353F8008C62CA /* InfoPlist.strings */,
@@ -229,15 +309,23 @@
 				84A091E217C353F8008C62CA /* MainStoryboard_iPhone.storyboard in Resources */,
 				84A091E517C353F8008C62CA /* MainStoryboard_iPad.storyboard in Resources */,
 				84A091F217C3586C008C62CA /* elector_logo.png in Resources */,
-				84A091FA17C4EEC3008C62CA /* vocabulary.png in Resources */,
-				84A091FC17C4F023008C62CA /* dictionary.png in Resources */,
-				84A091FE17C4F60F008C62CA /* task.png in Resources */,
-				84A0920017C4F618008C62CA /* recording.png in Resources */,
-				84A0920217C4F620008C62CA /* recording_on.png in Resources */,
-				84A0920417C4F62A008C62CA /* profile.png in Resources */,
-				84A0920617C4F63D008C62CA /* forgotten.png in Resources */,
-				84A0920817C4F643008C62CA /* mywords.png in Resources */,
-				84A0920A17C4F64B008C62CA /* lookup.png in Resources */,
+				84A0921B17C535D3008C62CA /* LICENCE.txt in Resources */,
+				84A0921D17C535D3008C62CA /* Reachability.podspec in Resources */,
+				84A0924B17C6880D008C62CA /* forgotten.png in Resources */,
+				84A0924C17C6880D008C62CA /* lookup.png in Resources */,
+				84A0924D17C6880D008C62CA /* mywords.png in Resources */,
+				84A0924E17C6880D008C62CA /* profile.png in Resources */,
+				84A0924F17C6880D008C62CA /* recording_on.png in Resources */,
+				84A0925017C6880D008C62CA /* recording.png in Resources */,
+				84A0925117C6880D008C62CA /* task.png in Resources */,
+				84A0925217C6880D008C62CA /* vocabulary.png in Resources */,
+				84A0925417C68817008C62CA /* dictionary.png in Resources */,
+				84A0927017C783FE008C62CA /* level_c2.png in Resources */,
+				84A0927117C783FE008C62CA /* level_c1.png in Resources */,
+				84A0927217C783FE008C62CA /* level_b2.png in Resources */,
+				84A0927317C783FE008C62CA /* level_b1.png in Resources */,
+				84A0927417C783FE008C62CA /* level_a2.png in Resources */,
+				84A0927517C783FE008C62CA /* level_a1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +345,16 @@
 				84A0921017C4FB00008C62CA /* WordsetCategoriesViewController.m in Sources */,
 				84A0921317C516DC008C62CA /* XMLElement.m in Sources */,
 				84A0921617C521D9008C62CA /* XMLParser.m in Sources */,
+				84A0921C17C535D3008C62CA /* Reachability.m in Sources */,
+				84A0922217C66D73008C62CA /* WordsetsTableViewController.m in Sources */,
+				84A0922517C67259008C62CA /* ElectorModel.xcdatamodeld in Sources */,
+				84A0925717C68F0C008C62CA /* WordsetCategory+Create.m in Sources */,
+				84A0925D17C6A206008C62CA /* CoreDataTableViewController.m in Sources */,
+				84A0926017C6BA40008C62CA /* Wordset+Create.m in Sources */,
+				84A0926317C6C087008C62CA /* Wordset.m in Sources */,
+				84A0926617C6C088008C62CA /* WordsetCategory.m in Sources */,
+				84A0926917C6C08A008C62CA /* Word.m in Sources */,
+				84A0927817C788B0008C62CA /* WordsetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,8 +487,22 @@
 				84A091ED17C353F8008C62CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84A0922317C67258008C62CA /* ElectorModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84A0922417C67259008C62CA /* ElectorModel.xcdatamodel */,
+			);
+			currentVersion = 84A0922417C67259008C62CA /* ElectorModel.xcdatamodel */;
+			path = ElectorModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 84A091BD17C353F8008C62CA /* Project object */;
 }

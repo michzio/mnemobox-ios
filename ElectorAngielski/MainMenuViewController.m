@@ -27,6 +27,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
