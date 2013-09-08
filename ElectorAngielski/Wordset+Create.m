@@ -14,7 +14,7 @@
     
     Wordset *wordset = nil;
     
-    /* checking whether this category is alreay saved in the database, if so we need only to update it else
+    /* checking whether this category is already saved in the database, if so we need only to update it else
      we need to create new input in database */
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Wordset"];
     request.predicate = [NSPredicate predicateWithFormat:@"wid = %@", wid,nil];
@@ -38,7 +38,6 @@
         wordset.nativeName = nativeName;
         wordset.about = description;
         wordset.level = level;
-        wordset.words = [[NSSet alloc] init];
         wordset.category = wordsetCategory;
         
     } else { /* categories mut have one element */
@@ -49,7 +48,7 @@
         wordset.nativeName = nativeName;
         wordset.about = description;
         wordset.level = level;
-        wordset.words = [[NSSet alloc] init];
+        wordset.words = wordset.words;
         wordset.category = wordsetCategory;
 
 

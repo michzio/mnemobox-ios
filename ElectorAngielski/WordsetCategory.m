@@ -2,7 +2,7 @@
 //  WordsetCategory.m
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 22/08/2013.
+//  Created by Michal Ziobro on 26/08/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 

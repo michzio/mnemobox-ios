@@ -14,5 +14,7 @@
 + (BOOL) verifyUserWithEmailAddress: (NSString *) emailAddress andSHA1Passowrd: (NSString *) password;
 + (NSString *)passwordToSHA1: (NSString *)password;
 + (void) storeInUserDefaultsEmail: (NSString *) emailAddress andSHA1Password: (NSString *)sha1Password;
++ (NSString *) emailAddressFromUserDefaults;
++ (NSString *) sha1PasswordFromUserDefaults;
 
 @end

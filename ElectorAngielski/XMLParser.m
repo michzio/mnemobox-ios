@@ -26,7 +26,7 @@
         NSLog(@"The XML is parsed");
         return self.rootElement;
     } else {
-        NSLog(@"Failed to parse the XML");
+        NSLog(@"Failed to parse the XML: %@", [self.xmlParser parserError]);
     }
      return nil;
 }

@@ -9,6 +9,7 @@
 #import "WordsetsTableViewController.h"
 #import "Wordset+Create.h"
 #import "WordsetViewController.h"
+#import "iOSVersion.h"
 
 #define kWORDSETS_LIST_SERVICE_URL @"http://www.mnemobox.com/webservices/getWordsetsList.php?cid=%@&from=%@&to=%@"
 #define kFROM_LANG @"pl"
@@ -131,9 +132,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             NSLog(@"Yayyy, we have the interwebs!");
-            [weakSelf getWordsetsInCategoryFromWebServices];
             
         });
+        [weakSelf getWordsetsInCategoryFromWebServices];
     };
     
     // Internet is not reachable
@@ -188,7 +189,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Wordset Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell;
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        NSLog(@"Creating TableViewCell for iOS version < 6.0");
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if(cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+    }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+        NSLog(@"Creating TableViewCell for iOS version >= 6.0");
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
     
     // Configure the cell...
     Wordset *wordset = [self.fetchedResultsController objectAtIndexPath:indexPath];

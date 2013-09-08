@@ -82,5 +82,25 @@
     [prefs setObject: sha1Password forKey: @"profileSHA1Password"];
 }
 
++ (NSString *) emailAddressFromUserDefaults
+{
+    NSString *emailAddress = nil;
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    emailAddress = [prefs valueForKey:@"profileEmailAddress"];
+    
+    return emailAddress; 
+}
+
++ (NSString *) sha1PasswordFromUserDefaults
+{
+    NSString *sha1Password = nil;
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    sha1Password = [prefs valueForKey:@"profileSHA1Password"];
+
+    return sha1Password;
+}
+
 @end
 

@@ -9,8 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "Wordset.h"
 
+@protocol WordsSynchronizationProgressDelegate;
+
 @interface WordsetViewController : UIViewController
 
 @property (nonatomic, strong) Wordset *wordset;
+@property (nonatomic, assign) id <WordsSynchronizationProgressDelegate> progressDelegate;
+
+@end
+
+@protocol WordsSynchronizationProgressDelegate <NSObject>
+
+@optional
+
+- (void) setProgress: (CGFloat) progressInFloatPercent;
 
 @end

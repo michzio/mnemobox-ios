@@ -9,6 +9,7 @@
 #import "WordsetCategoriesViewController.h"
 #import "WordsetCategory+Create.h"
 #import "WordsetsTableViewController.h"
+#import "iOSVersion.h"
 
 #define kWORDSET_CATEGORIES_SERVICE_URL @"http://www.mnemobox.com/webservices/getCategories.php?from=pl&to=en"
 
@@ -123,9 +124,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             NSLog(@"Yayyy, we have the interwebs!");
-            [weakSelf getWordsetCategoriesFromWebServices];
             
         });
+        [weakSelf getWordsetCategoriesFromWebServices];
     };
     
     // Internet is not reachable
@@ -182,7 +183,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Wordset Category Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell;
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        NSLog(@"Creating TableViewCell for iOS version < 6.0"); 
+       cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if(cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+    }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+        NSLog(@"Creating TableViewCell for iOS version >= 6.0"); 
+         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
+   
     
     // Configure the cell...
     WordsetCategory *category = [self.fetchedResultsController objectAtIndexPath:indexPath]; 
@@ -269,6 +284,7 @@
                                    XMLParser *xmlParser = [[XMLParser alloc] initWithData: data];
                                    self.xmlRoot = [xmlParser parseAndGetRootElement];
                                    [weakSelf traverseXMLStartingFromRootElement];
+                                   [weakSelf.internetReachable stopNotifier];
                                } else if ([data length] == 0 && error == nil) {
                                    NSLog(@"Nothing was downloaded.");
                                } else if(error != nil) {

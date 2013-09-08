@@ -2,7 +2,7 @@
 //  Wordset.h
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 22/08/2013.
+//  Created by Michal Ziobro on 26/08/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 
@@ -13,11 +13,11 @@
 
 @interface Wordset : NSManagedObject
 
+@property (nonatomic, retain) NSString * about;
 @property (nonatomic, retain) NSString * foreignName;
 @property (nonatomic, retain) NSString * level;
 @property (nonatomic, retain) NSString * nativeName;
 @property (nonatomic, retain) NSString * wid;
-@property (nonatomic, retain) NSString * about;
 @property (nonatomic, retain) WordsetCategory *category;
 @property (nonatomic, retain) NSSet *words;
 @end

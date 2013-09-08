@@ -7,6 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8455C76A17C9F779005D13E1 /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C76717C9F779005D13E1 /* MJPopupBackgroundView.m */; };
+		8455C76B17C9F779005D13E1 /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C76917C9F779005D13E1 /* UIViewController+MJPopupViewController.m */; };
+		8455C77517C9FB1E005D13E1 /* ProgressBarPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455C77317C9FB1E005D13E1 /* ProgressBarPopUpViewController.xib */; };
+		8455C77817CA003A005D13E1 /* ProgressBarPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C77717CA003A005D13E1 /* ProgressBarPopUpViewController.m */; };
+		8455C77A17CA579B005D13E1 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C77917CA579B005D13E1 /* ok.png */; };
+		8455C78917CB6488005D13E1 /* Wordset.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C78817CB6487005D13E1 /* Wordset.m */; };
+		8455C78C17CB648B005D13E1 /* WordsetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C78B17CB648A005D13E1 /* WordsetCategory.m */; };
+		8455C78F17CB648D005D13E1 /* Sentence.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C78E17CB648C005D13E1 /* Sentence.m */; };
+		8455C79217CB6493005D13E1 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C79117CB6492005D13E1 /* Word.m */; };
+		8455C79517CB64B9005D13E1 /* Sentence+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C79417CB64B9005D13E1 /* Sentence+Create.m */; };
+		8455C79717CB75BE005D13E1 /* recording_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C79617CB75BC005D13E1 /* recording_button.png */; };
+		8455C79917CB7886005D13E1 /* detail_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C79817CB7884005D13E1 /* detail_arrow.png */; };
+		8455C79C17CB9FE8005D13E1 /* WordDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C79B17CB9FE4005D13E1 /* WordDetailsViewController.m */; };
+		8455C79F17CCBE5E005D13E1 /* SentenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C79E17CCBE5A005D13E1 /* SentenceCell.m */; };
+		8455C7A217CCE93D005D13E1 /* SentenceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7A117CCE93A005D13E1 /* SentenceObject.m */; };
+		8455C7A517CD37A4005D13E1 /* PostItsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7A417CD37A0005D13E1 /* PostItsViewController.m */; };
+		8455C7AA17CD48B8005D13E1 /* PostItEditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7A917CD48B5005D13E1 /* PostItEditionViewController.m */; };
+		8455C7AD17CE3842005D13E1 /* PostItObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7AC17CE383E005D13E1 /* PostItObject.m */; };
+		8455C7B017CE3FD9005D13E1 /* PostItCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7AF17CE3FD5005D13E1 /* PostItCell.m */; };
+		8455C7B317CE64D4005D13E1 /* PostItEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7B217CE64D2005D13E1 /* PostItEditCell.m */; };
+		8455C7B617CF8260005D13E1 /* PresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7B517CF825C005D13E1 /* PresentationViewController.m */; };
+		8455C7B817CF88AB005D13E1 /* bad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7B717CF88A8005D13E1 /* bad.png */; };
+		8455C7BA17CF88B7005D13E1 /* good.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7B917CF88B6005D13E1 /* good.png */; };
+		8455C7BC17CF88C3005D13E1 /* normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7BB17CF88C1005D13E1 /* normal.png */; };
+		8455C7BF17CFC0F7005D13E1 /* GenericLearningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7BE17CFC0F3005D13E1 /* GenericLearningViewController.m */; };
+		8455C7C217CFCB72005D13E1 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7C117CFCB6E005D13E1 /* NSMutableArray+Shuffle.m */; };
+		8455C7C517D0B547005D13E1 /* TracingHistoryAndStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7C417D0B541005D13E1 /* TracingHistoryAndStatistics.m */; };
+		8455C7C817D0DB60005D13E1 /* RepetitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7C717D0DB58005D13E1 /* RepetitionViewController.m */; };
+		8455C7CA17D1228C005D13E1 /* nextbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7C917D1228A005D13E1 /* nextbtn.png */; };
+		8455C7CD17D1F6E0005D13E1 /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7CC17D1F6D9005D13E1 /* UserSettings.m */; };
+		8455C7D317D20104005D13E1 /* PullableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7D017D20104005D13E1 /* PullableView.m */; };
+		8455C7DE17D20FB2005D13E1 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7DD17D20FAC005D13E1 /* background.png */; };
+		8455C7E017D21041005D13E1 /* pullUpButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7DF17D21038005D13E1 /* pullUpButton.png */; };
+		8455C7E617D237CD005D13E1 /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7E517D237CA005D13E1 /* NSString+Utilities.m */; };
+		8455C7EB17D25061005D13E1 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7E817D2505B005D13E1 /* share.png */; };
+		8455C7EC17D25061005D13E1 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7E917D2505E005D13E1 /* star.png */; };
+		8455C7EE17D25067005D13E1 /* questionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7ED17D25065005D13E1 /* questionMark.png */; };
+		8455C7F017D36D47005D13E1 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7EF17D36D45005D13E1 /* info.png */; };
+		8455C7F217D39F1F005D13E1 /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7F117D39F1D005D13E1 /* comment.png */; };
+		8455C7F517D3B274005D13E1 /* ElectorWebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7F417D3B271005D13E1 /* ElectorWebServices.m */; };
+		8455C7F917D4A687005D13E1 /* RememberMePopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C7F717D4A687005D13E1 /* RememberMePopUpViewController.m */; };
+		8455C7FA17D4A688005D13E1 /* RememberMePopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7F817D4A687005D13E1 /* RememberMePopUpViewController.xib */; };
+		8455C7FC17D4AF2A005D13E1 /* error.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7FB17D4AF29005D13E1 /* error.jpeg */; };
+		8455C80217D4CE8E005D13E1 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7FE17D4CE8E005D13E1 /* AcousticModelEnglish.bundle */; };
+		8455C80317D4CE8E005D13E1 /* AcousticModelSpanish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8455C7FF17D4CE8E005D13E1 /* AcousticModelSpanish.bundle */; };
+		8455C80417D4CE8E005D13E1 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8455C80017D4CE8E005D13E1 /* OpenEars.framework */; };
+		8455C80517D4CE8E005D13E1 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8455C80117D4CE8E005D13E1 /* Slt.framework */; };
+		8455C80817D4CF59005D13E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8455C80617D4CEBB005D13E1 /* AudioToolbox.framework */; };
+		8455C80B17D4D01C005D13E1 /* SpeakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8455C80A17D4D013005D13E1 /* SpeakingViewController.m */; };
 		84A091C917C353F8008C62CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A091C817C353F8008C62CA /* UIKit.framework */; };
 		84A091CB17C353F8008C62CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A091CA17C353F8008C62CA /* Foundation.framework */; };
 		84A091CD17C353F8008C62CA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A091CC17C353F8008C62CA /* CoreGraphics.framework */; };
@@ -45,9 +94,6 @@
 		84A0925A17C69FDF008C62CA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A0924117C67F20008C62CA /* CoreData.framework */; };
 		84A0925D17C6A206008C62CA /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0925C17C6A206008C62CA /* CoreDataTableViewController.m */; };
 		84A0926017C6BA40008C62CA /* Wordset+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0925F17C6BA40008C62CA /* Wordset+Create.m */; };
-		84A0926317C6C087008C62CA /* Wordset.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0926217C6C086008C62CA /* Wordset.m */; };
-		84A0926617C6C088008C62CA /* WordsetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0926517C6C088008C62CA /* WordsetCategory.m */; };
-		84A0926917C6C08A008C62CA /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0926817C6C089008C62CA /* Word.m */; };
 		84A0927017C783FE008C62CA /* level_c2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926A17C783F1008C62CA /* level_c2.png */; };
 		84A0927117C783FE008C62CA /* level_c1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926B17C783F3008C62CA /* level_c1.png */; };
 		84A0927217C783FE008C62CA /* level_b2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926C17C783F5008C62CA /* level_b2.png */; };
@@ -55,9 +101,108 @@
 		84A0927417C783FE008C62CA /* level_a2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926E17C783FA008C62CA /* level_a2.png */; };
 		84A0927517C783FE008C62CA /* level_a1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0926F17C783FC008C62CA /* level_a1.png */; };
 		84A0927817C788B0008C62CA /* WordsetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0927717C788AE008C62CA /* WordsetViewController.m */; };
+		84A0927E17C79BDE008C62CA /* LearningMethodsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0927D17C79BDB008C62CA /* LearningMethodsMenu.m */; };
+		84A0928617C7A93C008C62CA /* speaking.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0927F17C7A92B008C62CA /* speaking.png */; };
+		84A0928717C7A93C008C62CA /* listofwords.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0928017C7A92D008C62CA /* listofwords.png */; };
+		84A0928817C7A93C008C62CA /* repetition.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0928117C7A92F008C62CA /* repetition.png */; };
+		84A0928917C7A93C008C62CA /* listening.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0928217C7A932008C62CA /* listening.png */; };
+		84A0928A17C7A93C008C62CA /* cartons.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0928317C7A934008C62CA /* cartons.png */; };
+		84A0928B17C7A93C008C62CA /* choosing.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0928417C7A936008C62CA /* choosing.png */; };
+		84A0928C17C7A93C008C62CA /* presentation.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A0928517C7A938008C62CA /* presentation.png */; };
+		84A0928F17C7B2DB008C62CA /* LearningMethodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0928E17C7B2D6008C62CA /* LearningMethodCell.m */; };
+		84A0929217C7FA5C008C62CA /* Word+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0929117C7FA58008C62CA /* Word+Create.m */; };
+		84A0929E17C810D4008C62CA /* Wordset+Select.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A0929D17C810D1008C62CA /* Wordset+Select.m */; };
+		84ED27B317D7B28600E3E603 /* NSObject+PerformBlockAfterDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED27B217D7B28600E3E603 /* NSObject+PerformBlockAfterDelay.m */; };
+		84ED27B617D86CAA00E3E603 /* ListeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED27B517D86CAA00E3E603 /* ListeningViewController.m */; };
+		84ED27B917D9BCEC00E3E603 /* ChoosingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED27B817D9BCEC00E3E603 /* ChoosingViewController.m */; };
+		84ED27BC17DA25A700E3E603 /* CartonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED27BB17DA25A700E3E603 /* CartonsViewController.m */; };
+		84ED27BF17DA4AF300E3E603 /* CardObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED27BE17DA4AF300E3E603 /* CardObject.m */; };
+		84ED27C217DB34B800E3E603 /* DictionaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED27C117DB34B800E3E603 /* DictionaryViewController.m */; };
+		84ED27C417DB371300E3E603 /* bigben.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED27C317DB371300E3E603 /* bigben.png */; };
+		84ED27CA17DB7F5E00E3E603 /* SuggestionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ED27C917DB7F5E00E3E603 /* SuggestionObject.m */; };
+		84F9B5F817C9197800C2F94E /* ListOfWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B5F717C9197800C2F94E /* ListOfWordsViewController.m */; };
+		84F9B5FB17C922E600C2F94E /* WordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B5FA17C922E600C2F94E /* WordCell.m */; };
+		84F9B5FE17C93D0800C2F94E /* WordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B5FD17C93D0700C2F94E /* WordObject.m */; };
+		84F9B60017C95C7D00C2F94E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F9B5FF17C95C7D00C2F94E /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8455C76617C9F779005D13E1 /* MJPopupBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPopupBackgroundView.h; sourceTree = "<group>"; };
+		8455C76717C9F779005D13E1 /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
+		8455C76817C9F779005D13E1 /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
+		8455C76917C9F779005D13E1 /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
+		8455C77317C9FB1E005D13E1 /* ProgressBarPopUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressBarPopUpViewController.xib; sourceTree = "<group>"; };
+		8455C77617CA003A005D13E1 /* ProgressBarPopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBarPopUpViewController.h; sourceTree = "<group>"; };
+		8455C77717CA003A005D13E1 /* ProgressBarPopUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBarPopUpViewController.m; sourceTree = "<group>"; };
+		8455C77917CA579B005D13E1 /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
+		8455C78717CB6486005D13E1 /* Wordset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wordset.h; sourceTree = "<group>"; };
+		8455C78817CB6487005D13E1 /* Wordset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wordset.m; sourceTree = "<group>"; };
+		8455C78A17CB6489005D13E1 /* WordsetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsetCategory.h; sourceTree = "<group>"; };
+		8455C78B17CB648A005D13E1 /* WordsetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsetCategory.m; sourceTree = "<group>"; };
+		8455C78D17CB648C005D13E1 /* Sentence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sentence.h; sourceTree = "<group>"; };
+		8455C78E17CB648C005D13E1 /* Sentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sentence.m; sourceTree = "<group>"; };
+		8455C79017CB648E005D13E1 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
+		8455C79117CB6492005D13E1 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
+		8455C79317CB64B8005D13E1 /* Sentence+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Sentence+Create.h"; sourceTree = "<group>"; };
+		8455C79417CB64B9005D13E1 /* Sentence+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Sentence+Create.m"; sourceTree = "<group>"; };
+		8455C79617CB75BC005D13E1 /* recording_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recording_button.png; sourceTree = "<group>"; };
+		8455C79817CB7884005D13E1 /* detail_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = detail_arrow.png; sourceTree = "<group>"; };
+		8455C79A17CB9FE1005D13E1 /* WordDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailsViewController.h; sourceTree = "<group>"; };
+		8455C79B17CB9FE4005D13E1 /* WordDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordDetailsViewController.m; sourceTree = "<group>"; };
+		8455C79D17CCBE57005D13E1 /* SentenceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentenceCell.h; sourceTree = "<group>"; };
+		8455C79E17CCBE5A005D13E1 /* SentenceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentenceCell.m; sourceTree = "<group>"; };
+		8455C7A017CCE938005D13E1 /* SentenceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentenceObject.h; sourceTree = "<group>"; };
+		8455C7A117CCE93A005D13E1 /* SentenceObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentenceObject.m; sourceTree = "<group>"; };
+		8455C7A317CD379D005D13E1 /* PostItsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostItsViewController.h; sourceTree = "<group>"; };
+		8455C7A417CD37A0005D13E1 /* PostItsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostItsViewController.m; sourceTree = "<group>"; };
+		8455C7A817CD48B2005D13E1 /* PostItEditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostItEditionViewController.h; sourceTree = "<group>"; };
+		8455C7A917CD48B5005D13E1 /* PostItEditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostItEditionViewController.m; sourceTree = "<group>"; };
+		8455C7AB17CE383A005D13E1 /* PostItObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostItObject.h; sourceTree = "<group>"; };
+		8455C7AC17CE383E005D13E1 /* PostItObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostItObject.m; sourceTree = "<group>"; };
+		8455C7AE17CE3FD2005D13E1 /* PostItCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostItCell.h; sourceTree = "<group>"; };
+		8455C7AF17CE3FD5005D13E1 /* PostItCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostItCell.m; sourceTree = "<group>"; };
+		8455C7B117CE64D0005D13E1 /* PostItEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostItEditCell.h; path = ../PostItEditCell.h; sourceTree = "<group>"; };
+		8455C7B217CE64D2005D13E1 /* PostItEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostItEditCell.m; path = ../PostItEditCell.m; sourceTree = "<group>"; };
+		8455C7B417CF8259005D13E1 /* PresentationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationViewController.h; sourceTree = "<group>"; };
+		8455C7B517CF825C005D13E1 /* PresentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationViewController.m; sourceTree = "<group>"; };
+		8455C7B717CF88A8005D13E1 /* bad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bad.png; sourceTree = "<group>"; };
+		8455C7B917CF88B6005D13E1 /* good.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = good.png; sourceTree = "<group>"; };
+		8455C7BB17CF88C1005D13E1 /* normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normal.png; sourceTree = "<group>"; };
+		8455C7BD17CFC0EF005D13E1 /* GenericLearningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericLearningViewController.h; sourceTree = "<group>"; };
+		8455C7BE17CFC0F3005D13E1 /* GenericLearningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericLearningViewController.m; sourceTree = "<group>"; };
+		8455C7C017CFCB6B005D13E1 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
+		8455C7C117CFCB6E005D13E1 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
+		8455C7C317D0B53B005D13E1 /* TracingHistoryAndStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TracingHistoryAndStatistics.h; sourceTree = "<group>"; };
+		8455C7C417D0B541005D13E1 /* TracingHistoryAndStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TracingHistoryAndStatistics.m; sourceTree = "<group>"; };
+		8455C7C617D0DB51005D13E1 /* RepetitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepetitionViewController.h; sourceTree = "<group>"; };
+		8455C7C717D0DB58005D13E1 /* RepetitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepetitionViewController.m; sourceTree = "<group>"; };
+		8455C7C917D1228A005D13E1 /* nextbtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextbtn.png; sourceTree = "<group>"; };
+		8455C7CB17D1F6D3005D13E1 /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettings.h; sourceTree = "<group>"; };
+		8455C7CC17D1F6D9005D13E1 /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettings.m; sourceTree = "<group>"; };
+		8455C7CF17D20104005D13E1 /* PullableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullableView.h; sourceTree = "<group>"; };
+		8455C7D017D20104005D13E1 /* PullableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullableView.m; sourceTree = "<group>"; };
+		8455C7DD17D20FAC005D13E1 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		8455C7DF17D21038005D13E1 /* pullUpButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pullUpButton.png; sourceTree = "<group>"; };
+		8455C7E417D237C7005D13E1 /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Utilities.h"; path = "../NSString+Utilities.h"; sourceTree = "<group>"; };
+		8455C7E517D237CA005D13E1 /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Utilities.m"; path = "../NSString+Utilities.m"; sourceTree = "<group>"; };
+		8455C7E817D2505B005D13E1 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
+		8455C7E917D2505E005D13E1 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		8455C7ED17D25065005D13E1 /* questionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionMark.png; sourceTree = "<group>"; };
+		8455C7EF17D36D45005D13E1 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		8455C7F117D39F1D005D13E1 /* comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment.png; sourceTree = "<group>"; };
+		8455C7F317D3B26D005D13E1 /* ElectorWebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ElectorWebServices.h; path = ../ElectorWebServices.h; sourceTree = "<group>"; };
+		8455C7F417D3B271005D13E1 /* ElectorWebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ElectorWebServices.m; path = ../ElectorWebServices.m; sourceTree = "<group>"; };
+		8455C7F617D4A686005D13E1 /* RememberMePopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RememberMePopUpViewController.h; sourceTree = "<group>"; };
+		8455C7F717D4A687005D13E1 /* RememberMePopUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RememberMePopUpViewController.m; sourceTree = "<group>"; };
+		8455C7F817D4A687005D13E1 /* RememberMePopUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RememberMePopUpViewController.xib; sourceTree = "<group>"; };
+		8455C7FB17D4AF29005D13E1 /* error.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = error.jpeg; sourceTree = "<group>"; };
+		8455C7FE17D4CE8E005D13E1 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		8455C7FF17D4CE8E005D13E1 /* AcousticModelSpanish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelSpanish.bundle; sourceTree = "<group>"; };
+		8455C80017D4CE8E005D13E1 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		8455C80117D4CE8E005D13E1 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		8455C80617D4CEBB005D13E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		8455C80917D4D00C005D13E1 /* SpeakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakingViewController.h; sourceTree = "<group>"; };
+		8455C80A17D4D013005D13E1 /* SpeakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakingViewController.m; sourceTree = "<group>"; };
 		84A091C517C353F8008C62CA /* ElectorAngielski.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ElectorAngielski.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A091C817C353F8008C62CA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84A091CA17C353F8008C62CA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -112,12 +257,6 @@
 		84A0925C17C6A206008C62CA /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		84A0925E17C6BA40008C62CA /* Wordset+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wordset+Create.h"; sourceTree = "<group>"; };
 		84A0925F17C6BA40008C62CA /* Wordset+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Wordset+Create.m"; sourceTree = "<group>"; };
-		84A0926117C6C085008C62CA /* Wordset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wordset.h; sourceTree = "<group>"; };
-		84A0926217C6C086008C62CA /* Wordset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wordset.m; sourceTree = "<group>"; };
-		84A0926417C6C087008C62CA /* WordsetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsetCategory.h; sourceTree = "<group>"; };
-		84A0926517C6C088008C62CA /* WordsetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsetCategory.m; sourceTree = "<group>"; };
-		84A0926717C6C089008C62CA /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
-		84A0926817C6C089008C62CA /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		84A0926A17C783F1008C62CA /* level_c2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_c2.png; sourceTree = "<group>"; };
 		84A0926B17C783F3008C62CA /* level_c1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_c1.png; sourceTree = "<group>"; };
 		84A0926C17C783F5008C62CA /* level_b2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_b2.png; sourceTree = "<group>"; };
@@ -126,6 +265,44 @@
 		84A0926F17C783FC008C62CA /* level_a1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_a1.png; sourceTree = "<group>"; };
 		84A0927617C788AD008C62CA /* WordsetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsetViewController.h; sourceTree = "<group>"; };
 		84A0927717C788AE008C62CA /* WordsetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsetViewController.m; sourceTree = "<group>"; };
+		84A0927C17C79BD8008C62CA /* LearningMethodsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LearningMethodsMenu.h; sourceTree = "<group>"; };
+		84A0927D17C79BDB008C62CA /* LearningMethodsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LearningMethodsMenu.m; sourceTree = "<group>"; };
+		84A0927F17C7A92B008C62CA /* speaking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speaking.png; sourceTree = "<group>"; };
+		84A0928017C7A92D008C62CA /* listofwords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listofwords.png; sourceTree = "<group>"; };
+		84A0928117C7A92F008C62CA /* repetition.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repetition.png; sourceTree = "<group>"; };
+		84A0928217C7A932008C62CA /* listening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listening.png; sourceTree = "<group>"; };
+		84A0928317C7A934008C62CA /* cartons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartons.png; sourceTree = "<group>"; };
+		84A0928417C7A936008C62CA /* choosing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choosing.png; sourceTree = "<group>"; };
+		84A0928517C7A938008C62CA /* presentation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = presentation.png; sourceTree = "<group>"; };
+		84A0928D17C7B2D3008C62CA /* LearningMethodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LearningMethodCell.h; sourceTree = "<group>"; };
+		84A0928E17C7B2D6008C62CA /* LearningMethodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LearningMethodCell.m; sourceTree = "<group>"; };
+		84A0929017C7FA54008C62CA /* Word+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Word+Create.h"; sourceTree = "<group>"; };
+		84A0929117C7FA58008C62CA /* Word+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Word+Create.m"; sourceTree = "<group>"; };
+		84A0929C17C810CF008C62CA /* Wordset+Select.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wordset+Select.h"; sourceTree = "<group>"; };
+		84A0929D17C810D1008C62CA /* Wordset+Select.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Wordset+Select.m"; sourceTree = "<group>"; };
+		84ED27B017D7979300E3E603 /* iOSVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSVersion.h; sourceTree = "<group>"; };
+		84ED27B117D7B28600E3E603 /* NSObject+PerformBlockAfterDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PerformBlockAfterDelay.h"; sourceTree = "<group>"; };
+		84ED27B217D7B28600E3E603 /* NSObject+PerformBlockAfterDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PerformBlockAfterDelay.m"; sourceTree = "<group>"; };
+		84ED27B417D86CA900E3E603 /* ListeningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListeningViewController.h; sourceTree = "<group>"; };
+		84ED27B517D86CAA00E3E603 /* ListeningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListeningViewController.m; sourceTree = "<group>"; };
+		84ED27B717D9BCEC00E3E603 /* ChoosingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosingViewController.h; sourceTree = "<group>"; };
+		84ED27B817D9BCEC00E3E603 /* ChoosingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosingViewController.m; sourceTree = "<group>"; };
+		84ED27BA17DA25A700E3E603 /* CartonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartonsViewController.h; sourceTree = "<group>"; };
+		84ED27BB17DA25A700E3E603 /* CartonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartonsViewController.m; sourceTree = "<group>"; };
+		84ED27BD17DA4AF200E3E603 /* CardObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardObject.h; sourceTree = "<group>"; };
+		84ED27BE17DA4AF300E3E603 /* CardObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardObject.m; sourceTree = "<group>"; };
+		84ED27C017DB34B700E3E603 /* DictionaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryViewController.h; sourceTree = "<group>"; };
+		84ED27C117DB34B800E3E603 /* DictionaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryViewController.m; sourceTree = "<group>"; };
+		84ED27C317DB371300E3E603 /* bigben.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigben.png; sourceTree = "<group>"; };
+		84ED27C817DB7F5D00E3E603 /* SuggestionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuggestionObject.h; path = ../SuggestionObject.h; sourceTree = "<group>"; };
+		84ED27C917DB7F5E00E3E603 /* SuggestionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SuggestionObject.m; path = ../SuggestionObject.m; sourceTree = "<group>"; };
+		84F9B5F617C9197800C2F94E /* ListOfWordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfWordsViewController.h; sourceTree = "<group>"; };
+		84F9B5F717C9197800C2F94E /* ListOfWordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfWordsViewController.m; sourceTree = "<group>"; };
+		84F9B5F917C922E600C2F94E /* WordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCell.h; sourceTree = "<group>"; };
+		84F9B5FA17C922E600C2F94E /* WordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCell.m; sourceTree = "<group>"; };
+		84F9B5FC17C93D0700C2F94E /* WordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordObject.h; sourceTree = "<group>"; };
+		84F9B5FD17C93D0700C2F94E /* WordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordObject.m; sourceTree = "<group>"; };
+		84F9B5FF17C95C7D00C2F94E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,22 +310,63 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8455C80817D4CF59005D13E1 /* AudioToolbox.framework in Frameworks */,
+				84F9B60017C95C7D00C2F94E /* AVFoundation.framework in Frameworks */,
 				84A0925A17C69FDF008C62CA /* CoreData.framework in Frameworks */,
 				84A0921F17C53635008C62CA /* SystemConfiguration.framework in Frameworks */,
 				84A091C917C353F8008C62CA /* UIKit.framework in Frameworks */,
 				84A091CB17C353F8008C62CA /* Foundation.framework in Frameworks */,
 				84A091CD17C353F8008C62CA /* CoreGraphics.framework in Frameworks */,
+				8455C80417D4CE8E005D13E1 /* OpenEars.framework in Frameworks */,
+				8455C80517D4CE8E005D13E1 /* Slt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8455C76517C9F727005D13E1 /* PopUpViewSource */ = {
+			isa = PBXGroup;
+			children = (
+				8455C77617CA003A005D13E1 /* ProgressBarPopUpViewController.h */,
+				8455C77717CA003A005D13E1 /* ProgressBarPopUpViewController.m */,
+				8455C76617C9F779005D13E1 /* MJPopupBackgroundView.h */,
+				8455C76717C9F779005D13E1 /* MJPopupBackgroundView.m */,
+				8455C76817C9F779005D13E1 /* UIViewController+MJPopupViewController.h */,
+				8455C76917C9F779005D13E1 /* UIViewController+MJPopupViewController.m */,
+				8455C77317C9FB1E005D13E1 /* ProgressBarPopUpViewController.xib */,
+				8455C7F617D4A686005D13E1 /* RememberMePopUpViewController.h */,
+				8455C7F717D4A687005D13E1 /* RememberMePopUpViewController.m */,
+				8455C7F817D4A687005D13E1 /* RememberMePopUpViewController.xib */,
+			);
+			name = PopUpViewSource;
+			sourceTree = "<group>";
+		};
+		8455C7CE17D200FE005D13E1 /* PullableView */ = {
+			isa = PBXGroup;
+			children = (
+				8455C7CF17D20104005D13E1 /* PullableView.h */,
+				8455C7D017D20104005D13E1 /* PullableView.m */,
+			);
+			path = PullableView;
+			sourceTree = "<group>";
+		};
+		8455C7FD17D4CE88005D13E1 /* OpenEarsFramework */ = {
+			isa = PBXGroup;
+			children = (
+				8455C7FE17D4CE8E005D13E1 /* AcousticModelEnglish.bundle */,
+				8455C7FF17D4CE8E005D13E1 /* AcousticModelSpanish.bundle */,
+				8455C80017D4CE8E005D13E1 /* OpenEars.framework */,
+				8455C80117D4CE8E005D13E1 /* Slt.framework */,
+			);
+			name = OpenEarsFramework;
+			path = Framework;
+			sourceTree = "<group>";
+		};
 		84A091BC17C353F8008C62CA = {
 			isa = PBXGroup;
 			children = (
-				84A0924117C67F20008C62CA /* CoreData.framework */,
-				84A0921E17C53634008C62CA /* SystemConfiguration.framework */,
+				8455C7FD17D4CE88005D13E1 /* OpenEarsFramework */,
 				84A091CE17C353F8008C62CA /* ElectorAngielski */,
 				84A091C717C353F8008C62CA /* Frameworks */,
 				84A091C617C353F8008C62CA /* Products */,
@@ -166,6 +384,10 @@
 		84A091C717C353F8008C62CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8455C80617D4CEBB005D13E1 /* AudioToolbox.framework */,
+				84F9B5FF17C95C7D00C2F94E /* AVFoundation.framework */,
+				84A0924117C67F20008C62CA /* CoreData.framework */,
+				84A0921E17C53634008C62CA /* SystemConfiguration.framework */,
 				84A091C817C353F8008C62CA /* UIKit.framework */,
 				84A091CA17C353F8008C62CA /* Foundation.framework */,
 				84A091CC17C353F8008C62CA /* CoreGraphics.framework */,
@@ -176,26 +398,90 @@
 		84A091CE17C353F8008C62CA /* ElectorAngielski */ = {
 			isa = PBXGroup;
 			children = (
+				84ED27C817DB7F5D00E3E603 /* SuggestionObject.h */,
+				84ED27C917DB7F5E00E3E603 /* SuggestionObject.m */,
+				8455C7E517D237CA005D13E1 /* NSString+Utilities.m */,
+				8455C7E417D237C7005D13E1 /* NSString+Utilities.h */,
+				8455C7F317D3B26D005D13E1 /* ElectorWebServices.h */,
+				8455C7F417D3B271005D13E1 /* ElectorWebServices.m */,
+				8455C7DF17D21038005D13E1 /* pullUpButton.png */,
+				8455C7DD17D20FAC005D13E1 /* background.png */,
+				8455C7CE17D200FE005D13E1 /* PullableView */,
+				8455C7B117CE64D0005D13E1 /* PostItEditCell.h */,
+				8455C7B217CE64D2005D13E1 /* PostItEditCell.m */,
+				8455C76517C9F727005D13E1 /* PopUpViewSource */,
 				84A0925B17C6A206008C62CA /* CoreDataTableViewController.h */,
 				84A0925C17C6A206008C62CA /* CoreDataTableViewController.m */,
 				84A091D717C353F8008C62CA /* ElectorAppDelegate.h */,
 				84A091D817C353F8008C62CA /* ElectorAppDelegate.m */,
 				84A091E017C353F8008C62CA /* MainStoryboard_iPhone.storyboard */,
+				84ED27BD17DA4AF200E3E603 /* CardObject.h */,
+				84ED27BE17DA4AF300E3E603 /* CardObject.m */,
+				84ED27BA17DA25A700E3E603 /* CartonsViewController.h */,
+				84ED27BB17DA25A700E3E603 /* CartonsViewController.m */,
+				84ED27B717D9BCEC00E3E603 /* ChoosingViewController.h */,
+				84ED27B817D9BCEC00E3E603 /* ChoosingViewController.m */,
+				84A091E317C353F8008C62CA /* MainStoryboard_iPad.storyboard */,
+				8455C80917D4D00C005D13E1 /* SpeakingViewController.h */,
+				84ED27B417D86CA900E3E603 /* ListeningViewController.h */,
+				84ED27B517D86CAA00E3E603 /* ListeningViewController.m */,
+				8455C80A17D4D013005D13E1 /* SpeakingViewController.m */,
+				8455C7C617D0DB51005D13E1 /* RepetitionViewController.h */,
+				8455C7C717D0DB58005D13E1 /* RepetitionViewController.m */,
+				8455C7BD17CFC0EF005D13E1 /* GenericLearningViewController.h */,
+				84ED27B117D7B28600E3E603 /* NSObject+PerformBlockAfterDelay.h */,
+				84ED27B217D7B28600E3E603 /* NSObject+PerformBlockAfterDelay.m */,
+				8455C7BE17CFC0F3005D13E1 /* GenericLearningViewController.m */,
+				8455C7CB17D1F6D3005D13E1 /* UserSettings.h */,
+				8455C7CC17D1F6D9005D13E1 /* UserSettings.m */,
+				8455C7B417CF8259005D13E1 /* PresentationViewController.h */,
+				8455C7B517CF825C005D13E1 /* PresentationViewController.m */,
+				8455C7C017CFCB6B005D13E1 /* NSMutableArray+Shuffle.h */,
+				8455C7C117CFCB6E005D13E1 /* NSMutableArray+Shuffle.m */,
+				8455C7AE17CE3FD2005D13E1 /* PostItCell.h */,
+				8455C7AF17CE3FD5005D13E1 /* PostItCell.m */,
+				8455C7A817CD48B2005D13E1 /* PostItEditionViewController.h */,
+				8455C7A917CD48B5005D13E1 /* PostItEditionViewController.m */,
+				8455C7A317CD379D005D13E1 /* PostItsViewController.h */,
+				8455C7A417CD37A0005D13E1 /* PostItsViewController.m */,
+				8455C7AB17CE383A005D13E1 /* PostItObject.h */,
+				8455C7AC17CE383E005D13E1 /* PostItObject.m */,
+				8455C79D17CCBE57005D13E1 /* SentenceCell.h */,
+				8455C79E17CCBE5A005D13E1 /* SentenceCell.m */,
+				8455C79A17CB9FE1005D13E1 /* WordDetailsViewController.h */,
+				8455C79B17CB9FE4005D13E1 /* WordDetailsViewController.m */,
+				84F9B5F917C922E600C2F94E /* WordCell.h */,
+				84F9B5FA17C922E600C2F94E /* WordCell.m */,
+				84F9B5F617C9197800C2F94E /* ListOfWordsViewController.h */,
+				84F9B5F717C9197800C2F94E /* ListOfWordsViewController.m */,
+				84F9B5FC17C93D0700C2F94E /* WordObject.h */,
+				84F9B5FD17C93D0700C2F94E /* WordObject.m */,
+				84A0928D17C7B2D3008C62CA /* LearningMethodCell.h */,
+				84A0928E17C7B2D6008C62CA /* LearningMethodCell.m */,
 				84A0927617C788AD008C62CA /* WordsetViewController.h */,
 				84A0927717C788AE008C62CA /* WordsetViewController.m */,
 				84A0920E17C4FAFA008C62CA /* WordsetCategoriesViewController.h */,
 				84A0920F17C4FAFC008C62CA /* WordsetCategoriesViewController.m */,
+				84ED27B017D7979300E3E603 /* iOSVersion.h */,
 				84A0921817C535CE008C62CA /* Reachability.h */,
 				84A0921917C535D0008C62CA /* Reachability.m */,
 				84A0925517C68F08008C62CA /* WordsetCategory+Create.h */,
 				84A0925617C68F0A008C62CA /* WordsetCategory+Create.m */,
 				84A0922317C67258008C62CA /* ElectorModel.xcdatamodeld */,
-				84A0926717C6C089008C62CA /* Word.h */,
-				84A0926817C6C089008C62CA /* Word.m */,
-				84A0926417C6C087008C62CA /* WordsetCategory.h */,
-				84A0926517C6C088008C62CA /* WordsetCategory.m */,
-				84A0926117C6C085008C62CA /* Wordset.h */,
-				84A0926217C6C086008C62CA /* Wordset.m */,
+				8455C78717CB6486005D13E1 /* Wordset.h */,
+				8455C78817CB6487005D13E1 /* Wordset.m */,
+				8455C78A17CB6489005D13E1 /* WordsetCategory.h */,
+				8455C78B17CB648A005D13E1 /* WordsetCategory.m */,
+				8455C78D17CB648C005D13E1 /* Sentence.h */,
+				8455C7A017CCE938005D13E1 /* SentenceObject.h */,
+				8455C7A117CCE93A005D13E1 /* SentenceObject.m */,
+				8455C78E17CB648C005D13E1 /* Sentence.m */,
+				8455C79017CB648E005D13E1 /* Word.h */,
+				8455C79117CB6492005D13E1 /* Word.m */,
+				8455C79317CB64B8005D13E1 /* Sentence+Create.h */,
+				8455C79417CB64B9005D13E1 /* Sentence+Create.m */,
+				84A0929017C7FA54008C62CA /* Word+Create.h */,
+				84A0929117C7FA58008C62CA /* Word+Create.m */,
 				84A0921117C516DB008C62CA /* XMLElement.h */,
 				84A0921417C521D8008C62CA /* XMLParser.h */,
 				84A0921517C521D8008C62CA /* XMLParser.m */,
@@ -204,16 +490,23 @@
 				84A091F717C4E9EB008C62CA /* MainMenuViewController.m */,
 				84A091EE17C3560C008C62CA /* SignUpViewController.h */,
 				84A091EF17C3560C008C62CA /* SignUpViewController.m */,
-				84A091E317C353F8008C62CA /* MainStoryboard_iPad.storyboard */,
+				84A0927C17C79BD8008C62CA /* LearningMethodsMenu.h */,
+				84A0927D17C79BDB008C62CA /* LearningMethodsMenu.m */,
 				84A091E617C353F8008C62CA /* ElectorViewController.h */,
 				84A091E717C353F8008C62CA /* ElectorViewController.m */,
 				84A091F317C3FFE1008C62CA /* ProfileServices.h */,
+				8455C7C317D0B53B005D13E1 /* TracingHistoryAndStatistics.h */,
+				8455C7C417D0B541005D13E1 /* TracingHistoryAndStatistics.m */,
 				84A091F417C3FFE2008C62CA /* ProfileServices.m */,
 				84A091CF17C353F8008C62CA /* Supporting Files */,
 				84A0922017C66D71008C62CA /* WordsetsTableViewController.h */,
 				84A0922117C66D73008C62CA /* WordsetsTableViewController.m */,
 				84A0925E17C6BA40008C62CA /* Wordset+Create.h */,
+				84A0929C17C810CF008C62CA /* Wordset+Select.h */,
+				84A0929D17C810D1008C62CA /* Wordset+Select.m */,
 				84A0925F17C6BA40008C62CA /* Wordset+Create.m */,
+				84ED27C017DB34B700E3E603 /* DictionaryViewController.h */,
+				84ED27C117DB34B800E3E603 /* DictionaryViewController.m */,
 			);
 			path = ElectorAngielski;
 			sourceTree = "<group>";
@@ -221,6 +514,27 @@
 		84A091CF17C353F8008C62CA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84ED27C317DB371300E3E603 /* bigben.png */,
+				8455C7ED17D25065005D13E1 /* questionMark.png */,
+				8455C7F117D39F1D005D13E1 /* comment.png */,
+				8455C7E817D2505B005D13E1 /* share.png */,
+				8455C7EF17D36D45005D13E1 /* info.png */,
+				8455C7FB17D4AF29005D13E1 /* error.jpeg */,
+				8455C7E917D2505E005D13E1 /* star.png */,
+				8455C7C917D1228A005D13E1 /* nextbtn.png */,
+				8455C79617CB75BC005D13E1 /* recording_button.png */,
+				8455C79817CB7884005D13E1 /* detail_arrow.png */,
+				8455C7B717CF88A8005D13E1 /* bad.png */,
+				8455C77917CA579B005D13E1 /* ok.png */,
+				84A0927F17C7A92B008C62CA /* speaking.png */,
+				8455C7B917CF88B6005D13E1 /* good.png */,
+				84A0928017C7A92D008C62CA /* listofwords.png */,
+				8455C7BB17CF88C1005D13E1 /* normal.png */,
+				84A0928117C7A92F008C62CA /* repetition.png */,
+				84A0928217C7A932008C62CA /* listening.png */,
+				84A0928317C7A934008C62CA /* cartons.png */,
+				84A0928417C7A936008C62CA /* choosing.png */,
+				84A0928517C7A938008C62CA /* presentation.png */,
 				84A0926A17C783F1008C62CA /* level_c2.png */,
 				84A0926B17C783F3008C62CA /* level_c1.png */,
 				84A0926C17C783F5008C62CA /* level_b2.png */,
@@ -326,6 +640,33 @@
 				84A0927317C783FE008C62CA /* level_b1.png in Resources */,
 				84A0927417C783FE008C62CA /* level_a2.png in Resources */,
 				84A0927517C783FE008C62CA /* level_a1.png in Resources */,
+				84A0928617C7A93C008C62CA /* speaking.png in Resources */,
+				84A0928717C7A93C008C62CA /* listofwords.png in Resources */,
+				84A0928817C7A93C008C62CA /* repetition.png in Resources */,
+				84A0928917C7A93C008C62CA /* listening.png in Resources */,
+				84A0928A17C7A93C008C62CA /* cartons.png in Resources */,
+				84A0928B17C7A93C008C62CA /* choosing.png in Resources */,
+				84A0928C17C7A93C008C62CA /* presentation.png in Resources */,
+				8455C77517C9FB1E005D13E1 /* ProgressBarPopUpViewController.xib in Resources */,
+				8455C77A17CA579B005D13E1 /* ok.png in Resources */,
+				8455C79717CB75BE005D13E1 /* recording_button.png in Resources */,
+				8455C79917CB7886005D13E1 /* detail_arrow.png in Resources */,
+				8455C7B817CF88AB005D13E1 /* bad.png in Resources */,
+				8455C7BA17CF88B7005D13E1 /* good.png in Resources */,
+				8455C7BC17CF88C3005D13E1 /* normal.png in Resources */,
+				8455C7CA17D1228C005D13E1 /* nextbtn.png in Resources */,
+				8455C7DE17D20FB2005D13E1 /* background.png in Resources */,
+				8455C7E017D21041005D13E1 /* pullUpButton.png in Resources */,
+				8455C7EB17D25061005D13E1 /* share.png in Resources */,
+				8455C7EC17D25061005D13E1 /* star.png in Resources */,
+				8455C7EE17D25067005D13E1 /* questionMark.png in Resources */,
+				8455C7F017D36D47005D13E1 /* info.png in Resources */,
+				8455C7F217D39F1F005D13E1 /* comment.png in Resources */,
+				8455C7FA17D4A688005D13E1 /* RememberMePopUpViewController.xib in Resources */,
+				8455C7FC17D4AF2A005D13E1 /* error.jpeg in Resources */,
+				8455C80217D4CE8E005D13E1 /* AcousticModelEnglish.bundle in Resources */,
+				8455C80317D4CE8E005D13E1 /* AcousticModelSpanish.bundle in Resources */,
+				84ED27C417DB371300E3E603 /* bigben.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,10 +692,48 @@
 				84A0925717C68F0C008C62CA /* WordsetCategory+Create.m in Sources */,
 				84A0925D17C6A206008C62CA /* CoreDataTableViewController.m in Sources */,
 				84A0926017C6BA40008C62CA /* Wordset+Create.m in Sources */,
-				84A0926317C6C087008C62CA /* Wordset.m in Sources */,
-				84A0926617C6C088008C62CA /* WordsetCategory.m in Sources */,
-				84A0926917C6C08A008C62CA /* Word.m in Sources */,
 				84A0927817C788B0008C62CA /* WordsetViewController.m in Sources */,
+				84A0927E17C79BDE008C62CA /* LearningMethodsMenu.m in Sources */,
+				84A0928F17C7B2DB008C62CA /* LearningMethodCell.m in Sources */,
+				84A0929217C7FA5C008C62CA /* Word+Create.m in Sources */,
+				84A0929E17C810D4008C62CA /* Wordset+Select.m in Sources */,
+				84F9B5F817C9197800C2F94E /* ListOfWordsViewController.m in Sources */,
+				84F9B5FB17C922E600C2F94E /* WordCell.m in Sources */,
+				84F9B5FE17C93D0800C2F94E /* WordObject.m in Sources */,
+				8455C76A17C9F779005D13E1 /* MJPopupBackgroundView.m in Sources */,
+				8455C76B17C9F779005D13E1 /* UIViewController+MJPopupViewController.m in Sources */,
+				8455C77817CA003A005D13E1 /* ProgressBarPopUpViewController.m in Sources */,
+				8455C78917CB6488005D13E1 /* Wordset.m in Sources */,
+				8455C78C17CB648B005D13E1 /* WordsetCategory.m in Sources */,
+				8455C78F17CB648D005D13E1 /* Sentence.m in Sources */,
+				8455C79217CB6493005D13E1 /* Word.m in Sources */,
+				8455C79517CB64B9005D13E1 /* Sentence+Create.m in Sources */,
+				8455C79C17CB9FE8005D13E1 /* WordDetailsViewController.m in Sources */,
+				8455C79F17CCBE5E005D13E1 /* SentenceCell.m in Sources */,
+				8455C7A217CCE93D005D13E1 /* SentenceObject.m in Sources */,
+				8455C7A517CD37A4005D13E1 /* PostItsViewController.m in Sources */,
+				8455C7AA17CD48B8005D13E1 /* PostItEditionViewController.m in Sources */,
+				8455C7AD17CE3842005D13E1 /* PostItObject.m in Sources */,
+				8455C7B017CE3FD9005D13E1 /* PostItCell.m in Sources */,
+				8455C7B317CE64D4005D13E1 /* PostItEditCell.m in Sources */,
+				8455C7B617CF8260005D13E1 /* PresentationViewController.m in Sources */,
+				8455C7BF17CFC0F7005D13E1 /* GenericLearningViewController.m in Sources */,
+				8455C7C217CFCB72005D13E1 /* NSMutableArray+Shuffle.m in Sources */,
+				8455C7C517D0B547005D13E1 /* TracingHistoryAndStatistics.m in Sources */,
+				8455C7C817D0DB60005D13E1 /* RepetitionViewController.m in Sources */,
+				8455C7CD17D1F6E0005D13E1 /* UserSettings.m in Sources */,
+				8455C7D317D20104005D13E1 /* PullableView.m in Sources */,
+				8455C7E617D237CD005D13E1 /* NSString+Utilities.m in Sources */,
+				8455C7F517D3B274005D13E1 /* ElectorWebServices.m in Sources */,
+				8455C7F917D4A687005D13E1 /* RememberMePopUpViewController.m in Sources */,
+				8455C80B17D4D01C005D13E1 /* SpeakingViewController.m in Sources */,
+				84ED27B317D7B28600E3E603 /* NSObject+PerformBlockAfterDelay.m in Sources */,
+				84ED27B617D86CAA00E3E603 /* ListeningViewController.m in Sources */,
+				84ED27B917D9BCEC00E3E603 /* ChoosingViewController.m in Sources */,
+				84ED27BC17DA25A700E3E603 /* CartonsViewController.m in Sources */,
+				84ED27BF17DA4AF300E3E603 /* CardObject.m in Sources */,
+				84ED27C217DB34B800E3E603 /* DictionaryViewController.m in Sources */,
+				84ED27CA17DB7F5E00E3E603 /* SuggestionObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,10 +828,19 @@
 		84A091EC17C353F8008C62CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Framework\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ElectorAngielski/ElectorAngielski-Prefix.pch";
 				INFOPLIST_FILE = "ElectorAngielski/ElectorAngielski-Info.plist";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -460,10 +848,19 @@
 		84A091ED17C353F8008C62CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Framework\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ElectorAngielski/ElectorAngielski-Prefix.pch";
 				INFOPLIST_FILE = "ElectorAngielski/ElectorAngielski-Info.plist";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
