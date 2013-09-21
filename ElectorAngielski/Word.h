@@ -2,7 +2,7 @@
 //  Word.h
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 26/08/2013.
+//  Created by Michal Ziobro on 12/09/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 
@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString * recording;
 @property (nonatomic, retain) NSString * transcription;
 @property (nonatomic, retain) NSString * wordId;
+@property (nonatomic, retain) NSString * imagePath;
 @property (nonatomic, retain) NSSet *inWordsets;
 @property (nonatomic, retain) NSSet *sentences;
 @end

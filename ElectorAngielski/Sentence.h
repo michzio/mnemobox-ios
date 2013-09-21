@@ -2,7 +2,7 @@
 //  Sentence.h
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 26/08/2013.
+//  Created by Michal Ziobro on 12/09/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 @interface Sentence : NSManagedObject
 
-@property (nonatomic, retain) NSString * sentenceId;
 @property (nonatomic, retain) NSString * foreign;
 @property (nonatomic, retain) NSString * native;
 @property (nonatomic, retain) NSString * recording;
+@property (nonatomic, retain) NSString * sentenceId;
 @property (nonatomic, retain) Word *forWord;
 
 @end

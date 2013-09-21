@@ -11,4 +11,6 @@
 
 @interface DictionaryViewController : UIViewController <UITextFieldDelegate, AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) UIManagedDocument *database;
+
 @end

@@ -19,6 +19,7 @@
 #import "ProgressBarPopUpViewController.h"
 #import "UIViewController+MJPopupViewController.h"
 #import "iOSVersion.h"
+#import "ElectorWebServices.h"
 
 
 #define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=systemwordset&from=%@&to=%@"
@@ -324,6 +325,8 @@
     [temporaryContext performBlock:^{
        wordsetWithTempContext = [Wordset selectWordsetWithWID:wordsetId managedObjectContext:temporaryContext];
     }];
+    
+    
  
     [self.xmlRoot.subElements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         // we enumerate through each words in current wordset and insert them or update it in Core Data Model
@@ -351,10 +354,12 @@
         [temporaryContext performBlock:^{
             // creating objects in our data model
             NSLog(@"Inserting Word to Core Data Thread: %@", [NSThread currentThread]);
-            Word *word = [Word wordWithWID: wid
+            Word *word = [Word
+                  wordWithWID: wid
                   foreignName: foreignWordElement.text
                    nativeName: nativeWordElement.text
                     imagePath: imagePathElement.text
+                loadImageData: YES
                     audioPath: audioPathElement.text
                 transcription: transcriptionElement.text
                foreignArticle: [foreignWordElement.attributes valueForKey:@"article"]
@@ -371,7 +376,7 @@
             // the auto-save will not have fired.  You must make this call to tell the document
             // that it can save recent changes.
             //[self. updateChangeCount:UIDocumentChangeDone];
-            
+            [ElectorWebServices downloadAudioFileAndStoreOnDisk: audioPathElement.text];
             [weakSelf.progressDelegate setProgress: progressInFloatPercent];
         }];
         

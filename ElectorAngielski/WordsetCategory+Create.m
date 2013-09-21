@@ -14,7 +14,7 @@
     
     WordsetCategory *wordsetCategory = nil;
     
-    /* checking whether this category is alreay saved in the database, if so we need only to update it else 
+    /* checking whether this category is already saved in the database, if so we need only to update it else 
      we need to create new input in database */
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"WordsetCategory"];
     request.predicate = [NSPredicate predicateWithFormat:@"cid = %@", cid, nil];
@@ -35,7 +35,7 @@
         wordsetCategory.foreignName = foreignName;
         wordsetCategory.nativeName = nativeName;
         
-    } else { /* categories mut have one element */ 
+    } else { /* categories must have one element */ 
         wordsetCategory = [categories lastObject];
         wordsetCategory.foreignName = foreignName;
         wordsetCategory.nativeName = nativeName; 

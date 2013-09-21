@@ -2,7 +2,7 @@
 //  Sentence.m
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 26/08/2013.
+//  Created by Michal Ziobro on 12/09/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 
@@ -12,10 +12,10 @@
 
 @implementation Sentence
 
-@dynamic sentenceId;
 @dynamic foreign;
 @dynamic native;
 @dynamic recording;
+@dynamic sentenceId;
 @dynamic forWord;
 
 @end

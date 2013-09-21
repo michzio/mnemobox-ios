@@ -9,6 +9,7 @@
 #import "Word.h"
 #import "Wordset.h"
 
+#define kIMAGE_SERVER @"http://mnemobox.com/uploads/images/"
 
 @interface Word (Create)
 
@@ -16,6 +17,7 @@
            foreignName: (NSString *) foreignWord
             nativeName: (NSString *) nativeWord
              imagePath: (NSString *) imagePath
+         loadImageData: (BOOL) loadImageDataSync
              audioPath: (NSString *) audioPath
          transcription: (NSString *) transcription
         foreignArticle: (NSString *) foreignArticle

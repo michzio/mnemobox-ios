@@ -14,14 +14,52 @@
 {
     //should be implemented method to set this setting via Preferences View in app
     //now for testing purposes we return YES or NO depending on scenario
-    return YES; 
+     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *flagAsNumber = [prefs objectForKey:@"prefereWordsViaWebServices"];
+    
+    return [flagAsNumber boolValue]; 
 }
 
 +  (BOOL) userWantsToMultiplayForgottenWords
 {
     //should be implemented method to set this setting via Preferences View in app
     //now for testing purposes we return YES or NO depending on screnario
-    return YES;
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *flagAsNumber = [prefs objectForKey:@"multiplayForgottenWords"];
+    
+    return [flagAsNumber boolValue];
 }
 
++ (BOOL) recordingsAreSavedOnPhone
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *flagAsNumber = [prefs objectForKey:@"saveRecordingsOnPhone"];
+    
+    return [flagAsNumber boolValue];
+}
+
++ (void) setPreferencesToUserWordsViaWebServices: (BOOL) flag {
+    NSLog(@"Setting Preferences to use words via web services: %d", flag);
+     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *flagAsNumber = [NSNumber numberWithBool:flag]; 
+    [prefs setObject: flagAsNumber forKey:@"prefereWordsViaWebServices"];
+    
+}
+
++ (void) setUserWantsToMultiplayForgottenWords: (BOOL) flag
+{
+    NSLog(@"Setting that user wants to multiplay forgotten words: %d", flag);
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *flagAsNumber = [NSNumber numberWithBool:flag];
+    [prefs setObject: flagAsNumber forKey:@"multiplayForgottenWords"];
+}
+
++ (void) setToSaveRecordingsOnPhone: (BOOL) flag
+{
+    NSLog(@"Setting to save recordings on user phone: %d", flag);
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *flagAsNumber = [NSNumber numberWithBool:flag];
+    [prefs setObject: flagAsNumber forKey:@"saveRecordingsOnPhone"];
+}
 @end

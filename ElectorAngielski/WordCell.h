@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *translationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *wordImage;
 @property (weak, nonatomic) IBOutlet UILabel *transcriptionLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

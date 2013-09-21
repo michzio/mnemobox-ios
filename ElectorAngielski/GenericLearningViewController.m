@@ -21,6 +21,9 @@
 #import "RememberMePopUpViewController.h"
 
 #define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=systemwordset&from=%@&to=%@"
+#define kFORGOTTEN_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=0&type=forgotten&from=%@&to=%@"
+#define kREMEMBERME_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=0&type=rememberme&from=%@&to=%@"
+#define kWORDS_IN_USERWORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=userwordset&from=%@&to=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
 #define kWORD_RECORDING_SERVICE_URL @"http://mnemobox.com/recordings/words/"
@@ -214,9 +217,22 @@
                                                          learningMode:self.learningMode
                                                           goodAnswers:goodAns
                                                            badAnswers:badAns];
-    [TracingHistoryAndStatistics traceWordsForgottenTwoAns: self.forgottenTwoAns
+    if(self.internetReachable.isReachable) {
+        [TracingHistoryAndStatistics traceWordsForgottenTwoAns: self.forgottenTwoAns
                                            forgottenOneAns: self.forgottenOneAns
                                                    goodAns: self.goodAns];
+    } else {
+        // otherwise there is no internet connection and we stored this forgotten words wordIds 
+        // as serialData string in userDefaults array
+
+        NSString *forgottenSerialData =  [TracingHistoryAndStatistics
+                                          stringWithForgottenWordIdsBasedOnForgottenTwoAns: self.forgottenTwoAns
+                                          forgottenOneAns: self.forgottenOneAns
+                                          goodAns: self.goodAns];
+        
+        [TracingHistoryAndStatistics saveForgottenSerialDataLocallyInUserDefaults: forgottenSerialData];
+        
+    }
 }
 
 - (void) loadCurrentWordObject
@@ -267,8 +283,29 @@
 - (void) getWordsInWordsetFromWebServices
 {
     NSString *wid = self.wordset.wid;
-    NSString *urlAsString = [NSString stringWithFormat: kWORDS_IN_WORDSET_SERVICE_URL,
+    NSString *urlAsString;
+    
+    if([wid isEqualToString:@"FORGOTTEN"]) {
+        urlAsString = [NSString stringWithFormat: kFORGOTTEN_WORDS_SERVICE_URL,
+                        kLANG_FROM, kLANG_TO, nil];
+    } else if([wid isEqualToString:@"REMEMBERME"]) {
+        urlAsString = [NSString stringWithFormat: kREMEMBERME_WORDS_SERVICE_URL,
+                       kLANG_FROM, kLANG_TO, nil];
+    } else if([wid hasPrefix:@"USERWORDSET"]) {
+        NSRange range = [wid rangeOfString:@"USERWORDSET_"];
+        NSString *idOfUserWordset;
+        if (range.location != NSNotFound)
+        {
+            //range.location is start of substring
+            //range.length is length of substring
+             idOfUserWordset= [wid substringFromIndex:range.location + range.length];
+        }
+        urlAsString = [NSString stringWithFormat: kWORDS_IN_USERWORDSET_SERVICE_URL,
+                       idOfUserWordset, kLANG_FROM, kLANG_TO, nil];
+    } else {
+        urlAsString = [NSString stringWithFormat: kWORDS_IN_WORDSET_SERVICE_URL,
                              wid, kLANG_FROM, kLANG_TO, nil];
+    }
     
     //we are checking user settings to verify whether user wants to multiply occurances of forgotten words
     if([UserSettings userWantsToMultiplayForgottenWords]) {
@@ -338,8 +375,8 @@
         XMLElement *transcriptionElement = [wordElement.subElements objectAtIndex:2];
         XMLElement *imagePathElement = [wordElement.subElements objectAtIndex: 3];
         XMLElement *audioPathElement = [wordElement.subElements objectAtIndex:4];
-        XMLElement *sentencesElement = [wordElement.subElements objectAtIndex:5];
-        XMLElement *postItElement = [wordElement.subElements objectAtIndex:6];
+        //XMLElement *sentencesElement = [wordElement.subElements objectAtIndex:5];
+        //XMLElement *postItElement = [wordElement.subElements objectAtIndex:6];
         
         NSLog(@"wid = %@, en= %@, pl = %@, img = %@, audio = %@",
               wid, foreignWordElement.text, nativeWordElement.text, imagePathElement.text,
@@ -605,23 +642,11 @@
         [self showRememberMePopUp];
         [self.rememberMePopUpViewController.popUpLabel setText: @"Dodano do przypomnienia"];
     } else {
-        // otherwise there is no internet connection and we stored this wordId in
-        // userDefaults array
-        NSLog(@"Saving current word to remember me locally in user defaults array"); 
         
-        NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
-        NSMutableSet *rememberMeWordIds = [[NSMutableSet alloc]
-                                             initWithArray: [userDefaults valueForKey:@"rememberMeWordIdsArray"]];
-        // add object uniquely
-        [rememberMeWordIds addObject: self.currentWord.wordId];
-    
-        [userDefaults setObject: [rememberMeWordIds allObjects] forKey:@"rememberMeWordIdsArray"];
+        [ElectorWebServices saveWordToRememberMeLocallyInUserDefaults: self.currentWord.wordId];
         
         [self showRememberMePopUp];
         [self.rememberMePopUpViewController.popUpLabel setText: @"Brak internetu. Zapisano lokalnie."];
-    
-    
-    NSLog(@"%@", [userDefaults valueForKey:@"rememberMeWordIdsArray"]);
     }
 }
 
@@ -774,7 +799,7 @@
 
 - (void) traverseXMLStartingFromRootToGetSentence
 {
-    __weak GenericLearningViewController *weakSelf = self;
+    //__weak GenericLearningViewController *weakSelf = self;
     
     NSMutableSet *sentences = [[NSMutableSet alloc] init];
     

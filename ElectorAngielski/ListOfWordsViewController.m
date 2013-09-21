@@ -120,6 +120,7 @@
                                    XMLParser *xmlParser = [[XMLParser alloc] initWithData:data];
                                    self.xmlRoot = [xmlParser parseAndGetRootElement];
                                    [weakSelf traverseXMLStartingFromRootElement];
+                                   [weakSelf.internetReachable stopNotifier]; 
                                } else if([data length] == 0 && error == nil) {
                                    NSLog(@"Nothing was downloaded.");
                                } else if(error != nil) {

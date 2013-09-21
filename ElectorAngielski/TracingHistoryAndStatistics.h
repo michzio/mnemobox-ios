@@ -21,5 +21,14 @@
 + (void) traceLearningHistoryForWordsetWithId: (NSString *) wordsetId learningMode: (NSString *) mode goodAnswers: (NSInteger) goodAns badAnswers: (NSInteger) badAns;
 
 + (void) traceWordsForgottenTwoAns: (NSArray *) forgottenTwoAns forgottenOneAns: (NSArray *) forgottenOneAns
-                           goodAns: (NSArray *) goodAns; 
+                           goodAns: (NSArray *) goodAns;
+
++ (NSString *) stringWithForgottenWordIdsBasedOnForgottenTwoAns: (NSArray *) forgottenTwoAns
+                                                forgottenOneAns: (NSArray *) forgottenOneAns
+                                                        goodAns: (NSArray *) goodAns;
+
++ (void) saveForgottenWordsToWebServerUsingSerialData: (NSString *) serialData;
++ (void) saveForgottenSerialDataLocallyInUserDefaults: (NSString *) forgottenSerialData;
++ (void) synchronizeForgottenWordsSavedInUserDefaults; 
+
 @end

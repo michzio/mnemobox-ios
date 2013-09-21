@@ -9,9 +9,11 @@
 #import "WordDetailsViewController.h"
 #import "Reachability.h"
 #import "SentenceCell.h"
-#import "Sentence.h"
+#import "Sentence+Create.h"
 #import "SentenceObject.h"
 #import "XMLParser.h"
+#import "UIImageView+AFNetworking.h"
+#import "Word+Create.h"
 
 
 #define kWORD_SERVICE_URL @"http://mnemobox.com/webservices/getTranslation.php?translation_id=%@&from=%@&to=%@"
@@ -55,6 +57,10 @@
         /* we have word object from Core Data we can now get sentences from Core Data! */
         self.sentences = [[word.sentences allObjects] mutableCopy];
         self.isWordPreloaded = YES;
+        if([self.sentences count] == 0) {
+            /* if there isn't sentences in Core Data we try to load it through internet from web services */
+            [self startSentencesLoadingFromWebServices];
+        }
         [self displayWordBasicInfo];
         [self.sentenceTableView reloadData]; 
         
@@ -74,40 +80,45 @@
         [self displayWordBasicInfo];
         /* we have wordObject with data from web services we must load sentences and other datas */ 
         
-        __weak WordDetailsViewController *weakSelf = self;
-        
-        self.internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"];
-        
-        // Internet is reachable
-        self.internetReachable.reachableBlock = ^(Reachability*reach)
-        {
-            // Update the UI on the main thread
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                NSLog(@"Yayyy, we have the interwebs!");
-                
-                [weakSelf getSentencesFromWebServices];
-                
-            });
-        };
-        
-        // Internet is not reachable
-        self.internetReachable.unreachableBlock = ^(Reachability*reach)
-        {
-            // Update the UI on the main thread
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"Someone broke the internet :(");
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet connection lost!" message:@"Could not synchronize word details with mnemobox.com." delegate:weakSelf cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
-                [alert show];
-                
-                
-            });
-        };
-        
-        [self.internetReachable startNotifier];
+        [self startSentencesLoadingFromWebServices]; 
     }
     
+}
+
+- (void) startSentencesLoadingFromWebServices
+{
+    __weak WordDetailsViewController *weakSelf = self;
+    
+    self.internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    // Internet is reachable
+    self.internetReachable.reachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSLog(@"Yayyy, we have the interwebs!");
+            
+            [weakSelf getSentencesFromWebServices];
+            
+        });
+    };
+    
+    // Internet is not reachable
+    self.internetReachable.unreachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Someone broke the internet :(");
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet connection lost!" message:@"Could not synchronize word details with mnemobox.com." delegate:weakSelf cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+            [alert show];
+            
+            
+        });
+    };
+    
+    [self.internetReachable startNotifier];
 }
 
 
@@ -118,8 +129,14 @@
     // so we synchrnize sentences only if we got WordObject, we have in WordObject *wordObject property
     // wordId for which we get list of accessible sentences
     
-    NSString *wid = self.wordObject.wordId;
-    NSString *urlAsString = [NSString stringWithFormat: kWORD_SERVICE_URL, wid, kLANG_FROM, kLANG_TO, nil]; 
+    NSString *wid = nil;
+    if(self.isWordPreloaded) {
+        wid = self.word.wordId;
+    } else { 
+       wid = self.wordObject.wordId;
+    }
+    
+    NSString *urlAsString = [NSString stringWithFormat: kWORD_SERVICE_URL, wid, kLANG_FROM, kLANG_TO, nil];
     
     NSLog(@"Word Detils URL: %@", urlAsString); 
     NSURL *url = [NSURL URLWithString: urlAsString];
@@ -168,14 +185,28 @@
         
         NSLog(@"Sentence sid: %@, %@ - retrieved from XML", sid, foreignSentenceElement.text); 
         
-        SentenceObject *sentence = [[SentenceObject alloc] initWithSID: sid
+        if(weakSelf.isWordPreloaded) {
+            //if word is preloaded into Core Data database we store this sentences
+            //into Core Data also!
+            Sentence *sentence = [Sentence sentenceWithSID:sid
+                                               foreignText:foreignSentenceElement.text
+                                                nativeText:nativeSentenceElement.text
+                                                 recording:sentenceRecording
+                                                    inWord:weakSelf.word manageObjectContext:weakSelf.word.managedObjectContext];
+            [weakSelf.sentences addObject: sentence];
+        } else {
+            
+            SentenceObject *sentence = [[SentenceObject alloc] initWithSID: sid
                                                        foreignSentence: foreignSentenceElement.text
                                                         nativeSentence: nativeSentenceElement.text
                                                              recording: sentenceRecording];
+            [weakSelf.sentences addObject: sentence];
+        }
+        
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [weakSelf.sentences addObject: sentence];
             [weakSelf.sentenceTableView reloadData];
             
         });
@@ -197,8 +228,8 @@
         self.nativeLabel.text = [NSString stringWithFormat: @"%@ %@", self.word.nativeArticle,
                                                                       self.word.native, nil];
        self.transcriptionLabel.text = self.word.transcription;
-       self.wordImageView.image =
-       [UIImage imageWithData:self.word.image];
+
+       [self.wordImageView setImage:[UIImage imageWithData:self.word.image]];
        
     } else {
       /* we use preloaded WordObject to set labels */
@@ -208,7 +239,12 @@
         self.nativeLabel.text = [NSString stringWithFormat: @"%@ %@",
                                  self.wordObject.nativeArticle, self.wordObject.native, nil];
         self.transcriptionLabel.text = self.wordObject.transcription;
-        self.wordImageView.image =  self.wordObject.image;
+        if(self.wordObject.imageLoaded) { 
+            self.wordImageView.image =  self.wordObject.image;
+        } else {
+            NSString *imageFullURL = [NSString stringWithFormat:@"%@%@",kIMAGE_SERVER, self.wordObject.imagePath, nil];
+            [self.wordImageView setImageWithURL:[NSURL URLWithString:imageFullURL]]; 
+        }
     }
     
     

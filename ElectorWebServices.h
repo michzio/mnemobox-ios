@@ -12,5 +12,8 @@
 @interface ElectorWebServices : NSObject
 
 + (void) saveWordToRememberMe: (NSString *) wordId;
-+ (void) shareWordOnUserProfileWall: (WordObject *) word; 
++ (void) shareWordOnUserProfileWall: (WordObject *) word;
++ (void) saveWordToRememberMeLocallyInUserDefaults:(NSString *)wordId;
++ (void) synchronizeRememberMeWordsSavedInUserDefaults;
++ (void) downloadAudioFileAndStoreOnDisk: (NSString *) audioPath;
 @end

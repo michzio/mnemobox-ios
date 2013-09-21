@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12C3103" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DictionaryWord" representedClassName="DictionaryWord" syncable="YES">
+        <attribute name="foreign" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="native" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recording" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transcription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wordId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Sentence" representedClassName="Sentence" syncable="YES">
         <attribute name="foreign" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="native" optional="YES" attributeType="String" syncable="YES"/>
@@ -7,10 +15,33 @@
         <attribute name="sentenceId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="forWord" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Word" inverseName="sentences" inverseEntity="Word" syncable="YES"/>
     </entity>
+    <entity name="Solution" representedClassName="Solution" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="solutionId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teaser" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="forTask" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="solutions" inverseEntity="Task" syncable="YES"/>
+    </entity>
+    <entity name="Task" representedClassName="Task" syncable="YES">
+        <attribute name="categoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="creatorFirstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creatorId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creatorImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creatorLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isUserTask" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="solutionCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="taskText" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="solutions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Solution" inverseName="forTask" inverseEntity="Solution" syncable="YES"/>
+    </entity>
     <entity name="Word" representedClassName="Word" syncable="YES">
         <attribute name="foreign" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="foreignArticle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="native" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nativeArticle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recording" optional="YES" attributeType="String" syncable="YES"/>
@@ -22,6 +53,7 @@
     <entity name="Wordset" representedClassName="Wordset" syncable="YES">
         <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="foreignName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isAudioStoredLocally" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nativeName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wid" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,9 +67,12 @@
         <relationship name="wordsets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wordset" inverseName="category" inverseEntity="Wordset" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Word" positionX="-261" positionY="261" width="128" height="193"/>
-        <element name="Wordset" positionX="9" positionY="111" width="128" height="150"/>
-        <element name="WordsetCategory" positionX="-290" positionY="90" width="128" height="103"/>
+        <element name="DictionaryWord" positionX="160" positionY="117" width="128" height="135"/>
         <element name="Sentence" positionX="18" positionY="381" width="128" height="118"/>
+        <element name="Solution" positionX="324" positionY="150" width="128" height="133"/>
+        <element name="Task" positionX="178" positionY="306" width="128" height="223"/>
+        <element name="Word" positionX="-261" positionY="261" width="128" height="210"/>
+        <element name="Wordset" positionX="9" positionY="111" width="128" height="163"/>
+        <element name="WordsetCategory" positionX="-290" positionY="90" width="128" height="103"/>
     </elements>
 </model>

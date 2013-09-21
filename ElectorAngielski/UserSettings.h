@@ -11,5 +11,9 @@
 @interface UserSettings : NSObject
 
 + (BOOL) prefereToUseWordsViaWebServices;
-+  (BOOL) userWantsToMultiplayForgottenWords;
++ (BOOL) userWantsToMultiplayForgottenWords;
++ (BOOL) recordingsAreSavedOnPhone; 
++ (void) setPreferencesToUserWordsViaWebServices: (BOOL) flag;
++ (void) setUserWantsToMultiplayForgottenWords: (BOOL) flag;
++ (void) setToSaveRecordingsOnPhone: (BOOL) flag; 
 @end

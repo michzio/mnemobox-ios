@@ -135,10 +135,9 @@
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Someone broke the internet :(");
-           /*
+           
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet connection lost!" message:@"Check whether you have internet access." delegate:weakSelf cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
             [alert show];
-            */
             
         });
     };
@@ -309,6 +308,7 @@
             
         }];
     }];
+    
 
 }
 

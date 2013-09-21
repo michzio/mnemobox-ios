@@ -14,6 +14,7 @@
            foreignName: (NSString *) foreignWord
             nativeName: (NSString *) nativeWord
              imagePath: (NSString *) imagePath
+         loadImageData: (BOOL) loadImageDataSync
              audioPath: (NSString *) audioPath
          transcription: (NSString *) transcription
         foreignArticle: (NSString *) foreignArticle
@@ -23,7 +24,7 @@ managedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
  
     Word *word = nil;
-    /* checking whether this word is already saved in the database, if so we need only to update it else we need to creat new input in database */
+    /* checking whether this word is already saved in the database, if so we need only to update it else we need to create new input in database */
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Word"];
     request.predicate = [NSPredicate predicateWithFormat:@"wordId = %@", wid, nil];
     NSSortDescriptor *sortDesc = [NSSortDescriptor sortDescriptorWithKey:@"foreign" ascending:YES];
@@ -33,7 +34,7 @@ managedObjectContext:(NSManagedObjectContext *)managedObjectContext
     NSArray *words = [managedObjectContext executeFetchRequest:request error:&fetchError];
     
     if(!words || [words count] > 1) {
-        NSLog(@"Error while checking for existance of word for given Word Id in Core Data");
+        NSLog(@"Error while checking for existance of word for given Word Id in Core Data.");
     } else if([words count] == 0) {
         NSLog(@"Creating new object in database");
         word = [NSEntityDescription insertNewObjectForEntityForName: @"Word"
@@ -41,7 +42,10 @@ managedObjectContext:(NSManagedObjectContext *)managedObjectContext
         word.wordId = wid;
         word.foreign = foreignWord;
         word.native = nativeWord;
-        word.image = [self imageDataWithImagePath: (NSString *) imagePath];
+        word.imagePath = imagePath; 
+        if(loadImageDataSync) { 
+            word.image = [self imageDataWithImagePath: (NSString *) imagePath];
+        }
         word.recording = audioPath;
         word.transcription = transcription;
         word.foreignArticle = foreignArticle;
@@ -55,7 +59,10 @@ managedObjectContext:(NSManagedObjectContext *)managedObjectContext
         NSLog(@"Updating existing object = %@ in database", word.foreign);
         word.foreign = foreignWord;
         word.native = nativeWord;
-        word.image = [self imageDataWithImagePath: (NSString *) imagePath];
+        word.imagePath = imagePath; 
+        if(loadImageDataSync) { 
+            word.image = [self imageDataWithImagePath: (NSString *) imagePath];
+        }
         word.recording = audioPath;
         word.transcription = transcription;
         word.foreignArticle = foreignArticle;
@@ -67,8 +74,6 @@ managedObjectContext:(NSManagedObjectContext *)managedObjectContext
     }
     return word;
 }
-
-#define kIMAGE_SERVER @"http://mnemobox.com/uploads/images/"
 
 + (NSData *) imageDataWithImagePath: (NSString *) imagePath
 {

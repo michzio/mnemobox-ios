@@ -78,6 +78,19 @@
                    forgottenOneAns: (NSArray *) forgottenOneAns
                            goodAns: (NSArray *) goodAns
 {
+    
+    NSString *serialData = [self stringWithForgottenWordIdsBasedOnForgottenTwoAns: forgottenTwoAns
+                                                                  forgottenOneAns:forgottenOneAns
+                                                                          goodAns:goodAns];
+    
+        
+    [self saveForgottenWordsToWebServerUsingSerialData:serialData]; 
+}
+
++ (NSString *) stringWithForgottenWordIdsBasedOnForgottenTwoAns: (NSArray *) forgottenTwoAns
+                                                forgottenOneAns: (NSArray *) forgottenOneAns
+                                                        goodAns: (NSArray *) goodAns
+{
     NSString *serialData = [[NSString alloc] init];
     
     for(NSString *wid in goodAns) {
@@ -89,9 +102,14 @@
     for(NSString *wid in forgottenTwoAns) {
         serialData = [serialData stringByAppendingFormat:@"%@,2;", wid, nil];
     }
-    
+
+    return serialData;
+}
+
++ (void) saveForgottenWordsToWebServerUsingSerialData: (NSString *) serialData
+{
     NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
-    NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults]; 
+    NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
     
     NSString *urlAsString = [NSString stringWithFormat:kTRACE_FORGOTTEN_WORDS_SERVICE_URL,
                              emailAddress, sha1Password, kLANG_FROM, kLANG_TO, serialData, nil];
@@ -104,14 +122,14 @@
     [urlRequest setTimeoutInterval:30.0f];
     [urlRequest setHTTPMethod:@"GET"];
     
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init]; 
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
     [NSURLConnection sendAsynchronousRequest: urlRequest
                                        queue:queue
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
-            //request should return 1 if successfully saved forgotten on the server
-                            if([data length] > 0 && error == nil) {
+                               
+                               //request should return 1 if successfully saved forgotten on the server
+                               if([data length] > 0 && error == nil) {
                                    NSString *strResponse = [[NSString alloc] initWithData:data
                                                                                  encoding:NSUTF8StringEncoding];
                                    if( [strResponse isEqualToString:@"1"]) {
@@ -124,10 +142,41 @@
                                } else if(error != nil) {
                                    NSLog(@"Error happened = %@", error);
                                }
-                   
+                               
+                           }];
+}
+
+
++ (void) saveForgottenSerialDataLocallyInUserDefaults: (NSString *) forgottenSerialData
+{
+    NSLog(@"Saving forgotten words ids list: %@ locally in user defaults array.", forgottenSerialData);
+    
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
+    NSMutableSet *forgottenSerialDatas = [[NSMutableSet alloc]
+                                          initWithArray: [userDefaults valueForKey:@"forgottenSerialDatasArray"]];
+    // add object uniquely
+    [forgottenSerialDatas addObject: forgottenSerialData];
+    
+    [userDefaults setObject: [forgottenSerialDatas allObjects] forKey:@"forgottenSerialDatasArray"];
+}
+
++ (void) synchronizeForgottenWordsSavedInUserDefaults
+{
+    NSLog(@"Synchronizing Forgotten Words Stored in User Defaults with Web Server.");
+    
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
+    NSArray *forgottenSerialDatas = [userDefaults valueForKey:@"forgottenSerialDatasArray"];
+    
+    [forgottenSerialDatas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+       
+        NSString *forgottenSerialData = (NSString *) obj;
+        
+        [self saveForgottenWordsToWebServerUsingSerialData: forgottenSerialData];
+        
     }];
     
-    
+    //we are emptying array stored in user defaults
+    [userDefaults setObject: [[NSArray alloc] init] forKey:@"forgottenSerialDatasArray"];
 }
 
 @end
