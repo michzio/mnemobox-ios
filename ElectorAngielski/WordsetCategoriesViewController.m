@@ -10,6 +10,7 @@
 #import "WordsetCategory+Create.h"
 #import "WordsetsTableViewController.h"
 #import "iOSVersion.h"
+#import "MyManagedDocument.h"
 
 #define kWORDSET_CATEGORIES_SERVICE_URL @"http://www.mnemobox.com/webservices/getCategories.php?from=pl&to=en"
 
@@ -78,7 +79,7 @@
 {
     if( _wordsetsDatabase != wordsetsDatabase) {
         _wordsetsDatabase = wordsetsDatabase;
-        self.title = @"Categories"; 
+        self.title = @"Categories";
         [self useDocument];
     }
     
@@ -87,15 +88,58 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+    tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [tempImageView setFrame:self.tableView.frame];
+    self.tableView.backgroundView = tempImageView;
+    [self adjustToScreenOrientation];
     
     /* if my wordsetsDatabase is nil we will create it */
     if(!self.wordsetsDatabase) {
         NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory: NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         url = [url URLByAppendingPathComponent: @"Wordset Database"];
-        self.wordsetsDatabase = [[UIManagedDocument alloc] initWithFileURL:url];
+        self.wordsetsDatabase = [[MyManagedDocument alloc] initWithFileURL:url];
         
     }
 }
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"london.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+
+    }
+}
+
 
 - (void)viewDidLoad
 {
@@ -108,8 +152,9 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
-    
 }
+
+
 
 - (void) fetchCategoriesFromWebServicesIntoDocument: (UIManagedDocument *) document
 {
@@ -308,8 +353,9 @@
             
         }];
     }];
-    
-
+   
+   [self.wordsetsDatabase saveToURL: self.wordsetsDatabase.fileURL forSaveOperation: UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
+   }];
 }
 
 

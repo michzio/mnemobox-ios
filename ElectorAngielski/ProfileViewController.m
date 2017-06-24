@@ -10,7 +10,7 @@
 #import "Reachability.h"
 #import "UIImageView+AFNetworking.h"
 
-@interface ProfileViewController ()
+@interface ProfileViewController () 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *menuView;
@@ -18,8 +18,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 
-@property (strong, nonatomic) Reachability *internetReachable;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
+
+@property (strong, nonatomic) Reachability *internetReachable;
 
 @end
 
@@ -31,6 +33,34 @@
     NSLog(@"About Button Touched."); 
 }
 
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+     
+- (void) adjustToScreenOrientation
+     {
+         UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+         if (UIDeviceOrientationIsLandscape(deviceOrientation))
+         {
+             [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+             
+         }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                     deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+         {
+              [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+         }
+}
 
 - (void) viewDidLoad
 {
@@ -39,6 +69,7 @@
     [self.scrollView setContentSize: self.menuView.frame.size];
     self.internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"];
     [self loadProfileInformation];
+    [self adjustToScreenOrientation];
 }
 
 - (void) loadProfileInformation
@@ -65,13 +96,17 @@
 {
     if([ProfileServices firstNameFromUserDefaults] && [ProfileServices lastNameFromUserDefaults])
     {
+        dispatch_async(dispatch_get_main_queue(), ^{
         [self.nameLabel setText: [NSString stringWithFormat:@"%@ %@", [ProfileServices firstNameFromUserDefaults], [ProfileServices lastNameFromUserDefaults], nil]];
+        });
     }
     
     if([ProfileServices userImageFromUserDefaults]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
         NSString *imageURLAsString = [NSString stringWithFormat:kUSER_AVATAR_SERVICE_URL,
                                       [ProfileServices userImageFromUserDefaults], nil];
         [self.userImageView setImageWithURL:[NSURL URLWithString:imageURLAsString] placeholderImage:[UIImage imageNamed:@"blank.png"]];
+        });
     }
 }
 
@@ -82,6 +117,7 @@
     [self setNameLabel:nil];
     [self setEmailLabel:nil];
     [self setUserImageView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

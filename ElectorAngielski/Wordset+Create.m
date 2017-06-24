@@ -38,6 +38,7 @@
         wordset.nativeName = nativeName;
         wordset.about = description;
         wordset.level = level;
+        wordset.isAudioStoredLocally = [NSNumber numberWithBool:NO];
         wordset.category = wordsetCategory;
         
     } else { /* categories mut have one element */

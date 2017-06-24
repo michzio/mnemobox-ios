@@ -10,10 +10,13 @@
 #import "Wordset+Create.h"
 #import "WordsetViewController.h"
 #import "iOSVersion.h"
+#import "ProfileServices.h"
 
 #define kWORDSETS_LIST_SERVICE_URL @"http://www.mnemobox.com/webservices/getWordsetsList.php?cid=%@&from=%@&to=%@"
 #define kFROM_LANG @"pl"
 #define kTO_LANG @"en"
+//emailAddress, sha1Password, langFrom, langTo
+#define kUSERWORDSETS_LIST_SERVICE_URL @"http://www.mnemobox.com/webservices/userWordsets.xml.php?email=%@&pass=%@&from=%@&to=%@"
 
 @interface WordsetsTableViewController ()
 
@@ -45,7 +48,12 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+    tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [tempImageView setFrame:self.tableView.frame];
+    self.tableView.backgroundView = tempImageView;
     
+    [self adjustToScreenOrientation];
     /* if my wordsetsDatabase is nil we will create it */
     if(!self.wordsetsDatabase) {
         NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory: NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
@@ -54,6 +62,43 @@
         
     }
 }
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"london.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+        
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+        
+    }
+}
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -230,7 +275,7 @@
     } else if([level isEqualToString: @"C2"]) {
         cellImageView.image = [UIImage imageNamed:@"level_c2.png"];
     } else {
-        cellImageView.image = [UIImage imageNamed:@"level_a1.png"];
+        cellImageView.image = [UIImage imageNamed:@"user_wordset.jpeg"];
     }
     
 }
@@ -289,7 +334,21 @@
 
 - (void) getWordsetsInCategoryFromWebServices
 {
-    NSString *urlAsString = [NSString stringWithFormat: kWORDSETS_LIST_SERVICE_URL, self.wordsetCategory.cid, kFROM_LANG, kTO_LANG];
+    NSString *urlAsString = nil;
+    
+    if([self.wordsetCategory.cid isEqualToString:@"USER"]) {
+       
+        NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
+        NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
+        
+        urlAsString = [NSString stringWithFormat: kUSERWORDSETS_LIST_SERVICE_URL, emailAddress, sha1Password, kFROM_LANG, kTO_LANG];
+        
+    } else {
+        
+        urlAsString = [NSString stringWithFormat: kWORDSETS_LIST_SERVICE_URL, self.wordsetCategory.cid, kFROM_LANG, kTO_LANG];
+        
+    }
+     
     NSURL *url = [NSURL URLWithString:urlAsString];
     
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL: url];
@@ -321,6 +380,32 @@
 
 - (void) traverseXMLStartingFromRootElement {
     
+if([self.wordsetCategory.cid isEqualToString:@"USER"]) {
+    [self.xmlRoot.subElements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        XMLElement *userwordsetElement = (XMLElement *) obj;
+        NSString *uwid = [userwordsetElement.attributes valueForKey:@"uwid"];
+        NSString *wordsetTitle = [[userwordsetElement.subElements objectAtIndex: 0] text];
+        NSArray *titleComponents = [wordsetTitle componentsSeparatedByString:@" - "];
+        NSString *foreignName = [titleComponents objectAtIndex:0];
+        NSString *nativeName = [titleComponents objectAtIndex:1]; 
+        NSString *description = [[userwordsetElement.subElements objectAtIndex: 1] text];
+        
+        NSLog(@"UWID = %@, EN = %@, PL = %@, LVL = %@", uwid, foreignName, nativeName, @"-");
+        
+        /* we use this because managedObjectContext is not thread-safe, must be on the thread on which it was created */
+        [self.wordsetsDatabase.managedObjectContext performBlock: ^(void) {
+            /* creating objects in our data model */
+            [Wordset wordsetWithWID: [NSString stringWithFormat:@"USERWORDSET_%@", uwid, nil]
+                        foreignName: foreignName
+                         nativeName: nativeName
+                              level: nil
+                        description: description
+                        forCategory: self.wordsetCategory
+             inManagedObjectContext: self.wordsetCategory.managedObjectContext];
+            
+        }];
+    }];
+} else {
     [self.xmlRoot.subElements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         XMLElement *wordsetElement = (XMLElement *) obj;
         NSString *wid = [wordsetElement.attributes valueForKey:@"wid"];
@@ -343,6 +428,8 @@
             
         }];
     }];
+
+}
     
 }
 

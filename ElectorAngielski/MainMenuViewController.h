@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainMenuViewController : UIViewController
+@protocol MainMenuDelegate;
+
+@interface MainMenuViewController : UIViewController <MainMenuDelegate>
+
+@property (weak, nonatomic) id <MainMenuDelegate> delegate;
+@end
+
+@protocol MainMenuDelegate <NSObject>
+
+- (void) segueWithIdentifier: (NSString *) identifier;
 
 @end

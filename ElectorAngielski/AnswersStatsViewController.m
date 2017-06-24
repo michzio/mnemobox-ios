@@ -81,6 +81,7 @@ CGFloat const CPDBarInitialX = 0.25f;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet connection lost!" message: @"Could not load statistics due to internet connection problems." delegate: self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             [alert show]; 
         }
+        [self adjustToSreenOrientation];
 
 }
 
@@ -564,28 +565,32 @@ CGFloat const CPDBarInitialX = 0.25f;
 
 - (void)orientationChanged:(NSNotification *)notification
 {
+    [self adjustToSreenOrientation];
+}
+
+- (void) adjustToSreenOrientation {
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
     if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
         !isShowingLandscapeView)
     {
         if(self.view.tag == 99) {
-          ///do just nothing
-        } else { 
+            ///do just nothing
+        } else {
             [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
             isShowingLandscapeView = YES;
         }
     }
     
-        else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
-                 isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+             isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
     {
         [self dismissViewControllerAnimated:YES completion:nil];
         isShowingLandscapeView = NO;
         
         
     }
-}
 
+}
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"Landscape View Segue"])

@@ -21,6 +21,7 @@
 @interface RememberMeWordsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *remembermeWordsTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -38,12 +39,61 @@
 - (void) viewWillAppear: (BOOL) animated
 {
     [super viewWillAppear:animated];
+    [self adjustToScreenOrientation];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
     
     NSLog(@"Setting up TableView and FetchResultsController.");
     self.tableView = self.remembermeWordsTableView;
     //if Wordset with id: Forgotten hasn't been created yet we should creat such Wordset and we will put into it new forgotten words...
     self.title = @"Remember Me";
 }
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self adjustToScreenOrientation];
+    
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        CGFloat xOffset = 80;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset += 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+        CGFloat xOffset = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset = 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+    }
+}
+
+
 
 - (NSURL *) getWebServicesURL
 {
@@ -96,6 +146,7 @@
 
 - (void)viewDidUnload {
     [self setRemembermeWordsTableView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

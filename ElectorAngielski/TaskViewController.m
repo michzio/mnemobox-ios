@@ -34,6 +34,8 @@
 @property (strong, nonatomic) XMLElement *xmlRoot;
 @property (strong, nonatomic) Reachability *internetReachable;
 @property (strong, nonatomic) Solution *selectedSolutionObject;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+
 
 @end
 
@@ -49,6 +51,46 @@
         _task = task;
     }
 }
+
+
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
+}
+
+
+
 
 - (void) displayTask
 {
@@ -288,6 +330,7 @@
     [self setCreatedDateLabel:nil];
     [self setActivityIndicator:nil];
     [self setLoadingLabel:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 

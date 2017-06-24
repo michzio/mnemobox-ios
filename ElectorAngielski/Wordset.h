@@ -2,7 +2,7 @@
 //  Wordset.h
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 12/09/2013.
+//  Created by Michal Ziobro on 21/09/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * level;
 @property (nonatomic, retain) NSString * nativeName;
 @property (nonatomic, retain) NSString * wid;
+@property (nonatomic, retain) NSNumber * isAudioStoredLocally;
 @property (nonatomic, retain) WordsetCategory *category;
 @property (nonatomic, retain) NSSet *words;
 @end

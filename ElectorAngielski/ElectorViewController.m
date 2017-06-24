@@ -30,6 +30,10 @@
                                                                         green:0.0
                                                                          blue:38.0/255
                                                                         alpha:0.7];
+    if(![[ProfileServices emailAddressFromUserDefaults] isEqualToString:@""] && ![[ProfileServices sha1PasswordFromUserDefaults] isEqualToString:@""] ) {
+        NSLog(@"Email: %@, Pass: %@",[ProfileServices emailAddressFromUserDefaults], [ProfileServices sha1PasswordFromUserDefaults]  );
+        [self performSegueWithIdentifier: @"Sign In Segue" sender:self];
+    }
     
     
 }

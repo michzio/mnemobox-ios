@@ -2,7 +2,7 @@
 //  Wordset.m
 //  ElectorAngielski
 //
-//  Created by Michal Ziobro on 12/09/2013.
+//  Created by Michal Ziobro on 21/09/2013.
 //  Copyright (c) 2013 Michal Ziobro. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @dynamic level;
 @dynamic nativeName;
 @dynamic wid;
+@dynamic isAudioStoredLocally;
 @dynamic category;
 @dynamic words;
 

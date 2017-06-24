@@ -29,18 +29,21 @@
     if(!categories || [categories count] > 1) { /* we suppose categories to be unique -> cid identifier */
         NSLog(@"Error while checking for existance of category for given CID in database."); 
     } else if ([categories count] == 0) {
+        NSLog(@"Creating new Wordset Category object."); 
         wordsetCategory = [NSEntityDescription insertNewObjectForEntityForName:@"WordsetCategory"
                                                         inManagedObjectContext: context];
         wordsetCategory.cid = cid;
         wordsetCategory.foreignName = foreignName;
         wordsetCategory.nativeName = nativeName;
-        
-    } else { /* categories must have one element */ 
+       
+    } else { /* categories must have one element */
+        NSLog(@"Updating existing Wordset Category object."); 
         wordsetCategory = [categories lastObject];
         wordsetCategory.foreignName = foreignName;
         wordsetCategory.nativeName = nativeName; 
+    
     }
-
+    
     return wordsetCategory;
 }
 

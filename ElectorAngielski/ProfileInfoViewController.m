@@ -10,7 +10,9 @@
 #import "Reachability.h"
 #import "UIImageView+AFNetworking.h"
 
-@interface ProfileInfoViewController ()
+@interface ProfileInfoViewController () {
+    BOOL isShowingLandscapeView;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
@@ -37,6 +39,48 @@
 	// Do any additional setup after loading the view.
     self.internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"]; 
     [self loadProfileInformation];
+    [self adjustToSreenOrientation];
+}
+
+
+- (void)awakeFromNib
+{
+    
+    isShowingLandscapeView = NO;
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToSreenOrientation];
+}
+
+- (void) adjustToSreenOrientation {
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
+        !isShowingLandscapeView)
+    {
+        if(self.view.tag == 99) {
+            ///do just nothing
+        } else {
+            [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+            isShowingLandscapeView = YES;
+        }
+    }
+    
+    else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+             isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        isShowingLandscapeView = NO;
+        
+        
+    }
+    
 }
 
 - (void) loadProfileInformation

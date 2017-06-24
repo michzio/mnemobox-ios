@@ -223,10 +223,10 @@
       /* we use preloaded Word object to set labels */
         NSLog(@"Displaying word basic info for word with wid: %@", self.word.wordId);
         
-       self.foreignLabel.text = [NSString stringWithFormat: @"%@ %@", self.word.foreignArticle,
-                                                            self.word.foreign, nil];
-        self.nativeLabel.text = [NSString stringWithFormat: @"%@ %@", self.word.nativeArticle,
-                                                                      self.word.native, nil];
+       self.foreignLabel.text = [[NSString stringWithFormat: @"%@ %@", self.word.foreignArticle,
+                                                            self.word.foreign, nil] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+        self.nativeLabel.text = [[NSString stringWithFormat: @"%@ %@", self.word.nativeArticle,
+                                                                      self.word.native, nil] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
        self.transcriptionLabel.text = self.word.transcription;
 
        [self.wordImageView setImage:[UIImage imageWithData:self.word.image]];

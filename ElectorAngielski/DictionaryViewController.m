@@ -58,6 +58,7 @@
 @property (strong, nonatomic) NSString *languageFilter; 
 
 @property (strong, nonatomic) NSIndexPath *accessoryButtonSelectedIndexPath;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -223,6 +224,44 @@
     }
 }
 
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
+}
+
+
+
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -299,6 +338,8 @@
                             transcription:wordObject.transcription
                      managedObjectContext:self.database.managedObjectContext];
         NSLog(@"Saved Word into Dictionary Word with id: %@", dictWord.wordId);
+        [self.database saveToURL: self.database.fileURL forSaveOperation: UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
+        }];
     } else {
         NSLog(@"Couldn't select any row at table view, there are any word loaded.");
     }
@@ -751,6 +792,7 @@
     [self setSuggestionsTableView:nil];
     [self setWordsTableView:nil];
     [self setSuggestionActivityIndicator:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

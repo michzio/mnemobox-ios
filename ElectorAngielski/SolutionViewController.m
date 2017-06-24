@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *solutionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creationDate;
 
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+
 @end
 
 @implementation SolutionViewController
@@ -33,6 +35,44 @@
         _solution = solution;
     }
 }
+
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
+}
+
+
 
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -90,6 +130,7 @@
     [self setSolutionAuthorLabel:nil];
     [self setSolutionLabel:nil];
     [self setCreationDate:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tasksTableView;
 @property (nonatomic, strong) UIManagedDocument *database;
 @property (nonatomic, strong) Reachability *internetReachable;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @property (nonatomic, strong) XMLElement *xmlRoot;
 @property (nonatomic, strong) Task *currentTask;
@@ -47,7 +48,38 @@
 {
     [super viewDidLoad];
      [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self adjustToScreenOrientation];
 }
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
+}
+
 
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -215,10 +247,14 @@
         }];
         
     }];
+    
+    [self.database saveToURL: self.database.fileURL forSaveOperation: UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
+    }];
 }
 
 - (void)viewDidUnload {
     [self setTasksTableView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 

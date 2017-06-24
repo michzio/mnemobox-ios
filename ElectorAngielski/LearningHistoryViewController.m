@@ -26,6 +26,7 @@
 @property (strong, nonatomic) Reachability *internetReachable;
 @property (strong, nonatomic) XMLElement *xmlRoot;
 
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -42,6 +43,35 @@
     //we need to remotely load Learning History from web services
     //and display it into table view HistoryCells
     [self loadLearningHistoryFromWebServices];
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation)  && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
 }
 
 - (void) loadLearningHistoryFromWebServices
@@ -142,7 +172,9 @@
     }];
     
     self.learningHistoryArray = historyObjects;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+    });
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -177,6 +209,7 @@
 
 - (void)viewDidUnload {
     [self setTableView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

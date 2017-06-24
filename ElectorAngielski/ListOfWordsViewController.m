@@ -13,12 +13,19 @@
 #import "XMLParser.h"
 #import "Reachability.h"
 #import "WordDetailsViewController.h"
+#import "ProfileServices.h"
 
 
-
-#define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=systemwordset&from=%@&to=%@"
+//params: wordsetId, type, langFrom, langTo
+#define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=%@&from=%@&to=%@"
+//params: emailAddress, sha1Password, langFrom, langTo
+#define kFORGOTTEN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?type=forgotten&email=%@&pass=%@&wordset=0&from=%@&to=%@"
+//params: emailAddress, sha1Password, langFrom, langTo
+#define kREMEMBERME_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?type=rememberme&email=%@&pass=%@&wordset=0&from=%@&to=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
+#define kTYPE_SYSTEMWORDSET @"systemwordset"
+#define kTYPE_USERWORDSET @"userwordset"
 #define kWORD_RECORDING_SERVICE_URL @"http://mnemobox.com/recordings/words/"
 
 @interface ListOfWordsViewController ()
@@ -100,8 +107,35 @@
 - (void) getWordsInWordsetFromWebServices
 {
     NSString *wid = self.wordset.wid;
-    NSString *urlAsString = [NSString stringWithFormat: kWORDS_IN_WORDSET_SERVICE_URL,
-                             wid, kLANG_FROM, kLANG_TO, nil];
+   
+    NSString *urlAsString = nil;
+    
+    if([self.wordset.wid isEqualToString:@"FORGOTTEN"]) {
+        NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
+        NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
+        urlAsString = [NSString stringWithFormat:kFORGOTTEN_WORDSET_SERVICE_URL, emailAddress, sha1Password, kLANG_FROM, kLANG_TO, nil];
+    } else if([self.wordset.wid isEqualToString:@"REMEMBERME"]) {
+        NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
+        NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
+        urlAsString = [NSString stringWithFormat:kREMEMBERME_WORDSET_SERVICE_URL, emailAddress, sha1Password, kLANG_FROM, kLANG_TO, nil];
+        
+    } else if([self.wordset.wid hasPrefix:@"USERWORDSET"]) {
+        NSRange range = [wid rangeOfString:@"USERWORDSET_"];
+        NSString *idOfUserWordset;
+        if (range.location != NSNotFound)
+        {
+            //range.location is start of substring
+            //range.length is length of substring
+            idOfUserWordset= [wid substringFromIndex:range.location + range.length];
+        }
+        NSLog(@"User wordset id: %@", idOfUserWordset);
+        urlAsString = [NSString stringWithFormat:kWORDS_IN_WORDSET_SERVICE_URL, idOfUserWordset, kTYPE_USERWORDSET, kLANG_FROM, kLANG_TO, nil];
+    } else {
+        //default wordset with wid as wordset identifier
+        urlAsString = [NSString stringWithFormat: kWORDS_IN_WORDSET_SERVICE_URL,
+                       wid, kTYPE_SYSTEMWORDSET, kLANG_FROM, kLANG_TO, nil];
+    }
+    
     NSLog(@"Words in Wordset URL: %@", urlAsString);
     NSURL *url = [NSURL URLWithString: urlAsString];
     
@@ -203,6 +237,53 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+    tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [tempImageView setFrame:self.tableView.frame];
+    self.tableView.backgroundView = tempImageView;
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"london.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+        
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -20,11 +20,19 @@
 #import "UIViewController+MJPopupViewController.h"
 #import "iOSVersion.h"
 #import "ElectorWebServices.h"
+#import "UserSettings.h"
+#import "ProfileServices.h"
 
-
-#define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=systemwordset&from=%@&to=%@"
+//params: wordsetId, type, langFrom, langTo
+#define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=%@&from=%@&to=%@"
+//params: emailAddress, sha1Password, langFrom, langTo
+#define kFORGOTTEN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?type=forgotten&email=%@&pass=%@&wordset=0&from=%@&to=%@"
+//params: emailAddress, sha1Password, langFrom, langTo
+#define kREMEMBERME_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?type=rememberme&email=%@&pass=%@&wordset=0&from=%@&to=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
+#define kTYPE_SYSTEMWORDSET @"systemwordset"
+#define kTYPE_USERWORDSET @"userwordset"
 
 @interface WordsetViewController ()
 
@@ -32,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nativeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *syncBarButtonItem;
 @property (strong, nonatomic) ProgressBarPopUpViewController *progressBarPopUpViewController;
@@ -195,8 +204,39 @@
     self.nativeNameLabel.text = self.wordset.nativeName;
     self.levelLabel.text = self.wordset.level;
     self.descriptionLabel.text = self.wordset.about;
+    [self adjustToScreenOrientation];
     
     [self loadLearningMethodsInfoDictionary];
+    
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
 }
 
 #pragma mark - Table view delegate
@@ -277,9 +317,36 @@
 - (void) getWordsInWordsetFromWebServices
 {
     NSLog(@"Getting Words From Service Thread: %@", [NSThread currentThread]);
-    NSString *wid = self.wordset.wid; 
-    NSString *urlAsString = [NSString stringWithFormat: kWORDS_IN_WORDSET_SERVICE_URL,
-                             wid, kLANG_FROM, kLANG_TO, nil];
+    NSString *wid = self.wordset.wid;
+    
+    NSString *urlAsString = nil;
+    
+    if([self.wordset.wid isEqualToString:@"FORGOTTEN"]) {
+        NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
+        NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
+        urlAsString = [NSString stringWithFormat:kFORGOTTEN_WORDSET_SERVICE_URL, emailAddress, sha1Password, kLANG_FROM, kLANG_TO, nil];
+    } else if([self.wordset.wid isEqualToString:@"REMEMBERME"]) {
+        NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
+        NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
+        urlAsString = [NSString stringWithFormat:kREMEMBERME_WORDSET_SERVICE_URL, emailAddress, sha1Password, kLANG_FROM, kLANG_TO, nil];
+        
+    } else if([self.wordset.wid hasPrefix:@"USERWORDSET"]) {
+        NSRange range = [wid rangeOfString:@"USERWORDSET_"];
+        NSString *idOfUserWordset;
+        if (range.location != NSNotFound)
+        {
+            //range.location is start of substring
+            //range.length is length of substring
+            idOfUserWordset= [wid substringFromIndex:range.location + range.length];
+        }
+        NSLog(@"User wordset id: %@", idOfUserWordset);
+        urlAsString = [NSString stringWithFormat:kWORDS_IN_WORDSET_SERVICE_URL, idOfUserWordset, kTYPE_USERWORDSET, kLANG_FROM, kLANG_TO, nil];
+    } else {
+        //default wordset with wid as wordset identifier
+       urlAsString = [NSString stringWithFormat: kWORDS_IN_WORDSET_SERVICE_URL,
+                             wid, kTYPE_SYSTEMWORDSET, kLANG_FROM, kLANG_TO, nil];
+    }
+    
     NSURL *url = [NSURL URLWithString: urlAsString];
     
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
@@ -325,8 +392,13 @@
     [temporaryContext performBlock:^{
        wordsetWithTempContext = [Wordset selectWordsetWithWID:wordsetId managedObjectContext:temporaryContext];
     }];
-    
-    
+    if([UserSettings recordingsAreSavedOnPhone]) {
+        //setting that we will be downloading audio files for this wordset
+        wordsetWithTempContext.isAudioStoredLocally = [NSNumber numberWithBool:YES];
+    } else {
+        //settig that audio should be played remotely from web server
+        wordsetWithTempContext.isAudioStoredLocally = [NSNumber numberWithBool:NO];
+    }
  
     [self.xmlRoot.subElements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         // we enumerate through each words in current wordset and insert them or update it in Core Data Model
@@ -417,6 +489,7 @@
     [self setLevelLabel:nil];
     [self setDescriptionLabel:nil];
     [self setSyncBarButtonItem:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

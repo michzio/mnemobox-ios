@@ -21,8 +21,8 @@
 #import "RememberMePopUpViewController.h"
 
 #define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=systemwordset&from=%@&to=%@"
-#define kFORGOTTEN_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=0&type=forgotten&from=%@&to=%@"
-#define kREMEMBERME_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=0&type=rememberme&from=%@&to=%@"
+#define kFORGOTTEN_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?email=%@&pass=%@&wordset=0&type=forgotten&from=%@&to=%@"
+#define kREMEMBERME_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?email=%@&pass=%@&wordset=0&type=rememberme&from=%@&to=%@"
 #define kWORDS_IN_USERWORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=userwordset&from=%@&to=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
@@ -33,7 +33,8 @@
 
 @property (nonatomic, strong) XMLElement *xmlRoot;
 @property (nonatomic, strong) Reachability *internetReachable;
-@property (nonatomic, strong) RememberMePopUpViewController *rememberMePopUpViewController; 
+@property (nonatomic, strong) RememberMePopUpViewController *rememberMePopUpViewController;
+
 @end
 
 @implementation GenericLearningViewController
@@ -286,11 +287,15 @@
     NSString *urlAsString;
     
     if([wid isEqualToString:@"FORGOTTEN"]) {
+        NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
+        NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
         urlAsString = [NSString stringWithFormat: kFORGOTTEN_WORDS_SERVICE_URL,
-                        kLANG_FROM, kLANG_TO, nil];
+                        emailAddress, sha1Password, kLANG_FROM, kLANG_TO, nil];
     } else if([wid isEqualToString:@"REMEMBERME"]) {
+        NSString *emailAddress = [ProfileServices emailAddressFromUserDefaults];
+        NSString *sha1Password = [ProfileServices sha1PasswordFromUserDefaults];
         urlAsString = [NSString stringWithFormat: kREMEMBERME_WORDS_SERVICE_URL,
-                       kLANG_FROM, kLANG_TO, nil];
+                       emailAddress, sha1Password, kLANG_FROM, kLANG_TO, nil];
     } else if([wid hasPrefix:@"USERWORDSET"]) {
         NSRange range = [wid rangeOfString:@"USERWORDSET_"];
         NSString *idOfUserWordset;
@@ -428,14 +433,18 @@
 {
     if(self.currentWord == nil) return;
     
-    /* concatenating full string path to sentence recording on the server */
-    NSString *urlAsString = kWORD_RECORDING_SERVICE_URL;
-    urlAsString = [urlAsString stringByAppendingString: self.currentWord.recording];
+    if(self.wordsStoredInCoreData && self.wordset.isAudioStoredLocally) {
+        [self playAudioFromDisk: self.currentWord.recording];
+    } else { //play audio remotely from web server
+        /* concatenating full string path to sentence recording on the server */
+        NSString *urlAsString = kWORD_RECORDING_SERVICE_URL;
+        urlAsString = [urlAsString stringByAppendingString: self.currentWord.recording];
+        
+        NSLog(@"Word Audio Full Path: %@", urlAsString);
+        NSURL *url = [NSURL URLWithString:urlAsString];
     
-    NSLog(@"Word Audio Full Path: %@", urlAsString);
-    NSURL *url = [NSURL URLWithString:urlAsString];
-    
-    [self playAudioFromURL:url];
+        [self playAudioFromURL:url];
+    }
 }
 
 - (void) playAudioFromURL: (NSURL *) url {
@@ -456,6 +465,19 @@
             [self.audioPlayer play];
         }
     });
+}
+
+- (void) playAudioFromDisk: (NSString *) audioFile
+{
+    NSLog(@"Playing audio stored locally: %@", audioFile); 
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *audioDirectory = [documentsDirectory stringByAppendingPathComponent:@"audio"];
+    
+    NSString *fullAudioPath = [audioDirectory stringByAppendingPathComponent:audioFile];
+    NSLog(@"Full locale audio path: %@", fullAudioPath);
+    NSURL *url= [NSURL fileURLWithPath: fullAudioPath];
+    [self playAudioFromURL:url];
 }
 
 - (void) addCurrentWordToForgottenOne
