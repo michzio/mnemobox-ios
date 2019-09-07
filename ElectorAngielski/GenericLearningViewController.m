@@ -20,6 +20,9 @@
 #import "UIViewController+MJPopupViewController.h"
 #import "RememberMePopUpViewController.h"
 
+#define IPAD UIUserInterfaceIdiomPad
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+
 #define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=systemwordset&from=%@&to=%@"
 #define kFORGOTTEN_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?email=%@&pass=%@&wordset=0&type=forgotten&from=%@&to=%@"
 #define kREMEMBERME_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?email=%@&pass=%@&wordset=0&type=rememberme&from=%@&to=%@"
@@ -549,6 +552,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self.navigationController setNavigationBarHidden:NO];
     
 }
 
@@ -557,6 +561,15 @@
     [super viewDidAppear:animated];
     if(!self.pullUpView)
         [self setUpPullUpView];
+     [self adjustToScreenOrientation];
+}
+
+- (void) setPullUpViewPosition: (CGFloat) xOffset
+{
+    self.pullUpView.openedCenter = CGPointMake(160 + xOffset,self.view.frame.size.height);
+    self.pullUpView.closedCenter = CGPointMake(160 + xOffset, self.view.frame.size.height + 220);
+    self.pullUpView.center = self.pullUpView.closedCenter;
+    self.pullUpView.handleView.frame = CGRectMake(0, 0, 320, 10);
 }
 
 - (void) setUpPullUpView {
@@ -566,10 +579,7 @@
         xOffset = 224;
     }
     self.pullUpView = [[PullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 320, 460)];
-    self.pullUpView.openedCenter = CGPointMake(160 + xOffset,self.view.frame.size.height);
-    self.pullUpView.closedCenter = CGPointMake(160 + xOffset, self.view.frame.size.height + 220);
-    self.pullUpView.center = self.pullUpView.closedCenter;
-    self.pullUpView.handleView.frame = CGRectMake(0, 0, 320, 10);
+   [self setPullUpViewPosition:xOffset];
     self.pullUpView.backgroundColor =  [UIColor colorWithRed:89/255.0f green:89/255.0f blue:91/255.0f alpha:1];
     self.pullUpView.handleView.backgroundColor = [UIColor whiteColor];
     self.pullUpView.delegate = self;
@@ -868,6 +878,79 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//adjusting view to portrait and landscape mode methods
+- (void) viewWillAppear: (BOOL) animated
+{
+    [super viewWillAppear:animated];
+    [self adjustToScreenOrientation];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self setInBackgroundImageNamed: @"london.png"];
+        CGFloat xOffset = 100;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset += 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self setInBackgroundImageNamed: @"bigben.png"];
+        CGFloat xOffset = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset = 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+    } else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && deviceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        CGFloat xOffset = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset = 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+    }
+
+}
+
+- (void) setInBackgroundImageNamed: (NSString *) imageName
+{
+    NSException *methodNotImplemented = [NSException
+                                         exceptionWithName:@"MethodNotImplementedException"
+                                         reason:@"Method setInBackgroundImageNamed hasn't been overriden in subclass."
+                                         userInfo:nil];
+    @throw methodNotImplemented;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 
 @end

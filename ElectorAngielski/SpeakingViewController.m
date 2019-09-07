@@ -7,26 +7,26 @@
 //
 
 #import "SpeakingViewController.h"
-#import <OpenEars/LanguageModelGenerator.h>
-#import <OpenEars/AcousticModel.h>
-#import <OpenEars/PocketsphinxController.h>
+#import <OpenEars/OELanguageModelGenerator.h>
+#import <OpenEars/OEAcousticModel.h>
+#import <OpenEars/OEPocketsphinxController.h>
 #import <Slt/Slt.h>
-#import <OpenEars/FliteController.h>
-#import <OpenEars/OpenEarsLogging.h>
+#import <OpenEars/OEFliteController.h>
+#import <OpenEars/OELogging.h>
 #import "NSObject+PerformBlockAfterDelay.h"
 
 @interface SpeakingViewController ()
 {
-    PocketsphinxController *pocketsphinxController;
-    FliteController *fliteController;
+    OEPocketsphinxController *pocketsphinxController;
+    OEFliteController *fliteController;
     Slt *slt;
     NSString *lmPath;
     NSString *dicPath;
     BOOL detectingSpeech;
     NSTimer *myTimer;
 }
-@property (strong, nonatomic) PocketsphinxController *pocketsphinxController;
-@property (strong, nonatomic) FliteController *fliteController;
+@property (strong, nonatomic) OEPocketsphinxController *pocketsphinxController;
+@property (strong, nonatomic) OEFliteController *fliteController;
 @property (strong, nonatomic) Slt *slt;
 
 //User Interface Element Outlets
@@ -44,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *audioButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -54,22 +55,29 @@
 @synthesize pocketsphinxController;
 @synthesize openEarsEventsObserver;
 
+- (void) setInBackgroundImageNamed: (NSString *) imageName
+{
+    [self.backgroundImageView setImage:[UIImage imageNamed:imageName]];
+    
+}
+
 //lazy accessor for confident memory management of the object
-- (PocketsphinxController *)pocketsphinxController {
+- (OEPocketsphinxController *) pocketsphinxController {
 	if (pocketsphinxController == nil) {
-		pocketsphinxController = [[PocketsphinxController alloc] init];
+        pocketsphinxController = [OEPocketsphinxController sharedInstance];
+        [pocketsphinxController setActive:TRUE error:nil];
 	}
 	return pocketsphinxController;
 }
-- (OpenEarsEventsObserver *)openEarsEventsObserver {
+- (OEEventsObserver *)openEarsEventsObserver {
 	if (openEarsEventsObserver == nil) {
-		openEarsEventsObserver = [[OpenEarsEventsObserver alloc] init];
+        openEarsEventsObserver = [[OEEventsObserver alloc] init];
 	}
 	return openEarsEventsObserver;
 }
-- (FliteController *)fliteController {
+- (OEFliteController *)fliteController {
 	if (fliteController == nil) {
-		fliteController = [[FliteController alloc] init];
+		fliteController = [[OEFliteController alloc] init];
 	}
 	return fliteController;
 }
@@ -100,7 +108,7 @@
     
     //to test text-to-speech?
     //[self.fliteController say:@"A short statement" withVoice:self.slt];
-    [OpenEarsLogging startOpenEarsLogging];
+    [OELogging startOpenEarsLogging];
 }
 
 - (void) setUpLanguageModel
@@ -109,7 +117,7 @@
     //lmPath = [[NSBundle mainBundle] pathForResource:@"WordsetLanguageModelFile" ofType:@"arpa"];
     //dicPath = [[NSBundle mainBundle] pathForResource:@"WordsetLanguageModelFile" ofType:@"dic"];
     
-    LanguageModelGenerator *lmGenerator = [[LanguageModelGenerator alloc] init];
+    OELanguageModelGenerator *lmGenerator = [[OELanguageModelGenerator alloc] init];
     //List of words we want to recognize using speech recognition api, for offline speech recognition
     //it is adviced to use between 3 to 300 words -> so we add to this array all words in given wordset
     // ex. NSArray *words = [NSArray arrayWithObjects:@"WORD", @"STATEMENT", @"OTHER WORD", @"A PHRASE", nil];
@@ -142,7 +150,7 @@
     NSString *name = [NSString stringWithFormat: @"WordsetLanguageModel%@", self.wordset.wid, nil];
     
     // Change "AcousticModelEnglish" to "AcousticModelSpanish" to create a Spanish language model instead of an English one.
-    NSError *err = [lmGenerator generateLanguageModelFromArray:wordsArrayForModel withFilesNamed:name forAcousticModelAtPath:[AcousticModel pathToModel:@"AcousticModelEnglish"]];
+    NSError *err = [lmGenerator generateLanguageModelFromArray:wordsArrayForModel withFilesNamed:name forAcousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"]];
 
     
     NSDictionary *languageGeneratorResults = nil;
@@ -160,7 +168,7 @@
  
     
     // Change "AcousticModelEnglish" to "AcousticModelSpanish" to perform Spanish recognition instead of English.
-    [self.pocketsphinxController startListeningWithLanguageModelAtPath:lmPath dictionaryAtPath:dicPath acousticModelAtPath:[AcousticModel pathToModel:@"AcousticModelEnglish"] languageModelIsJSGF:NO];
+    [self.pocketsphinxController startListeningWithLanguageModelAtPath:lmPath dictionaryAtPath:dicPath acousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"] languageModelIsJSGF:NO];
     self.pocketsphinxController.verbosePocketSphinx = YES;
     //we use BOOL variable to test whether system is now in speech detecting mode or not because pocketsphinxController calibration takes too much time
     detectingSpeech = NO;
@@ -475,6 +483,7 @@
     [self setPocketsphinxController:nil];
     [self setFliteController:nil];
     [self setSlt:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

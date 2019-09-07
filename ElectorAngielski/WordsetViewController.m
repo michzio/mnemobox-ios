@@ -204,7 +204,7 @@
     self.nativeNameLabel.text = self.wordset.nativeName;
     self.levelLabel.text = self.wordset.level;
     self.descriptionLabel.text = self.wordset.about;
-    [self adjustToScreenOrientation];
+    
     
     [self loadLearningMethodsInfoDictionary];
     
@@ -227,7 +227,7 @@
 
 - (void) adjustToScreenOrientation
 {
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    UIDeviceOrientation deviceOrientation = (UIDeviceOrientation) [UIApplication sharedApplication].statusBarOrientation;
     if (UIDeviceOrientationIsLandscape(deviceOrientation))
     {
         [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
@@ -483,6 +483,12 @@
     
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self adjustToScreenOrientation];
+}
+
 - (void)viewDidUnload {
     [self setForeignNameLabel:nil];
     [self setNativeNameLabel:nil];
@@ -491,5 +497,15 @@
     [self setSyncBarButtonItem:nil];
     [self setBackgroundImageView:nil];
     [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

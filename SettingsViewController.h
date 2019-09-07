@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol ModalDismissedDelegate;
 
-@interface SettingsViewController : UIViewController
+@interface SettingsViewController : UIViewController <ModalDismissedDelegate>
+@property (weak, nonatomic) id <ModalDismissedDelegate> delegate;
+@end
 
+@protocol ModalDismissedDelegate <NSObject>
+- (void)modalViewControllerDismissed:(SettingsViewController *)modalViewController;
 @end

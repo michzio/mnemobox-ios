@@ -9,6 +9,8 @@
 #import "ForgottenWordsViewController.h"
 #import "TracingHistoryAndStatistics.h"
 
+#define IPAD UIUserInterfaceIdiomPad
+#define IDIOM UI_USER_INTERFACE_IDIOM()
 //params: emailAddress, sha1Password,fromLang, toLang
 #define kUSER_FORGOTTEN_WORDS_SERVICE_URL @"http://www.mnemobox.com/webservices/userForgotten.xml.php?email=%@&pass=%@&from=%@&to=%@"
 //params: userId, fromLang, toLang
@@ -19,6 +21,7 @@
 @interface ForgottenWordsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *forgottenWordsTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -37,12 +40,65 @@
 - (void) viewWillAppear: (BOOL) animated
 {
     [super viewWillAppear:animated];
+    [self adjustToScreenOrientation];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
     
     NSLog(@"Setting up TableView and FetchResultsController.");
     self.tableView = self.forgottenWordsTableView;
     //if Wordset with id: Forgotten hasn't been created yet we should creat such Wordset and we will put into it new forgotten words...
     self.title = @"Forgotten";
 }
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        CGFloat xOffset = 100;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset += 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+        CGFloat xOffset = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset = 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+    }  else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && deviceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        CGFloat xOffset = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset = 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+    }
+}
+
 
 - (NSURL *) getWebServicesURL
 {
@@ -97,6 +153,17 @@
 
 - (void)viewDidUnload {
     [self setForgottenWordsTableView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

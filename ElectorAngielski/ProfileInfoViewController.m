@@ -10,6 +10,9 @@
 #import "Reachability.h"
 #import "UIImageView+AFNetworking.h"
 
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
+
 @interface ProfileInfoViewController () {
     BOOL isShowingLandscapeView;
 }
@@ -27,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mnemoneyLabel;
 
 @property (strong, nonatomic) Reachability *internetReachable;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -39,19 +43,22 @@
 	// Do any additional setup after loading the view.
     self.internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"]; 
     [self loadProfileInformation];
-    [self adjustToSreenOrientation];
+   
+        [self adjustToSreenOrientation];
+    
 }
 
 
 - (void)awakeFromNib
 {
-    
+   
     isShowingLandscapeView = NO;
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+    
 }
 
 - (void)orientationChanged:(NSNotification *)notification
@@ -64,19 +71,29 @@
     if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
         !isShowingLandscapeView)
     {
-        if(self.view.tag == 99) {
-            ///do just nothing
-        } else {
-            [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+        if(IDIOM == IPAD) {
+            [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
             isShowingLandscapeView = YES;
+        } else { 
+            if(self.view.tag == 99) {
+                ///do just nothing
+            } else {
+                [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+                isShowingLandscapeView = YES;
+            }
         }
     }
     
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
              isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
     {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        isShowingLandscapeView = NO;
+        if(IDIOM == IPAD) {
+                [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+            isShowingLandscapeView = NO;
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            isShowingLandscapeView = NO;
+        }
         
         
     }
@@ -165,6 +182,18 @@
     [self setAccountTypeLabel:nil];
     [self setUserLevel:nil];
     [self setMnemoneyLabel:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

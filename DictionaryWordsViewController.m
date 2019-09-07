@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIManagedDocument *database;
 
 @property (nonatomic, strong) NSIndexPath *accessoryButtonSelectedIndexPath;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -228,10 +229,44 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.database.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.title = @"Saved Words";
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
+}
+
+- (IBAction)dictionaryButtonTouched:(id)sender {
+    [self.delegate segueToDictionaryView];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -243,6 +278,7 @@
 
 - (void)viewDidUnload {
     [self setWordsTableView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

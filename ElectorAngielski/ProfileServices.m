@@ -50,7 +50,7 @@
                         
             NSString *html = [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding];
             NSLog(@"%@", html);
-            if([html isEqualToString:@"1"]) {
+            if([html intValue] > 0) {
                     NSLog(@"Correct email and password");
                     result = YES;
             } else if([html isEqualToString:@"0"]){
@@ -92,6 +92,25 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject: emailAddress forKey: @"profileEmailAddress"];
     [prefs setObject: sha1Password forKey: @"profileSHA1Password"];
+    
+    NSNumber *signedIn = [NSNumber numberWithInt: 1];
+    [prefs setObject: signedIn forKey: @"profileNotSignedIn"];
+}
+
++ (BOOL) isUserSignedIn
+{
+    BOOL result = NO;
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *signedIn = [prefs valueForKey:@"profileNotSignedIn"];
+    
+    //checking whether user is sign in
+    if([signedIn isEqualToNumber: [NSNumber numberWithInt: 1]]) {
+        result = YES;
+    }
+    
+    return result;
+    
 }
 
 + (NSString *) emailAddressFromUserDefaults

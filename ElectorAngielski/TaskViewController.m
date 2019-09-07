@@ -15,6 +15,9 @@
 #import "SolutionCell.h"
 #import "SolutionViewController.h"
 
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
+
 //params: fromLang, toLang, emailAddress, sha1Password, taskId
 #define kTASK_SERVICE_URL @"http://www.mnemobox.com/webservices/task.xml.php?from=%@&to=%@&email=%@&pass=%@&task_id=%@"
 #define kLANG_FROM @"pl"
@@ -59,6 +62,12 @@
     
     [self adjustToScreenOrientation];
 }
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+}
+
 
 - (void)awakeFromNib
 {
@@ -355,5 +364,15 @@
     cell.authorLabel.text = [NSString stringWithFormat:@"~@%@", solution.author, nil];
     
     return cell;
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

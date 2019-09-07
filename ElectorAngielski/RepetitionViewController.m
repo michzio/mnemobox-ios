@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *goodAnswerImage;
 @property (weak, nonatomic) IBOutlet UIImageView *badAnswerImage;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -32,6 +33,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.activityIndicator startAnimating];
     });
+}
+
+- (void) setInBackgroundImageNamed: (NSString *) imageName
+{
+    [self.backgroundImageView setImage:[UIImage imageNamed:imageName]];
+    
 }
 
 -(void) displayFirstWord
@@ -277,6 +284,7 @@
     [self setGoodAnswerImage:nil];
     [self setBadAnswerImage:nil];
     [self setNextButton:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "GenericLearningViewController.h"
-#import <OpenEars/OpenEarsEventsObserver.h>
+#import <OpenEars/OEEventsObserver.h>
 
-@interface SpeakingViewController : GenericLearningViewController <OpenEarsEventsObserverDelegate>
+@interface SpeakingViewController : GenericLearningViewController <OEEventsObserverDelegate>
 {
-    OpenEarsEventsObserver *openEarsEventsObserver;
+    OEEventsObserver *openEarsEventsObserver;
 }
 
-@property (strong, nonatomic) OpenEarsEventsObserver *openEarsEventsObserver;
+    @property (strong, nonatomic) OEEventsObserver *openEarsEventsObserver;
 
 @end

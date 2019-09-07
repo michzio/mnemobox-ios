@@ -13,6 +13,7 @@
 #import "PostItObject.h"
 #import "PostItCell.h"
 #import "PostItEditionViewController.h"
+#import "iOSVersion.h"
 
 #define kPOST_ITS_SERVICE_URL @"http://mnemobox.com/webservices/getContextPostIts.xml.php?contextId=%@&from=%@&to=%@&email=%@&pass=%@"
 #define kLANG_FROM @"pl"
@@ -180,6 +181,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self displayWordInfo]; 
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -188,6 +190,55 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
      
 }
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+    tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [tempImageView setFrame:self.tableView.frame];
+    self.tableView.backgroundView = tempImageView;
+    
+    [self adjustToScreenOrientation];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"london.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+        
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigben.png"]];
+        tempImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [tempImageView setFrame:self.tableView.frame];
+        self.tableView.backgroundView = tempImageView;
+        
+    }
+}
+
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if (self.isLoading) return;
@@ -269,8 +320,19 @@
    } else {
     NSLog(@"Normal Cell"); 
     static NSString *CellIdentifier = @"PostIt Cell";
-    PostItCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-   
+    PostItCell *cell;
+    
+       if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+           NSLog(@"Creating TableViewCell for iOS version < 6.0");
+           cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+           if(cell == nil) {
+               cell = [[PostItCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+           }
+    }
+       
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+     cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
     // Configure the cell...
     cell.postItLabel.text = postItObject.postItText;
     cell.tag = [postItObject.postItID integerValue];
@@ -435,5 +497,15 @@
 - (void)viewDidUnload {
     [self setForeignWordLabel:nil];
     [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

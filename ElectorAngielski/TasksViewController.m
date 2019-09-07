@@ -13,6 +13,8 @@
 #import "Task+Create.h"
 #import "TaskViewController.h"
 
+#define IDIOM    UI_USER_INTERFACE_IDIOM()
+#define IPAD     UIUserInterfaceIdiomPad
 
 #define kTASKS_SERVICE_URL @"http://www.mnemobox.com/webservices/tasks.xml.php?from=%@&to=%@&email=%@&pass=%@&category_id=%@"
 #define kLANG_FROM @"pl"
@@ -27,7 +29,6 @@
 
 @property (nonatomic, strong) XMLElement *xmlRoot;
 @property (nonatomic, strong) Task *currentTask;
-
 @end
 
 @implementation TasksViewController
@@ -98,6 +99,22 @@
     [self loadTasksFromWebServices];
     self.title = @"Tasks";
     
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if(IDIOM == IPAD) {
+         UIBarButtonItem *addBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAdd target:self action:@selector(addBarButtonTouched:)];
+        
+        self.parentViewController.parentViewController.navigationItem.rightBarButtonItem = addBarButton;
+    }
+}
+
+- (void) addBarButtonTouched: (id) sender
+{
+    [self performSegueWithIdentifier:@"Add Task Segue" sender:sender];
 }
 
 - (void) useDocument
@@ -325,5 +342,14 @@
         [segue.destinationViewController setTask: self.currentTask];
     }
 }
-
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
+}
 @end

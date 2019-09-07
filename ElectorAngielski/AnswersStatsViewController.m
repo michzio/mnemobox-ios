@@ -13,6 +13,8 @@
 #import "XMLElement.h"
 #import "Reachability.h"
 
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
 #define kUSER_STATS_SERVICE_URL @"http://www.mnemobox.com/webservices/userStats.xml.php?email=%@&pass=%@&from=%@&to=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
@@ -384,8 +386,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     //CGFloat yMax = 400.0f;  // should determine dynamically based on max price
     CGFloat yMax = self.maxValue + 50.0f;
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(xMin) length:CPTDecimalFromFloat(xMax)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(yMin) length:CPTDecimalFromFloat(yMax)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:[NSNumber numberWithFloat: xMin] length: [NSNumber numberWithFloat: xMax]];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[NSNumber numberWithFloat: yMin] length: [NSNumber numberWithFloat: yMax]];
     // 5 - Enable user interactions for plot space
     plotSpace.allowsUserInteraction = YES;
 }
@@ -410,8 +412,8 @@ CGFloat const CPDBarInitialX = 0.25f;
     for (CPTBarPlot *plot in plots) {
         plot.dataSource = self;
         plot.delegate = self;
-        plot.barWidth = CPTDecimalFromDouble(CPDBarWidth);
-        plot.barOffset = CPTDecimalFromDouble(barX);
+        plot.barWidth = [NSNumber numberWithFloat: CPDBarWidth];
+        plot.barOffset = [NSNumber numberWithFloat: barX];
         plot.lineStyle = barLineStyle;
         [graph addPlot:plot toPlotSpace:graph.defaultPlotSpace];
         barX += CPDBarWidth;
@@ -459,7 +461,7 @@ CGFloat const CPDBarInitialX = 0.25f;
         NSString *day = [[date componentsSeparatedByString:@"/"] objectAtIndex:0];
         CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:day  textStyle:x.labelTextStyle];
        
-        label.tickLocation = CPTDecimalFromCGFloat(location);
+        label.tickLocation = [NSNumber numberWithFloat:location];
         label.offset = x.majorTickLength;
         if (label) {
             [xLabels addObject:label];
@@ -484,6 +486,7 @@ CGFloat const CPDBarInitialX = 0.25f;
     y.tickDirection = CPTSignPositive;
     int increment = (int) self.maxValue/6;
     NSInteger majorIncrement = increment - increment%10;
+    if(majorIncrement == 0) majorIncrement = 100;
     NSInteger minorIncrement = majorIncrement/2;
     //CGFloat yMax = 400.0f;  // should determine dynamically based on max price
     CGFloat yMax = self.maxValue;
@@ -493,14 +496,14 @@ CGFloat const CPDBarInitialX = 0.25f;
     for (NSInteger j = minorIncrement; j <= yMax; j += minorIncrement) {
         NSUInteger mod = j % majorIncrement;
         if (mod == 0) {
-            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
-            NSDecimal location = CPTDecimalFromInteger(j);
+            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%li", (long)j] textStyle:y.labelTextStyle];
+            NSNumber *location = [NSNumber numberWithLong:j];
             label.tickLocation = location;
             label.offset = -y.majorTickLength - y.labelOffset;
             if (label) {
                 [yLabels addObject:label];
             }
-            [yMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
+            [yMajorLocations addObject:location];
         } else {
             [yMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
         }
@@ -533,6 +536,8 @@ CGFloat const CPDBarInitialX = 0.25f;
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+    
     self.tabBarController.delegate = self;
     
     isShowingLandscapeView = NO;
@@ -573,19 +578,29 @@ CGFloat const CPDBarInitialX = 0.25f;
     if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
         !isShowingLandscapeView)
     {
-        if(self.view.tag == 99) {
-            ///do just nothing
-        } else {
-            [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+        if(IDIOM == IPAD) {
             isShowingLandscapeView = YES;
+
+        } else { 
+            if(self.view.tag == 99) {
+                ///do just nothing
+            } else {
+                [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+                isShowingLandscapeView = YES;
+            }
         }
     }
     
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
              isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
     {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        isShowingLandscapeView = NO;
+        if(IDIOM == IPAD) {
+            isShowingLandscapeView = NO;
+            
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            isShowingLandscapeView = NO;
+        }
         
         
     }
@@ -616,5 +631,16 @@ CGFloat const CPDBarInitialX = 0.25f;
     [self setBadSwitch:nil];
     [self setGoodSwitch:nil];
     [super viewDidUnload];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

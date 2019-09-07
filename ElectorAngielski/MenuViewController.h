@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MenuButtonTouchedDelegate;
+
 @interface MenuViewController : UIViewController
+
+@property (weak, nonatomic) id <MenuButtonTouchedDelegate> delegate;
+
+@end
+
+@protocol MenuButtonTouchedDelegate <NSObject>
+
+- (void) buttonTouchedWithIdentifier: (NSString *) buttonIdentifier;
 
 @end

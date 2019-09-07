@@ -14,8 +14,10 @@
 #import "Reachability.h"
 #import "WordDetailsViewController.h"
 #import "ProfileServices.h"
+#import "iOSVersion.h"
 
-
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
 //params: wordsetId, type, langFrom, langTo
 #define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=%@&from=%@&to=%@"
 //params: emailAddress, sha1Password, langFrom, langTo
@@ -319,7 +321,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Word Cell";
-    WordCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    WordCell *cell;
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        NSLog(@"Creating TableViewCell for iOS version < 6.0");
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if(cell == nil) {
+            cell = [[WordCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+    }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
     // Configure the cell...
     if(self.wordsStoredInCoreData) {
         // we load word cell from core data storage -> NSMutableArray *words contains Word (NSManagedObject) objects 
@@ -442,7 +455,8 @@
         height = word.imageHeight;
     }
     
-    if( height > 80.0f) { height = 80.0f; }
+    if( IDIOM != IPAD && height > 80.0f) { height = 80.0f; }
+    else if( IDIOM == IPAD) { height = 170.0f; }
     
     return 80.0f + height;
 }
@@ -538,4 +552,15 @@
     [self setListOfWordsTableView:nil];
     [super viewDidUnload];
 }
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MainMenuViewController.h"
+#import "ProfileServices.h"
 
 @interface MainMenuViewController () {
     BOOL isShowingLandscapeView;
@@ -95,7 +96,6 @@
 {
     if([segue.identifier isEqualToString:@"Main Menu Landscape View Segue"]) {
         [segue.destinationViewController setDelegate:self];
-        
     } else {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
@@ -107,6 +107,21 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)forgottenButtonTouchedPortrait:(UIButton *)sender {
+    [self segueWithIdentifier:@"Forgotten Words Segue"];
+}
+
+- (IBAction)rememberMeButtonTouchedPortrait:(UIButton *)sender {
+    [self segueWithIdentifier:@"RememberMe Words Segue"];
+}
+
+- (IBAction)profileButtonTouchedPortrait:(UIButton *)sender {
+    [self segueWithIdentifier:@"Profile Segue"];
+}
+- (IBAction)taskButtonTouchedPortrait:(UIButton *)sender {
+    [self segueWithIdentifier:@"Tasks Segue"];
 }
 
 #pragma - Landscape View Button Actions
@@ -129,21 +144,33 @@
 - (IBAction)profileButtonTouched:(UIButton *)sender {
     [self dismissModalViewControllerAnimated:YES];
     [self.delegate segueWithIdentifier:@"Profile Segue"];
+   
 }
 
 - (IBAction)forgottenButtonTouched:(UIButton *)sender {
-    [self dismissModalViewControllerAnimated:YES];
-    [self.delegate segueWithIdentifier:@"Forgotten Words Segue"];
+        [self dismissModalViewControllerAnimated:YES];
+        [self.delegate segueWithIdentifier:@"Forgotten Words Segue"];
+    
 }
 
 - (IBAction)rememberMeButtonTouched:(UIButton *)sender {
     [self dismissModalViewControllerAnimated:YES];
     [self.delegate segueWithIdentifier:@"RememberMe Words Segue"];
+    
 }
 
 - (void) segueWithIdentifier: (NSString *) identifier
 {
-    [self performSegueWithIdentifier:identifier sender:self];
+    if([ProfileServices isUserSignedIn] || [identifier isEqualToString: @"Wordset Categories Segue"] || [identifier isEqualToString: @"Dictionary Segue"]) {
+        [self performSegueWithIdentifier:identifier sender:self];
+    } else {
+        [self performSegueWithIdentifier: @"Sign In Segue" sender:self];
+    }
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
 }
 
 @end

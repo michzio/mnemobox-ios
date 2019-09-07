@@ -12,6 +12,12 @@
 #import "Word+Create.h"
 
 @interface CartonsViewController ()
+{
+    BOOL isShowingLandscapeView;
+    CGRect frames[12];
+    CGRect landscapeFrames[12];
+}
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *loadingLabel;
 
@@ -42,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *button11;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
 
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @property (strong, nonatomic) NSMutableArray *loadedWords;
 @property (nonatomic) NSInteger uncoveredCardNumber;
@@ -61,6 +68,206 @@
         
     });
 }
+
+- (void) viewDidLoad {
+    
+    [super viewDidLoad];
+    
+}
+- (void) awakeFromNib
+{
+    isShowingLandscapeView = NO;
+    [super awakeFromNib];
+}
+- (void) setInBackgroundImageNamed: (NSString *) imageName
+{
+    [self.backgroundImageView setImage:[UIImage imageNamed:imageName]];
+    
+}
+
+- (void) adjustToScreenOrientation
+{
+    
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+     __weak CartonsViewController *weakSelf = self;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
+        !isShowingLandscapeView)
+    {
+        [self.navigationController setNavigationBarHidden:YES];
+       
+         dispatch_async(dispatch_get_main_queue(), ^{ 
+             
+             [weakSelf.button0 setFrame: landscapeFrames[0]];
+             [weakSelf.button1 setFrame:landscapeFrames[1]];
+             [weakSelf.button2 setFrame:landscapeFrames[2]];
+             [weakSelf.button3 setFrame:landscapeFrames[3]];
+             [weakSelf.button4 setFrame:landscapeFrames[4]];
+             [weakSelf.button5 setFrame:landscapeFrames[5]];
+             [weakSelf.button6 setFrame:landscapeFrames[6]];
+             [weakSelf.button7 setFrame:landscapeFrames[7]];
+             [weakSelf.button8 setFrame:landscapeFrames[8]];
+             [weakSelf.button9 setFrame:landscapeFrames[9]];
+             [weakSelf.button10 setFrame:landscapeFrames[10]];
+             [weakSelf.button11 setFrame:landscapeFrames[11]];
+             [weakSelf.image0 setFrame: landscapeFrames[0]];
+             [weakSelf.image1 setFrame:landscapeFrames[1]];
+             [weakSelf.image2 setFrame:landscapeFrames[2]];
+             [weakSelf.image3 setFrame:landscapeFrames[3]];
+             [weakSelf.image4 setFrame:landscapeFrames[4]];
+             [weakSelf.image5 setFrame:landscapeFrames[5]];
+             [weakSelf.image6 setFrame:landscapeFrames[6]];
+             [weakSelf.image7 setFrame:landscapeFrames[7]];
+             [weakSelf.image8 setFrame:landscapeFrames[8]];
+             [weakSelf.image9 setFrame:landscapeFrames[9]];
+             [weakSelf.image10 setFrame:landscapeFrames[10]];
+             [weakSelf.image11 setFrame:landscapeFrames[11]];
+
+        /*[weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button0 andImageView: weakSelf.image0];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button1 andImageView: weakSelf.image1];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button2 andImageView: weakSelf.image2];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button3 andImageView: weakSelf.image3];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button4 andImageView: weakSelf.image4];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button5 andImageView: weakSelf.image5];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button6 andImageView: weakSelf.image6];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button7 andImageView: weakSelf.image7];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button8 andImageView: weakSelf.image8];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button9 andImageView: weakSelf.image9];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button10 andImageView: weakSelf.image10];
+        [weakSelf moveCardFromPortraitToLandscapeWithButton: weakSelf.button11 andImageView: weakSelf.image11];*/
+         });
+         isShowingLandscapeView = YES;
+
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                isShowingLandscapeView  && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+         [self.navigationController setNavigationBarHidden:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+       
+        
+        [weakSelf.button0 setFrame:frames[0]];
+        [weakSelf.button1 setFrame:frames[1]];
+        [weakSelf.button2 setFrame:frames[2]];
+        [weakSelf.button3 setFrame:frames[3]];
+        [weakSelf.button4 setFrame:frames[4]];
+        [weakSelf.button5 setFrame:frames[5]];
+        [weakSelf.button6 setFrame:frames[6]];
+        [weakSelf.button7 setFrame:frames[7]];
+        [weakSelf.button8 setFrame:frames[8]];
+        [weakSelf.button9 setFrame:frames[9]];
+        [weakSelf.button10 setFrame:frames[10]];
+        [weakSelf.button11 setFrame:frames[11]];
+            [weakSelf.image0 setFrame:frames[0]];
+            [weakSelf.image1 setFrame:frames[1]];
+            [weakSelf.image2 setFrame:frames[2]];
+            [weakSelf.image3 setFrame:frames[3]];
+            [weakSelf.image4 setFrame:frames[4]];
+            [weakSelf.image5 setFrame:frames[5]];
+            [weakSelf.image6 setFrame:frames[6]];
+            [weakSelf.image7 setFrame:frames[7]];
+            [weakSelf.image8 setFrame:frames[8]];
+            [weakSelf.image9 setFrame:frames[9]];
+            [weakSelf.image10 setFrame:frames[10]];
+            [weakSelf.image11 setFrame:frames[11]];
+        /*[weakSelf moveCardFromLandscapeToPortraitWithButton: weakSelf.button0 andImageView: weakSelf.image0];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton: weakSelf.button1 andImageView: weakSelf.image1];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton: weakSelf.button2 andImageView: weakSelf.image2];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton: weakSelf.button3 andImageView: weakSelf.image3];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton: weakSelf.button4 andImageView: weakSelf.image4];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton:weakSelf.button5 andImageView: weakSelf.image5];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton:weakSelf.button6 andImageView: weakSelf.image6];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton: weakSelf.button7 andImageView: weakSelf.image7];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton:weakSelf.button8 andImageView: weakSelf.image8];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton:weakSelf.button9 andImageView: weakSelf.image9];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton:weakSelf.button10 andImageView: weakSelf.image10];
+        [weakSelf moveCardFromLandscapeToPortraitWithButton: weakSelf.button11 andImageView: weakSelf.image11];*/
+         });
+        isShowingLandscapeView = NO;
+    } else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && deviceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        [self.navigationController setNavigationBarHidden:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            [weakSelf.button0 setFrame:frames[0]];
+            [weakSelf.button1 setFrame:frames[1]];
+            [weakSelf.button2 setFrame:frames[2]];
+            [weakSelf.button3 setFrame:frames[3]];
+            [weakSelf.button4 setFrame:frames[4]];
+            [weakSelf.button5 setFrame:frames[5]];
+            [weakSelf.button6 setFrame:frames[6]];
+            [weakSelf.button7 setFrame:frames[7]];
+            [weakSelf.button8 setFrame:frames[8]];
+            [weakSelf.button9 setFrame:frames[9]];
+            [weakSelf.button10 setFrame:frames[10]];
+            [weakSelf.button11 setFrame:frames[11]];
+            [weakSelf.image0 setFrame:frames[0]];
+            [weakSelf.image1 setFrame:frames[1]];
+            [weakSelf.image2 setFrame:frames[2]];
+            [weakSelf.image3 setFrame:frames[3]];
+            [weakSelf.image4 setFrame:frames[4]];
+            [weakSelf.image5 setFrame:frames[5]];
+            [weakSelf.image6 setFrame:frames[6]];
+            [weakSelf.image7 setFrame:frames[7]];
+            [weakSelf.image8 setFrame:frames[8]];
+            [weakSelf.image9 setFrame:frames[9]];
+            [weakSelf.image10 setFrame:frames[10]];
+            [weakSelf.image11 setFrame:frames[11]];
+        });
+        isShowingLandscapeView = NO;
+    }
+
+    
+    [super adjustToScreenOrientation];
+}
+
+- (void) moveCardFromPortraitToLandscapeWithButton: (UIButton *) button andImageView: (UIImageView *) imageView
+{
+    
+    [button setFrame: [self transformFromPortraitToLandscapeFrame:button.frame]];
+    [imageView setFrame: [self transformFromPortraitToLandscapeFrame:imageView.frame]];
+    
+}
+
+- (CGRect) transformFrame: (CGRect) frame
+{
+    CGRect newFrame = frame;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat width = screenRect.size.width;
+    newFrame.origin.y = width - frame.origin.x - frame.size.width;
+    newFrame.origin.x = frame.origin.y + 25;
+    
+    return newFrame;
+}
+
+- (CGRect) transformFromPortraitToLandscapeFrame: (CGRect) frame
+{
+    CGRect newFrame = frame;
+    //height is equale to width in portrait mode
+    CGFloat height = self.view.frame.size.height;
+    newFrame.origin.y = height - frame.origin.x - frame.size.height;
+    newFrame.origin.x = frame.origin.y + 25;
+
+    return newFrame;
+}
+
+- (void) moveCardFromLandscapeToPortraitWithButton: (UIButton *) button andImageView: (UIImageView *) imageView
+{
+    [button setFrame: [self transformFromLandscapeToPortraitFrame: button.frame]];
+    [imageView setFrame:[self transformFromLandscapeToPortraitFrame: imageView.frame]];
+    
+}
+
+- (CGRect) transformFromLandscapeToPortraitFrame: (CGRect) frame
+{
+    CGRect newFrame = frame;
+    //height is equale to width in portrait mode
+    CGFloat width = self.view.frame.size.width;
+    newFrame.origin.x = width - frame.origin.y - frame.size.width;
+    newFrame.origin.y = frame.origin.x - 25;
+    
+    return newFrame;
+}
+
+
 - (IBAction)reloadButton:(UIBarButtonItem *)sender {
     NSLog(@"Reload Button Touched.");
     
@@ -448,9 +655,30 @@ dispatch_async(dispatch_queue_create("ReloadingCards", nil), ^{
     }); 
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    frames[0] = self.button0.frame;
+    frames[1] = self.button1.frame;
+    frames[2] = self.button2.frame;
+    frames[3] = self.button3.frame;
+    frames[4] = self.button4.frame;
+    frames[5] = self.button5.frame;
+    frames[6] = self.button6.frame;
+    frames[7] = self.button7.frame;
+    frames[8] = self.button8.frame;
+    frames[9] = self.button9.frame;
+    frames[10] = self.button10.frame;
+    frames[11] = self.button11.frame;
+    for(int i=0; i<12; i++) {
+        landscapeFrames[i] = [self transformFrame:frames[i]];
+    }
+    [super viewWillAppear:animated];
+    
+}
+
 - (void) viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+   [super viewDidAppear:animated];
     self.learningMode = kLEARNING_MODE_CARTONS;
 }
 
@@ -491,6 +719,7 @@ dispatch_async(dispatch_queue_create("ReloadingCards", nil), ^{
     [self setButton10:nil];
     [self setButton11:nil];
     [self setReloadButton:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

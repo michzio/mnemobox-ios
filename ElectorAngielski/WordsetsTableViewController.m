@@ -70,6 +70,7 @@
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+    
 }
 
 - (void)orientationChanged:(NSNotification *)notification
@@ -79,9 +80,11 @@
 
 - (void) adjustToScreenOrientation
 {
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    NSLog(@"Adjusting to screen orientation");
+    UIDeviceOrientation deviceOrientation = (UIDeviceOrientation) [UIApplication sharedApplication].statusBarOrientation;
     if (UIDeviceOrientationIsLandscape(deviceOrientation))
     {
+        NSLog(@"Landscape view");
         UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"london.png"]];
         tempImageView.contentMode = UIViewContentModeScaleAspectFill;
         [tempImageView setFrame:self.tableView.frame];
@@ -275,7 +278,7 @@
     } else if([level isEqualToString: @"C2"]) {
         cellImageView.image = [UIImage imageNamed:@"level_c2.png"];
     } else {
-        cellImageView.image = [UIImage imageNamed:@"user_wordset.jpeg"];
+        cellImageView.image = [UIImage imageNamed:@"user_wordset.png"];
     }
     
 }
@@ -432,7 +435,16 @@ if([self.wordsetCategory.cid isEqualToString:@"USER"]) {
 }
     
 }
-
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
+}
 
 
 @end

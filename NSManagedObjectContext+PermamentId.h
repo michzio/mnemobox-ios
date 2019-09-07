@@ -9,5 +9,5 @@
 #import <CoreData/CoreData.h>
 
 @interface NSManagedObjectContext (PermamentId)
-
+- (BOOL)obtainPermanentIDsForInsertedObjects:(NSError **)error;
 @end

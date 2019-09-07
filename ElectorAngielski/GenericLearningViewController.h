@@ -36,6 +36,8 @@
 @property (nonatomic, strong) NSMutableArray *forgottenOneAns; //wordIds of forgotten words with weight 1
 @property (nonatomic, strong) NSMutableArray *goodAns; //wordIds of words user remember
 
+- (void) setPullUpViewPosition: (CGFloat) xOffset;
+
 //method should be overriden in subclasses
 - (void) setUpActivityIndicator;
 - (void) playCurrentWordAudio;
@@ -46,5 +48,7 @@
 - (void) loadCurrentWordObject; 
 - (void) loadImageOfWord: (WordObject *) word toImageView: (UIImageView *) imageView;
 - (void) addCurrentWordToForgottenOne;
-- (void) addCurrentWordToForgottenTwo; 
+- (void) addCurrentWordToForgottenTwo;
+- (void) setInBackgroundImageNamed: (NSString *) imageName;
+- (void) adjustToScreenOrientation;
 @end

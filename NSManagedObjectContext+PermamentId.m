@@ -10,4 +10,14 @@
 
 @implementation NSManagedObjectContext (PermamentId)
 
+- (BOOL)obtainPermanentIDsForInsertedObjects:(NSError **)error
+{
+    NSSet * inserts = [self insertedObjects];
+    
+    if ([inserts count] == 0) return YES;
+    
+    return  [self obtainPermanentIDsForObjects:[inserts allObjects]
+                                         error:error];
+}
+
 @end

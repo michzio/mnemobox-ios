@@ -120,7 +120,7 @@
 
 - (void) adjustToScreenOrientation
 {
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    UIDeviceOrientation deviceOrientation = (UIDeviceOrientation) [UIApplication sharedApplication].statusBarOrientation;;
     if (UIDeviceOrientationIsLandscape(deviceOrientation))
     {
         UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"london.png"]];
@@ -153,8 +153,12 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
 }
-
-
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self adjustToScreenOrientation];
+}
 
 - (void) fetchCategoriesFromWebServicesIntoDocument: (UIManagedDocument *) document
 {
@@ -357,6 +361,15 @@
    [self.wordsetsDatabase saveToURL: self.wordsetsDatabase.fileURL forSaveOperation: UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
    }];
 }
-
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
+}
 
 @end

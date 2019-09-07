@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MenuViewController.h"
 
-@interface iPadiOS5MainMenuViewController : UIViewController
+@interface iPadiOS5MainMenuViewController : UIViewController <MenuButtonTouchedDelegate>
+@property (weak, nonatomic) IBOutlet UIView *detailContainer;
+@property (weak, nonatomic) IBOutlet UIView *menuContainer;
 
 @end

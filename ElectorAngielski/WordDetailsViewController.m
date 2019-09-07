@@ -14,6 +14,7 @@
 #import "XMLParser.h"
 #import "UIImageView+AFNetworking.h"
 #import "Word+Create.h"
+#import "iOSVersion.h"
 
 
 #define kWORD_SERVICE_URL @"http://mnemobox.com/webservices/getTranslation.php?translation_id=%@&from=%@&to=%@"
@@ -37,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *sentenceTableView;
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -234,8 +236,9 @@
     } else {
       /* we use preloaded WordObject to set labels */
         NSLog(@"Displaying word basic info for word with wid: %@", self.wordObject.wordId);
-        self.foreignLabel.text = [NSString stringWithFormat: @"%@ %@",
-                                  self.wordObject.foreignArticle, self.wordObject.foreign, nil];
+        NSLog(@"Word Details: %@", self.wordObject.foreign);
+        [self.foreignLabel setText: [NSString stringWithFormat: @"%@ %@",
+                                  self.wordObject.foreignArticle, self.wordObject.foreign, nil]];
         self.nativeLabel.text = [NSString stringWithFormat: @"%@ %@",
                                  self.wordObject.nativeArticle, self.wordObject.native, nil];
         self.transcriptionLabel.text = self.wordObject.transcription;
@@ -286,10 +289,41 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    [self adjustToScreenOrientation];
+    [self displayWordBasicInfo];
+}
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation))
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+    }
 }
 
 
@@ -313,7 +347,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Sentence Cell";
-    SentenceCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    SentenceCell *cell;
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        NSLog(@"Creating TableViewCell for iOS version < 6.0");
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if(cell == nil) {
+            cell = [[SentenceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+    }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
     // Configure the cell...
     
     NSLog(@"Loading sentence into cell"); 
@@ -492,6 +538,17 @@
     [self setTranscriptionLabel:nil];
     [self setWordImageView:nil];
     [self setSentenceTableView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

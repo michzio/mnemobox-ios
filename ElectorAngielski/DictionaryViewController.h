@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+@protocol DictionaryButtonTouched;
+
 @interface DictionaryViewController : UIViewController <UITextFieldDelegate, AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UIManagedDocument *database;
+
+@property (nonatomic, assign) id <DictionaryButtonTouched> delegate;
+
+@end
+
+@protocol DictionaryButtonTouched <NSObject>
+
+- (void) segueToDictionaryWordsView;
 
 @end

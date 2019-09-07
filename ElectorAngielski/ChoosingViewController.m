@@ -26,6 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *badAnswerImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *goodAnswerImageView;
 @property (strong, nonatomic) NSMutableArray *allIndexesArray;
+
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+
 @end
 
 @implementation ChoosingViewController
@@ -36,6 +39,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.activityIndicator startAnimating];
     });
+    
+}
+
+- (void) setInBackgroundImageNamed: (NSString *) imageName
+{
+    [self.backgroundImageView setImage:[UIImage imageNamed:imageName]];
     
 }
 
@@ -383,6 +392,7 @@
     [self setNextButton:nil];
     [self setBadAnswerImageView:nil];
     [self setGoodAnswerImageView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

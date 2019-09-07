@@ -8,6 +8,8 @@
 
 #import "UserwordsetWordsViewController.h"
 
+#define IPAD UIUserInterfaceIdiomPad
+#define IDIOM UI_USER_INTERFACE_IDIOM()
 //params: wordsetId, type, langFrom, langTo
 #define kWORDS_IN_WORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/getwordset.php?wordset=%@&type=%@&from=%@&to=%@"
 #define kTYPE_USERWORDSET @"userwordset"
@@ -60,7 +62,7 @@
     if (UIDeviceOrientationIsLandscape(deviceOrientation))
     {
         [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
-        CGFloat xOffset = 80;
+        CGFloat xOffset = 100;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             xOffset += 224;
         }
@@ -69,6 +71,13 @@
                  deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
     {
         [self.backgroundImageView setImage:[UIImage imageNamed:@"bigben.png"]];
+        CGFloat xOffset = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset = 224;
+        }
+        [self setPullUpViewPosition:xOffset];
+        
+    } else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && deviceOrientation == UIDeviceOrientationPortraitUpsideDown) {
         CGFloat xOffset = 0;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             xOffset = 224;
@@ -89,6 +98,9 @@
     NSLog(@"Setting up Table View");
     self.tableView = self.userwordsetWordsTableView;
     self.title = self.userWordset.foreignName;
+    if(IDIOM == IPAD) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWordButtonTouched:)];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -163,5 +175,15 @@
     [self setUserwordsetWordsTableView:nil];
     [self setBackgroundImageView:nil];
     [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

@@ -76,7 +76,7 @@
     if (UIDeviceOrientationIsLandscape(deviceOrientation))
     {
         [self.backgroundImageView setImage:[UIImage imageNamed:@"london.png"]];
-        CGFloat xOffset = 80;
+        CGFloat xOffset = 100;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             xOffset += 224;
         }
@@ -90,7 +90,14 @@
             xOffset = 224;
         }
         [self setPullUpViewPosition:xOffset];
+    }  else if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && deviceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        CGFloat xOffset = 0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOffset = 224;
+        }
+        [self setPullUpViewPosition:xOffset];
     }
+
 }
 
 
@@ -148,5 +155,15 @@
     [self setRemembermeWordsTableView:nil];
     [self setBackgroundImageView:nil];
     [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

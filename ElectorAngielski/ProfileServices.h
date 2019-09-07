@@ -20,6 +20,7 @@
 + (BOOL) verifyUserWithEmailAddress: (NSString *) emailAddress andSHA1Passowrd: (NSString *) password;
 + (NSString *)passwordToSHA1: (NSString *)password;
 + (void) storeInUserDefaultsEmail: (NSString *) emailAddress andSHA1Password: (NSString *)sha1Password;
++ (BOOL) isUserSignedIn;
 + (NSString *) emailAddressFromUserDefaults;
 + (NSString *) sha1PasswordFromUserDefaults;
 + (void) storeUserImageInUserDefaults: (NSString *) userImage;

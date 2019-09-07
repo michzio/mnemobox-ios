@@ -240,7 +240,14 @@
     //we are updating Generic (ex.Forgotten, UserWordset, RememberMe) Wordset Words
     [self.database.managedObjectContext performBlock:^{
         self.genericWordset.words = (NSSet *) genericWords;
-    }]; 
+    }];
+    
+
+    [self.database saveToURL: self.database.fileURL forSaveOperation: UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
+    }];
+
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -382,10 +389,25 @@
     } else if([segue.destinationViewController respondsToSelector:@selector(setWordset:)]) {
         
         NSLog(@"Number of words in this wordset in Core Data: %d", [self.genericWordset.words count]);
-        [segue.destinationViewController setWordset: self.genericWordset];
+        if([segue.identifier isEqualToString:@"Choosing Segue"]) {
+            [segue.destinationViewController setWordset: self.genericWordset];
+        } else if([segue.identifier isEqualToString:@"Cartons Segue"]) {
+            [segue.destinationViewController setWordset: self.genericWordset];
+        } else {
+            NSLog(@"Generic Wordset Id: %@", self.genericWordset.wid);
+            [segue.destinationViewController setWordset: self.genericWordset];
+        }
         
     }
     
+}
+
+- (void) setPullUpViewPosition: (CGFloat) xOffset
+{
+    self.pullUpView.openedCenter = CGPointMake(160 + xOffset,self.view.frame.size.height);
+    self.pullUpView.closedCenter = CGPointMake(160 + xOffset, self.view.frame.size.height + 220);
+    self.pullUpView.center = self.pullUpView.closedCenter;
+    self.pullUpView.handleView.frame = CGRectMake(0, 0, 320, 10);
 }
 
 - (void) setUpPullUpView {
@@ -395,10 +417,7 @@
         xOffset = 224;
     }
     self.pullUpView = [[PullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 320, 460)];
-    self.pullUpView.openedCenter = CGPointMake(160 + xOffset,self.view.frame.size.height);
-    self.pullUpView.closedCenter = CGPointMake(160 + xOffset, self.view.frame.size.height + 220);
-    self.pullUpView.center = self.pullUpView.closedCenter;
-    self.pullUpView.handleView.frame = CGRectMake(0, 0, 320, 10);
+    [self setPullUpViewPosition:xOffset];
     self.pullUpView.backgroundColor =  [UIColor colorWithRed:89/255.0f green:89/255.0f blue:91/255.0f alpha:1];
     self.pullUpView.handleView.backgroundColor = [UIColor whiteColor];
     self.pullUpView.delegate = self;
@@ -525,14 +544,18 @@
 {
     NSLog(@"Choosing Button Touched.");
     NSLog(@"Choosing Segue");
-    [self performSegueWithIdentifier: @"Choosing Segue" sender:self];
+    if([self.genericWordset.words count] >3) {
+        [self performSegueWithIdentifier: @"Choosing Segue" sender:self];
+    }
 }
 
 - (void) cartonsButtonTouched: (UIButton *) sender
 {
     NSLog(@"Cartons Button Touched.");
     NSLog(@"Cartons Segue");
-    [self performSegueWithIdentifier: @"Cartons Segue" sender:self];
+    if([self.genericWordset.words count] >6) {
+        [self performSegueWithIdentifier: @"Cartons Segue" sender:self];
+    }
 }
 
 // enable deleting of words from list of forgotten words

@@ -8,6 +8,11 @@
 
 #import "SignUpViewController.h"
 
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
+
+#define kREGISTRATION_URL_SERVICE @"http://mnemobox.com/webservices/registerUser.php?email=%@&pass=%@&fn=%@&ln=%@"
+
 @interface SignUpViewController () 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
@@ -15,7 +20,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
 @property CGFloat currentTextFieldPositionY;
-@property CGFloat currentTextFieldHeight; 
+@property CGFloat currentTextFieldHeight;
+
+@property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *passwordLabel;
+@property (weak, nonatomic) IBOutlet UILabel *confirmPasswordLabel;
+
 @end
 
 @implementation SignUpViewController
@@ -38,6 +50,42 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self setTextFieldsDelegate];
 }
+
+- (void)awakeFromNib
+{
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToScreenOrientation];
+}
+
+- (void) adjustToScreenOrientation
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) && IDIOM != IPAD)
+    {
+        [self.firstNameLabel setHidden:YES];
+        [self.lastNameLabel setHidden:YES];
+        [self.emailLabel setHidden:YES];
+        [self.passwordLabel setHidden:YES];
+        [self.confirmPasswordLabel setHidden:YES];
+        
+        
+    }  else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+                deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        [self.firstNameLabel setHidden:NO];
+        [self.lastNameLabel setHidden:NO];
+        [self.emailLabel setHidden:NO];
+        [self.passwordLabel setHidden:NO];
+        [self.confirmPasswordLabel setHidden:NO];
+    }
+}
+
 
 - (void) setTextFieldsDelegate
 {
@@ -66,6 +114,11 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    [self adjustToScreenOrientation];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -77,6 +130,9 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: UIDeviceOrientationDidChangeNotification
                                                   object:nil];
     
 }
@@ -186,6 +242,61 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)signUpNewUser:(id)sender {
+    NSLog(@"Signing Up New User.");
+    
+    NSString *emailAddress = self.emailTextField.text;
+    NSString *password = self.passwordTextField.text;
+    NSString *confirmPassword = self.confirmPasswordTextField.text;
+    NSString *firstName = self.firstNameTextField.text;
+    NSString *lastName = self.lastNameTextField.text;
+    if(![password isEqualToString:confirmPassword]) {
+        
+        NSLog(@"Podane hasła nie pasują do siebie.");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Błędne Hasło" message:@"Podane hasła nie pasują do siebie" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    if(![self NSStringIsValidEmail:emailAddress]) {
+        NSLog(@"Podany adres email jest niepoprawny!");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Błędny Adres Email" message:@"Podany adres email nie jest poprawny." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    NSString *urlAsString = [NSString stringWithFormat:kREGISTRATION_URL_SERVICE, emailAddress, password, firstName, lastName, nil];
+    NSLog(@"Registration New User URL: %@", urlAsString); 
+    NSURL *url = [NSURL URLWithString:urlAsString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if(error == nil || [result isEqualToString:@"1"]) {
+            NSLog(@"Successfully register new user.");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Utworzono Konto Poprawnie!" message:@"Zostałeś użytkownikiem systemu e-learningowego elector.pl, przejdź do ekranu logowania i zaloguj się do aplikacji." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+           
+        } else {
+            NSLog(@"Error: %@", result);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Błąd podczas tworzenia konta." message:@"Zmień dane i spróbuj ponownie. Być może użyłeś adresu email na który zostało już utworzone konto w systemie. W takim przypadku na elector.pl możesz wygenerować nowe hasło." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
+}
+
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = YES;
+    // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
 
 - (void)viewDidUnload {
     [self setFirstNameTextField:nil];
@@ -193,6 +304,11 @@
     [self setEmailTextField:nil];
     [self setPasswordTextField:nil];
     [self setConfirmPasswordTextField:nil];
+    [self setFirstNameLabel:nil];
+    [self setLastNameLabel:nil];
+    [self setEmailLabel:nil];
+    [self setPasswordLabel:nil];
+    [self setConfirmPasswordLabel:nil];
     [super viewDidUnload];
 }
 @end

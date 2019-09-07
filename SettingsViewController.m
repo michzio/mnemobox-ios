@@ -10,7 +10,12 @@
 #import "ProfileServices.h"
 #import "UserSettings.h"
 
-@interface SettingsViewController ()
+
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
+@interface SettingsViewController () {
+    BOOL isShowingLandscapeView;
+}
 
 @property (weak, nonatomic) IBOutlet UISwitch *preferOnlineSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveRecordingsSwitch;
@@ -22,6 +27,66 @@
 
 @synthesize preferOnlineSwitch = _preferOnlineSwitch;
 @synthesize saveRecordingsSwitch = _saveRecordingsSwitch;
+@synthesize delegate = _delegate;
+
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    [self adjustToSreenOrientation];
+}
+
+
+- (void)awakeFromNib
+{
+    
+    isShowingLandscapeView = NO;
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustToSreenOrientation];
+}
+
+- (void) adjustToSreenOrientation {
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
+        !isShowingLandscapeView)
+    {
+        if(IDIOM == IPAD) {
+            isShowingLandscapeView = YES;
+            NSLog(@"Ipad Landscape"); 
+        } else {
+            if(self.view.tag == 99) {
+                ///do just nothing
+                NSLog(@"Do nothing"); 
+            } else {
+                NSLog(@"Iphone Landscape"); 
+                [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+                isShowingLandscapeView = YES;
+            }
+        }
+    } else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+               isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
+    {
+        if(IDIOM == IPAD) {
+            isShowingLandscapeView = NO;
+            NSLog(@"Ipad Portrait."); 
+        } else {
+            NSLog(@"Dismissing Landscape View."); 
+            [self dismissViewControllerAnimated:YES completion:nil];
+            isShowingLandscapeView = NO;
+        }
+        
+    }
+    NSLog(@"Screen rotation"); 
+    
+}
+
 
 - (void) viewDidAppear:(BOOL)animated
 {
@@ -58,18 +123,63 @@
          }
      }
     
+    //deleting audio recordings from Documents/audio folder on disk
+    NSFileManager *fm = [NSFileManager defaultManager];
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *audioFolderPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"audio"];
+    NSLog(@"Audio Folder Path: %@", audioFolderPath);
+    
+    NSError *error = nil;
+    for (NSString *audioFile in [fm contentsOfDirectoryAtPath:audioFolderPath error:&error]) {
+        BOOL success = [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", audioFolderPath, audioFile] error:&error];
+        if (!success || error) {
+            // it failed.
+            NSLog(@"Deleted audio file: %@", audioFile); 
+        }
+    }
+    
+}
+
+- (void)modalViewControllerDismissed:(SettingsViewController *)modalViewController
+{
+     [ProfileServices storeInUserDefaultsEmail:@"" andSHA1Password:@""];
+    [self performSegueWithIdentifier:@"Sign Out Segue" sender:self];
 }
 
 - (IBAction)signOutButtonTouched:(id)sender {
 
-    [self performSegueWithIdentifier:@"Sign Out Segue" sender:self];
     [ProfileServices storeInUserDefaultsEmail:@"" andSHA1Password:@""];
+    if(self.view.tag == 99) {
+        [self.delegate modalViewControllerDismissed:self];
+        [self dismissModalViewControllerAnimated:NO]; 
+    } else { 
+        [self performSegueWithIdentifier:@"Sign Out Segue" sender:self];
+    }
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"Landscape View Segue"]) {
+        [segue.destinationViewController setDelegate:self];
+    }
 }
 
 - (void)viewDidUnload {
     [self setPreferOnlineSwitch:nil];
     [self setSaveRecordingsSwitch:nil];
     [self setMultiplayForgottenSwitch:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

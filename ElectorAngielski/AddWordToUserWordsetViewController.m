@@ -22,6 +22,9 @@
 #import "UIViewController+MJPopupViewController.h"
 #import "ProfileServices.h"
 
+
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
 #define kLOOKUP_SERVICE_URL @"http://mnemobox.com/webservices/lookupWord.php?from=%@&to=%@&word=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
@@ -803,5 +806,16 @@
     [self setSuccessLabel:nil];
     [self setErrorLabel:nil];
     [super viewDidUnload];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end

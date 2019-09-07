@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIImageView *badAnswerImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *goodAnswerImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -33,6 +34,13 @@
         [self.activityIndicator startAnimating];
     });
 }
+
+- (void) setInBackgroundImageNamed: (NSString *) imageName
+{
+    [self.backgroundImageView setImage:[UIImage imageNamed:imageName]];
+    
+}
+
 - (IBAction)recordingButtonTouched:(UIButton *)sender {
     NSLog(@"Recording button touched.");
     [self playCurrentWordAudio]; 
@@ -340,6 +348,7 @@
     [self setNextButton:nil];
     [self setBadAnswerImageView:nil];
     [self setGoodAnswerImageView:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
 @end

@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *normalButton;
 @property (weak, nonatomic) IBOutlet UIButton *goodButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -124,6 +125,12 @@
     
 }
 
+- (void) setInBackgroundImageNamed: (NSString *) imageName
+{
+    [self.backgroundImageView setImage:[UIImage imageNamed:imageName]];
+    
+}
+
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -154,6 +161,8 @@
     [self setGoodButton:nil];
     [self setActivityIndicator:nil];
     [self setLoadingLabel:nil];
+    [self setBackgroundImageView:nil];
     [super viewDidUnload];
 }
+
 @end

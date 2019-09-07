@@ -36,4 +36,6 @@
 @property (nonatomic, strong) UIButton *cartonsButton;
 /*-----------------------------------------------------------*/
 
+- (void) setPullUpViewPosition: (CGFloat) xOffset;
+
 @end

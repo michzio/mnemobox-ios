@@ -10,6 +10,15 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CoreDataViewController.h"
 
+@protocol DictionaryWordsButtonTouched;
+
 @interface DictionaryWordsViewController : CoreDataViewController <UITableViewDataSource, UITableViewDelegate,AVAudioPlayerDelegate>
+@property (nonatomic, assign) id <DictionaryWordsButtonTouched> delegate;
+
+@end
+
+@protocol DictionaryWordsButtonTouched <NSObject>
+
+- (void) segueToDictionaryView;
 
 @end

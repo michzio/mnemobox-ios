@@ -9,6 +9,8 @@
 #import "EffectivenessStatsViewController.h"
 #import "AnswersStatsViewController.h"
 
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
 #define kUSER_STATS_SERVICE_URL @"http://www.mnemobox.com/webservices/userStats.xml.php?email=%@&pass=%@&from=%@&to=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
@@ -124,10 +126,10 @@
     // 3 - Set up plot space
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:effectivenessPlot, nil]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-    [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
+    [xRange expandRangeByFactor:[NSNumber numberWithFloat:1.1f]];
     plotSpace.xRange = xRange;
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
+    [yRange expandRangeByFactor:[NSNumber numberWithFloat:1.2f]];
     plotSpace.yRange = yRange;
     // 4 - Create styles and symbols
     CPTMutableLineStyle *effectivenessLineStyle = [effectivenessPlot.dataLineStyle mutableCopy];
@@ -187,7 +189,7 @@
         NSString *day = [[date componentsSeparatedByString:@"/"] objectAtIndex:0];
         CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:day  textStyle:x.labelTextStyle];
         
-        label.tickLocation = CPTDecimalFromCGFloat(location);
+        label.tickLocation = [NSNumber numberWithFloat:location];
         label.offset = x.majorTickLength;
         if (label) {
             [xLabels addObject:label];
@@ -221,13 +223,13 @@
         NSUInteger mod = j % majorIncrement;
         if (mod == 0) {
             CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
-            NSDecimal location = CPTDecimalFromInteger(j);
+            NSNumber *location = [NSNumber numberWithFloat: j];
             label.tickLocation = location;
             label.offset = -y.majorTickLength - y.labelOffset;
             if (label) {
                 [yLabels addObject:label];
             }
-            [yMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
+            [yMajorLocations addObject:location];
         } else {
             [yMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
         }
@@ -267,19 +269,29 @@
     if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
         !isShowingLandscapeView)
     {
-        if(self.view.tag == 99) {
-            ///do just nothing
-        } else {
-            [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+        if(IDIOM == IPAD) {
             isShowingLandscapeView = YES;
+            
+        } else {
+            if(self.view.tag == 99) {
+                ///do just nothing
+            } else {
+                [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+                isShowingLandscapeView = YES;
+            }
         }
     }
     
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
              isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown)
     {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        isShowingLandscapeView = NO;
+        if(IDIOM == IPAD) {
+            isShowingLandscapeView = NO;
+            
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            isShowingLandscapeView = NO;
+        }
         
         
     }
@@ -305,5 +317,16 @@
     [self setStartMonth:nil];
     [self setEndMonth:nil];
     [super viewDidUnload];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+     return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    
+    }
 }
 @end

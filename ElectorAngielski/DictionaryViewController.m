@@ -21,6 +21,9 @@
 #import "RememberMePopUpViewController.h"
 #import "UIViewController+MJPopupViewController.h"
 
+#define IDIOM    UI_USER_INTERFACE_IDIOM()
+#define IPAD     UIUserInterfaceIdiomPad
+
 #define kLOOKUP_SERVICE_URL @"http://mnemobox.com/webservices/lookupWord.php?from=%@&to=%@&word=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
@@ -82,6 +85,7 @@
     self.languageFilter = kFOREIGN; 
 }
 
+
 - (IBAction)nativeButtonTouched:(UIButton *)sender {
     [sender setTitleColor: [UIColor redColor]
                  forState:UIControlStateNormal];
@@ -90,7 +94,6 @@
     //now we set constraint on searching only in native words dictionary
     self.languageFilter = kNATIVE;
 }
-
 
 - (IBAction)screenViewTouched:(UIControl *)sender {
     NSLog(@"Somewhere on the screen touched we close the suggestionTableView if opened.");
@@ -277,6 +280,19 @@
    UIBarButtonItem *shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAction target:self action:@selector(shareBarButtonTouched:)];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: saveWordBarButton, postItBarButton, shareBarButton, rememberMeBarButton, nil];
+    
+    if(IDIOM == IPAD) { 
+    //for ipad version we placing buttons to Container View Controller:
+    self.parentViewController.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: saveWordBarButton, postItBarButton, shareBarButton, rememberMeBarButton, nil];
+    }
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    if(IDIOM == IPAD) { 
+    //for ipad version we placing buttons to Container View Controller:
+    self.parentViewController.parentViewController.navigationItem.rightBarButtonItems = nil;
+    }
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -782,6 +798,9 @@
 }
 
    // [self.wordsTableView indexPathForSelectedRow]
+- (IBAction)dictionaryWordsButtonTouched:(id)sender {
+    [self.delegate segueToDictionaryWordsView];
+}
 
 
 - (void)viewDidUnload {

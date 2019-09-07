@@ -7,32 +7,42 @@
 //
 
 #import "iPadMainMenuViewController.h"
+#import "MainContainerViewController.h"
+
+#import "MenuViewController.h"
+
 
 @interface iPadMainMenuViewController ()
-
+@property (nonatomic, strong) MainContainerViewController *containerViewController;
+@property (nonatomic, strong) MenuViewController *menuViewController;
 @end
 
 @implementation iPadMainMenuViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if ([segue.identifier isEqualToString:@"Detail Container Segue"]) {
+        self.containerViewController = segue.destinationViewController;
+    } else if([segue.identifier isEqualToString:@"Menu Container Segue"]) {
+        [segue.destinationViewController setDelegate:self];
     }
-    return self;
 }
 
-- (void)viewDidLoad
+- (void)buttonTouchedWithIdentifier:(NSString *)buttonIdentifier
 {
+    [self.containerViewController swapViewControllersWithSegueIdentifier:buttonIdentifier];
+}
+
+- (void) viewDidLoad  {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidUnload {
+    [self setDetailContainer:nil];
+    [self setMenuContainer:nil];
+    [super viewDidUnload];
 }
-
 @end

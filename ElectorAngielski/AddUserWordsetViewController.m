@@ -9,6 +9,8 @@
 #import "AddUserWordsetViewController.h"
 #import "ProfileServices.h"
 
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
 #define kCREATE_NEW_USERWORDSET_SERVICE_URL @"http://www.mnemobox.com/webservices/createNewUserWordset.php?email=%@&pass=%@&plName=%@&enName=%@&description=%@&from=%@&to=%@"
 #define kLANG_FROM @"pl"
 #define kLANG_TO @"en"
@@ -172,19 +174,29 @@
     if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
         !isShowingLandscapeView)
     {
-        if(self.view.tag == 99) {
-            ///do just nothing
-        } else {
-            [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+        if(IDIOM == IPAD) {
             isShowingLandscapeView = YES;
+            
+        } else {
+            if(self.view.tag == 99) {
+                ///do just nothing
+            } else {
+                [self performSegueWithIdentifier:@"Landscape View Segue" sender:self];
+                isShowingLandscapeView = YES;
+            }
         }
     }
     
     else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
-             isShowingLandscapeView /*&& deviceOrientation != UIDeviceOrientationPortraitUpsideDown */)
+             isShowingLandscapeView && deviceOrientation != UIDeviceOrientationPortraitUpsideDown )
     {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        isShowingLandscapeView = NO;
+        if(IDIOM == IPAD) {
+            isShowingLandscapeView = NO;
+            
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            isShowingLandscapeView = NO;
+        }
     }
     
 }
@@ -373,5 +385,16 @@
 -(NSUInteger) supportedInterfaceOrientations{
     
     return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+    } else {
+        
+        return ((toInterfaceOrientation == UIInterfaceOrientationPortrait) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight));
+        
+    }
 }
 @end
